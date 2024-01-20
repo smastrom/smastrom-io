@@ -1,0 +1,42 @@
+:root {
+   --easing: 200ms ease-out;
+   --content-margin: 1.25rem;
+   --content: calc(100vw - var(--content-margin) * 2);
+   --content-max: calc((var(--content) / 6) * 5);
+   --content-half: calc(var(--content) / 2);
+   --header-height: 80px;
+   --header-icon-size: 28px;
+
+   @media (min-width: 1920px) {
+      --content-margin: 2%;
+   }
+}
+
+body {
+   padding: 0 var(--content-margin) var(--content-margin) var(--content-margin);
+   overflow-x: hidden;
+   position: relative;
+   color: var(--fg);
+   background-color: var(--bg);
+}
+
+.Transition {
+   transition: background-color var(--easing);
+
+   & a {
+      transition: color var(--easing);
+   }
+
+   & header {
+      transition: background-color var(--easing);
+   }
+
+   & article {
+      & h1,
+      & h2,
+      & p,
+      & strong {
+         transition: color var(--easing);
+      }
+   }
+}

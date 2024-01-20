@@ -1,0 +1,112 @@
+---
+import IconMoon from './IconMoon.astro'
+import IconSun from './IconSun.astro'
+
+const serverTheme = Astro.cookies.get('theme')?.value || 'light'
+const isDark = serverTheme === 'dark'
+---
+
+<button
+   id="theme_switch"
+   type="button"
+   role="switch"
+   aria-checked={`${isDark}`}
+   aria-label={isDark ? 'Disable dark mode' : 'Enable dark mode'}
+>
+   <IconSun id="theme_sun_icon" style={{ display: isDark ? 'block' : 'none' }} />
+   <IconMoon id="theme_moon_icon" style={{ display: isDark ? 'none' : 'block' }} />
+</button>
+
+<script define:vars={{ serverTheme }}>
+   const button = document.getElementById('theme_switch')
+   const sunIcon = document.getElementById('theme_sun_icon')
+   const moonIcon = document.getElementById('theme_moon_icon')
+
+   const audio = new Audio('/toggle.mp3')
+
+   let clientTheme = serverTheme
+
+   function resetStyles(el) {
+      el.ontransitionend = null
+      Object.assign(el.style, { display: 'none', transform: '', opacity: '' })
+   }
+
+   button.addEventListener('click', function () {
+      audio.play()
+
+      if (clientTheme === 'dark') {
+         Object.assign(sunIcon.style, { opacity: 0, transform: 'translateX(30%)' })
+
+         sunIcon.ontransitionend = function () {
+            resetStyles(this)
+         }
+
+         requestAnimationFrame(() => {
+            Object.assign(moonIcon.style, {
+               display: 'block',
+               opacity: 0,
+               transform: 'translateX(30%)',
+            })
+            requestAnimationFrame(() => {
+               Object.assign(moonIcon.style, { opacity: 1, transform: 'translateX(0)' })
+            })
+         })
+      } else {
+         Object.assign(moonIcon.style, { opacity: 0, transform: 'translateX(-30%)' })
+
+         moonIcon.ontransitionend = function () {
+            resetStyles(this)
+         }
+
+         requestAnimationFrame(() => {
+            Object.assign(sunIcon.style, {
+               display: 'block',
+               opacity: 0,
+               transform: 'translateX(-30%)',
+            })
+            requestAnimationFrame(() => {
+               Object.assign(sunIcon.style, { opacity: 1, transform: 'translateX(0)' })
+            })
+         })
+      }
+
+      clientTheme = clientTheme === 'dark' ? 'light' : 'dark'
+
+      document.cookie = `theme=${clientTheme};max-age=${60 * 60 * 24 * 365};path=/`
+      document.documentElement.dataset.theme = clientTheme
+
+      const isNowDark = clientTheme === 'dark'
+
+      this.ariaChecked = `${isNowDark}`
+      this.ariaLabel = isNowDark ? 'Switch to light mode' : 'Switch to dark mode'
+   })
+</script>
+
+<style>
+   button {
+      --padding: 0.75rem;
+      --size: calc(var(--header-icon-size) + (2 * var(--padding)));
+
+      border: none;
+      display: flex;
+      padding: var(--padding);
+      width: var(--size);
+      height: var(--size);
+
+      & :global(svg) {
+         width: var(--header-icon-size);
+         height: var(--header-icon-size);
+
+         position: absolute;
+         transition:
+            transform 100ms ease-out,
+            opacity 100ms ease-out;
+      }
+
+      &:hover {
+         & :global(svg) {
+            opacity: 0.5;
+         }
+      }
+   }
+</style>

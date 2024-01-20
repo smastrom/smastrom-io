@@ -1,0 +1,24 @@
+:root {
+   --bright-green: hsl(142 75% 53%);
+   --base-green: hsl(142 75% 35%);
+   --white-green: hsl(138, 76%, 97%);
+   --light-green: hsl(142, 29%, 80%);
+   --dark-green: hsl(142 16% 24%);
+   --black-green: hsl(142 10% 12%);
+   --light-green-alpha: hsla(141, 79%, 85%, 0.3);
+   --dark-green-alpha: hsla(159, 21%, 21%, 0.4);
+}
+
+html[data-theme='dark'] {
+   --fg: var(--light-green);
+   --bg: var(--black-green);
+   --accent: var(--bright-green);
+   --divider: var(--light-green-alpha);
+}
+
+html[data-theme='light'] {
+   --fg: var(--dark-green);
+   --bg: var(--white-green);
+   --accent: var(--base-green);
+   --divider: var(--dark-green-alpha);
+}

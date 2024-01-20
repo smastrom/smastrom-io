@@ -1,0 +1,40 @@
+---
+const url = 'https://smastrom.io'
+const title = 'Simone Mastromattei — Web Developer'
+const description = "My name is Simone Mastromattei. I'm a web developer based in Italy."
+---
+
+<head>
+   <!-- Common -->
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="generator" content={Astro.generator} />
+
+   <title>{title}</title>
+   <meta name="description" content={description} />
+
+   <link rel="icon" href="/favicon.svg" />
+   <link rel="canonical" href="https://smastrom.io" />
+
+   <!-- PWA -->
+   <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials" />
+   <meta name="theme-color" content="#10853a" />
+   <meta name="apple-mobile-web-app-capable" content="yes" />
+   <meta name="apple-mobile-web-app-title" content="smastrom" />
+   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+   <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+   <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
+
+   <!--  Open Graph  -->
+   <meta property="og:type" content="article" />
+   <meta property="og:url" content={url} />
+   <meta property="og:title" content={title} />
+   <meta property="og:description" content={description} />
+   <meta property="og:image" content="/og-image.png" />
+
+   <!-- Twitter -->
+   <meta property="twitter:url" content={url} />
+   <meta property="twitter:title" content={title} />
+   <meta property="twitter:description" content={description} />
+   <meta property="twitter:image" content="/og-image.png" />
+</head>

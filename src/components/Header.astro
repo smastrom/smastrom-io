@@ -1,0 +1,91 @@
+---
+import Logo from './Logo.astro'
+import DarkMode from './DarkMode.astro'
+import IconGitHub from './IconGitHub.astro'
+import IconEmail from './IconEmail.astro'
+---
+
+<header>
+   <Logo />
+   <div class="Nav">
+      <DarkMode />
+      <span></span>
+      <a href="https://github.com/smastrom" target="_blank" aria-label="GitHub" title="GitHub">
+         <IconGitHub />
+      </a>
+      <a href="mailto:me@smastrom.io" target="_blank" aria-label="Email" title="Email">
+         <IconEmail />
+      </a>
+   </div>
+</header>
+
+<style>
+   header {
+      padding: 0 var(--content-margin);
+      display: flex;
+      height: var(--header-height);
+      backdrop-filter: blur(8px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-bottom: 1px solid var(--divider);
+      justify-content: space-between;
+      align-items: center;
+      z-index: 5;
+
+      @supports not (backdrop-filter: blur(8px)) {
+         background-color: var(--bg);
+      }
+
+      @media (min-width: 1920px) {
+         padding: 0 var(--content-margin);
+      }
+   }
+
+   .Nav {
+      --gap: 0.75rem;
+
+      display: flex;
+      gap: var(--gap);
+      align-items: center;
+
+      @media (min-width: 375px) {
+         --gap: 1rem;
+      }
+
+      @media (min-width: 390px) {
+         --gap: 1.25rem;
+      }
+
+      @media (min-width: 1280px) {
+         --gap: 1.5rem;
+      }
+
+      & span {
+         width: 1px;
+         align-self: stretch;
+         background-color: var(--divider);
+      }
+
+      & a {
+         --padding: 0.5rem;
+
+         padding: var(--padding);
+         margin-right: calc(-1 * var(--padding));
+         display: flex;
+
+         & :global(svg) {
+            width: var(--header-icon-size);
+            height: var(--header-icon-size);
+            transition: opacity 100ms linear;
+         }
+
+         &:hover {
+            & :global(svg) {
+               opacity: 0.5;
+            }
+         }
+      }
+   }
+</style>

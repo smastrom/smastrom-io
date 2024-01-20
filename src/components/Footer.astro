@@ -1,0 +1,33 @@
+---
+const attrs = {
+   rel: 'nofollow noreferrer',
+   target: '_blank',
+}
+---
+
+<footer>
+   <small>
+      Typeface by
+      <a href="https://www.atipofoundry.com/" {...attrs}>Atipo</a>
+      — Icons by
+      <a href="https://lucide.dev/" {...attrs}>Lucide</a>
+      — Source code on <a href="https://github.com/smastrom/smastrom-io" {...attrs}>GitHub</a>
+   </small>
+</footer>
+
+<style>
+   footer {
+      color: var(--fg);
+      font-size: responsive 1.125rem 1.75rem;
+      font-range: 768px 3840px;
+      position: relative;
+   }
+
+   a {
+      color: var(--accent);
+
+      &:hover {
+         text-decoration: underline;
+      }
+   }
+</style>

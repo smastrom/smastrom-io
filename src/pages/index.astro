@@ -1,0 +1,58 @@
+---
+import Layout from '@/layouts/Layout.astro'
+
+interface HomeContentModel {
+   title: string
+   sections: {
+      title: string
+      text: string
+   }[]
+}
+
+interface CmsData {
+   data: {
+      home: HomeContentModel
+   }
+}
+
+const { data } = (await fetch('https://graphql.datocms.com', {
+   method: 'POST',
+   headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: import.meta.env.DATO_TOKEN,
+   },
+   body: JSON.stringify({
+      query: /* GraphQL */ `
+         {
+            home {
+               title(markdown: true)
+               sections {
+                  title
+                  text(markdown: true)
+               }
+            }
+         }
+      `,
+   }),
+}).then((res) => res.json())) as CmsData
+
+function withLinkAttrs(html: string) {
+   return html.replace(/<a /g, '<a target="_blank" rel="nofollow noreferrer" ')
+}
+---
+
+<Layout>
+   <article class="Prose">
+      <Fragment set:html={data.home.title} />
+
+      {
+         data.home.sections.map((s) => (
+            <section>
+               <h2>{s.title}</h2>
+               <div set:html={withLinkAttrs(s.text)} />
+            </section>
+         ))
+      }
+   </article>
+</Layout>

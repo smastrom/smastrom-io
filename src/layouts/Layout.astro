@@ -1,0 +1,30 @@
+---
+import Head from '@/components/Head.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import Background from '@/components/Background.astro'
+
+import '@/styles/reset.css'
+import '@/styles/colors.css'
+import '@/styles/fonts.css'
+import '@/styles/layout.css'
+import '@/styles/prose.css'
+
+const theme = Astro.cookies.get('theme')?.value || 'light'
+---
+
+<!doctype html>
+<html lang="en" dir="ltr" data-theme={theme}>
+   <Head />
+
+   <body class="Transition">
+      <Header />
+
+      <main>
+         <slot />
+         <Background />
+      </main>
+
+      <Footer />
+   </body>
+</html>

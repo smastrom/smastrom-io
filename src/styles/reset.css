@@ -1,0 +1,71 @@
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+}
+
+html {
+   line-height: 1.5;
+   -webkit-text-size-adjust: 100%;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   text-rendering: optimizeLegibility;
+   font-size: 100%;
+   scroll-behavior: smooth;
+}
+
+body {
+   margin: 0;
+   line-height: inherit;
+}
+
+h1,
+h2,
+h3 {
+   font-size: inherit;
+   font-weight: inherit;
+}
+
+a {
+   color: inherit;
+   text-decoration: inherit;
+}
+
+a,
+button {
+   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+b,
+strong {
+   font-weight: bolder;
+}
+
+button {
+   font-family: inherit;
+   font-size: 100%;
+   font-weight: inherit;
+   line-height: inherit;
+   color: inherit;
+   margin: 0;
+   padding: 0;
+   text-transform: none;
+   -webkit-appearance: button;
+   background-color: transparent;
+   background-image: none;
+   cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+p {
+   margin: 0;
+}
+
+ol,
+ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}

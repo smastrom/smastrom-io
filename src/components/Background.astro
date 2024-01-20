@@ -1,0 +1,40 @@
+<div aria-hidden="true"></div>
+
+<style>
+   div {
+      opacity: 0.85;
+      pointer-events: none;
+      background-color: var(--divider);
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+
+      @supports (-moz-appearance: none) {
+         /* Peformance drops on firefox if opacity is below than 1 */
+         opacity: 1;
+      }
+
+      @media (max-width: 768px) {
+         display: none;
+      }
+
+      @media (min-width: 769px) {
+         mask-image: url('/logo-background-tablet.svg');
+         mask-position: -10% -40%;
+         mask-repeat: no-repeat;
+         mask-size: 200%;
+      }
+
+      @media (min-width: 1366px) {
+         mask-image: url('/logo-background-notebook.svg');
+         mask-position: -100% 40%;
+         mask-repeat: no-repeat;
+         mask-size: 120%;
+      }
+
+      @media (min-width: 1920px) {
+         mask-image: url('/logo-background.svg');
+      }
+   }
+</style>

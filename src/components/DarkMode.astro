@@ -26,7 +26,7 @@ const isDark = serverTheme === 'dark'
 
    let clientTheme = serverTheme
 
-   function resetStyles(el) {
+   function hideEl(el) {
       el.ontransitionend = null
       Object.assign(el.style, { display: 'none', transform: '', opacity: '' })
    }
@@ -38,7 +38,7 @@ const isDark = serverTheme === 'dark'
          Object.assign(sunIcon.style, { opacity: 0, transform: 'translateX(30%)' })
 
          sunIcon.ontransitionend = function () {
-            resetStyles(this)
+            hideEl(this)
          }
 
          requestAnimationFrame(() => {
@@ -48,14 +48,14 @@ const isDark = serverTheme === 'dark'
                transform: 'translateX(30%)',
             })
             requestAnimationFrame(() => {
-               Object.assign(moonIcon.style, { opacity: 1, transform: 'translateX(0)' })
+               Object.assign(moonIcon.style, { opacity: '', transform: 'translateX(0)' })
             })
          })
       } else {
          Object.assign(moonIcon.style, { opacity: 0, transform: 'translateX(-30%)' })
 
          moonIcon.ontransitionend = function () {
-            resetStyles(this)
+            hideEl(this)
          }
 
          requestAnimationFrame(() => {
@@ -65,7 +65,7 @@ const isDark = serverTheme === 'dark'
                transform: 'translateX(-30%)',
             })
             requestAnimationFrame(() => {
-               Object.assign(sunIcon.style, { opacity: 1, transform: 'translateX(0)' })
+               Object.assign(sunIcon.style, { opacity: '', transform: 'translateX(0)' })
             })
          })
       }

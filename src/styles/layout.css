@@ -20,7 +20,7 @@ body {
    background-color: var(--bg);
 }
 
-.Transition {
+.Transitions {
    transition: background-color var(--easing);
 
    & a {

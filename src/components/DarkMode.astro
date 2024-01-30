@@ -4,6 +4,7 @@ import IconSun from './IconSun.astro'
 
 const serverTheme = Astro.cookies.get('theme')?.value || 'light'
 const isDark = serverTheme === 'dark'
+const captions = { enable: 'Enable dark mode', disable: 'Disable dark mode' }
 ---
 
 <button
@@ -11,13 +12,13 @@ const isDark = serverTheme === 'dark'
    type="button"
    role="switch"
    aria-checked={`${isDark}`}
-   aria-label={isDark ? 'Disable dark mode' : 'Enable dark mode'}
+   aria-label={isDark ? captions.disable : captions.enable}
 >
    <IconSun id="theme_sun_icon" style={{ display: isDark ? 'block' : 'none' }} />
    <IconMoon id="theme_moon_icon" style={{ display: isDark ? 'none' : 'block' }} />
 </button>
 
-<script define:vars={{ serverTheme }}>
+<script define:vars={{ serverTheme, captions }}>
    const button = document.getElementById('theme_switch')
    const sunIcon = document.getElementById('theme_sun_icon')
    const moonIcon = document.getElementById('theme_moon_icon')
@@ -78,7 +79,7 @@ const isDark = serverTheme === 'dark'
       const isNowDark = clientTheme === 'dark'
 
       this.ariaChecked = `${isNowDark}`
-      this.ariaLabel = isNowDark ? 'Switch to light mode' : 'Switch to dark mode'
+      this.ariaLabel = isNowDark ? captions.disable : captions.enable
    })
 </script>
 

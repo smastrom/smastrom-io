@@ -33,6 +33,7 @@ body {
 
    & article {
       & h1,
+      & h1 > span,
       & h2,
       & p,
       & strong {

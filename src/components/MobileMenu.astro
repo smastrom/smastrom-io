@@ -1,0 +1,181 @@
+---
+import { navLinks } from '@/lib/static'
+import { getLinkProps } from '@/lib/utils'
+
+const hamburgerClasses = ['hamburger', 'hamburger--squeeze'] // src/styles/hamburger.css
+---
+
+<nav class="Wrapper">
+   <div class="Panel">
+      {
+         navLinks.map((l) => (
+            <a {...getLinkProps(Astro.url, l.href)}>
+               <l.Icon />
+               {l.caption}
+            </a>
+         ))
+      }
+   </div>
+
+   <button class:list={['Hamburger_Button', hamburgerClasses]} type="button">
+      <span class="hamburger-box">
+         <span class="hamburger-inner"></span>
+      </span>
+   </button>
+</nav>
+
+<script>
+   function init() {
+      const links = document.querySelector('.Panel')
+      const hamburger = document.querySelector('.Hamburger_Button')
+
+      let isMenuOpen = false
+
+      let scrollStart = window.scrollY
+      let scrolledDistance = 0
+
+      function onClick() {
+         isMenuOpen = !isMenuOpen
+
+         if (isMenuOpen) {
+            links.style.transform = 'translateX(0)'
+            hamburger.classList.add('is-active')
+            scrollStart = window.scrollY
+         } else {
+            links.style.transform = 'translateX(100%)'
+            hamburger.classList.remove('is-active')
+         }
+      }
+
+      function onScroll() {
+         if (!isMenuOpen) return
+
+         scrolledDistance = window.scrollY
+
+         if (Math.abs(scrollStart - scrolledDistance) > 80) {
+            links.style.transform = 'translateX(100%)'
+            hamburger.classList.remove('is-active')
+         }
+      }
+
+      hamburger.addEventListener('click', onClick)
+      document.addEventListener('scroll', onScroll, { passive: true })
+
+      return () => {
+         hamburger.removeEventListener('click', onClick)
+         document.removeEventListener('scroll', onScroll)
+      }
+   }
+
+   let destroy = init()
+
+   document.addEventListener('astro:after-swap', () => {
+      destroy()
+      destroy = init()
+   })
+</script>
+
+<style>
+   .Wrapper {
+      --border-width: 1px;
+
+      position: fixed;
+      bottom: 30%;
+      z-index: 10;
+      width: 100%;
+
+      @media (min-width: 1101px) {
+         display: none;
+      }
+   }
+
+   .Panel {
+      transform: translateX(100%);
+      width: 230px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 1rem 0 0 1rem;
+      padding: 0.5rem 0;
+      border: var(--border-width) solid var(--divider);
+      background-color: var(--bg-alpha);
+      backdrop-filter: blur(8px);
+      margin-bottom: 1rem;
+      right: calc(1.125rem - 1px);
+      position: absolute;
+      bottom: 1rem;
+      transition:
+         transform 100ms ease-out,
+         background-color var(--easing),
+         border-color var(--easing);
+
+      @supports not (backdrop-filter: blur(8px)) {
+         background-color: var(--bg);
+      }
+
+      @media (min-width: 1101px) {
+         display: none;
+      }
+
+      & a {
+         display: flex;
+         align-items: center;
+         line-height: 1;
+         font-size: 1rem;
+         white-space: nowrap;
+         padding: 1.25rem 1.25rem;
+         transition: all var(--easing);
+         user-select: none;
+         gap: 1rem;
+         opacity: 0.75;
+
+         &:hover {
+            opacity: 1;
+         }
+
+         & :global(svg) {
+            width: 1.25em;
+            height: 1.25em;
+         }
+
+         &[data-active] {
+            pointer-events: none;
+            opacity: 1;
+
+            & :global(svg) {
+               opacity: 1;
+               color: var(--accent);
+            }
+         }
+      }
+   }
+
+   html[data-theme='light'] {
+      & .Links a:hover {
+         & :global(svg) {
+            color: var(--accent);
+         }
+      }
+   }
+
+   .Hamburger_Button {
+      position: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      right: calc(-1 * var(--border-width));
+      padding: 1.25rem calc(2 * var(--content-margin)) 1.25rem 1.25rem;
+      border: var(--border-width) solid var(--divider);
+      border-radius: 999px 0 0 999px;
+      transition: all var(--easing);
+      backdrop-filter: blur(8px);
+
+      @supports not (backdrop-filter: blur(8px)) {
+         background-color: var(--bg);
+      }
+
+      & :global(svg) {
+         width: 1.75rem;
+         height: 1.75rem;
+      }
+   }
+</style>

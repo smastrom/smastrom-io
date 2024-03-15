@@ -1,5 +1,54 @@
 ---
+import type { Package } from '@/pages/api/packages'
+
+import { formatNumber, formatDate } from '@/lib/utils'
+
 import Layout from '@/layouts/Layout.astro'
+
+const pkgs = [
+   'notivue',
+   '@smastrom/react-rating',
+   'vue-collapsed',
+   'vue-use-active-scroll',
+   '@smastrom/react-email-autocomplete',
+   'vue-use-fixed-header',
+   'vue-global-loader',
+]
+
+const query = 'packages=' + pkgs.map((p) => p).join(',')
+
+const packages = (await fetch(`http://localhost:4321/api/packages?${query}`, {
+   method: 'GET',
+   headers: {
+      'Content-Type': 'application/json',
+   },
+}).then((res) => res.json())) as Package[]
 ---
 
-<Layout />
+<Layout
+   ><div style="margin-top: 8rem">
+      {
+         packages.map((p) => (
+            <div class="Card">
+               <h2>{p.title}</h2>
+               <p>{p.description}</p>
+               <p>{p.demo_url}</p>
+               <p>{p.npm_url}</p>
+               <p>{p.github_url}</p>
+
+               <p>{formatNumber(p.stargazers_count)}</p>
+               <p>{formatNumber(p.downloads)}</p>
+               <p>{formatDate(p.created_at)}</p>
+            </div>
+         ))
+      }
+   </div></Layout
+>
+
+<style>
+   .Card {
+      background-color: #2e372f;
+      padding: 1rem;
+      margin-bottom: 1rem;
+   }
+</style>

@@ -27,5 +27,13 @@ const theme = Astro.cookies.get('theme')?.value || 'dark'
       </main>
 
       <Footer />
+
+      <script>
+         import { prefetch } from '@/lib/utils'
+
+         document.addEventListener('astro:page-load', () => {
+            prefetch()
+         })
+      </script>
    </body>
 </html>

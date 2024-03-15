@@ -1,12 +1,13 @@
+import { prefetch as astroPrefetch } from 'astro:prefetch'
+
+import { navLinks } from './static'
+
 export function getLinkProps(url: URL, href: string) {
    return {
       href,
       ...(url.pathname === href ? { 'data-active': '' } : {}),
    }
 }
-
-export const isFirefox = () => navigator.userAgent.indexOf('Firefox') !== -1
-export const isSafari = () => navigator.userAgent.indexOf('Safari') !== -1
 
 export function prefetch() {
    navLinks.forEach((l) => {

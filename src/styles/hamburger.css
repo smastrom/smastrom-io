@@ -52,41 +52,44 @@
    bottom: -10px;
 }
 
-.hamburger--squeeze .hamburger-inner {
-   transition-duration: 0.075s;
-   transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-}
-
-.hamburger--squeeze .hamburger-inner::before {
+.hamburger--stand .hamburger-inner {
    transition:
-      top 0.075s 0.12s ease,
-      opacity 0.075s ease;
+      transform 0.075s 0.15s cubic-bezier(0.55, 0.055, 0.675, 0.19),
+      background-color 0s 0.075s linear;
 }
 
-.hamburger--squeeze .hamburger-inner::after {
+.hamburger--stand .hamburger-inner::before {
    transition:
-      bottom 0.075s 0.12s ease,
-      transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+      top 0.075s 0.075s ease-in,
+      transform 0.075s 0s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 
-.hamburger--squeeze.is-active .hamburger-inner {
-   transform: rotate(45deg);
-   transition-delay: 0.12s;
-   transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+.hamburger--stand .hamburger-inner::after {
+   transition:
+      bottom 0.075s 0.075s ease-in,
+      transform 0.075s 0s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 
-.hamburger--squeeze.is-active .hamburger-inner::before {
+.hamburger--stand.is-active .hamburger-inner {
+   transform: rotate(90deg);
+   background-color: transparent !important;
+   transition:
+      transform 0.075s 0s cubic-bezier(0.215, 0.61, 0.355, 1),
+      background-color 0s 0.15s linear;
+}
+
+.hamburger--stand.is-active .hamburger-inner::before {
    top: 0;
-   opacity: 0;
+   transform: rotate(-45deg);
    transition:
-      top 0.075s ease,
-      opacity 0.075s 0.12s ease;
+      top 0.075s 0.1s ease-out,
+      transform 0.075s 0.15s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.hamburger--squeeze.is-active .hamburger-inner::after {
+.hamburger--stand.is-active .hamburger-inner::after {
    bottom: 0;
-   transform: rotate(-90deg);
+   transform: rotate(45deg);
    transition:
-      bottom 0.075s ease,
-      transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+      bottom 0.075s 0.1s ease-out,
+      transform 0.075s 0.15s cubic-bezier(0.215, 0.61, 0.355, 1);
 }

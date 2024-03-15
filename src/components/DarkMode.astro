@@ -2,9 +2,8 @@
 import IconMoon from './IconMoon.astro'
 import IconSun from './IconSun.astro'
 
-const serverTheme = Astro.cookies.get('theme')?.value || 'light'
-const isDark = serverTheme === 'dark'
-const captions = { enable: 'Enable dark mode', disable: 'Disable dark mode' }
+const theme = Astro.cookies.get('theme')?.value || 'dark'
+const isDark = theme === 'dark'
 ---
 
 <button
@@ -12,74 +11,114 @@ const captions = { enable: 'Enable dark mode', disable: 'Disable dark mode' }
    type="button"
    role="switch"
    aria-checked={`${isDark}`}
-   aria-label={isDark ? captions.disable : captions.enable}
+   aria-label={isDark ? 'Disable dark mode' : 'Enable dark mode'}
 >
    <IconSun id="theme_sun_icon" style={{ display: isDark ? 'block' : 'none' }} />
    <IconMoon id="theme_moon_icon" style={{ display: isDark ? 'none' : 'block' }} />
 </button>
 
-<script define:vars={{ serverTheme, captions }}>
-   const button = document.getElementById('theme_switch')
-   const sunIcon = document.getElementById('theme_sun_icon')
-   const moonIcon = document.getElementById('theme_moon_icon')
-
+<script>
    const audio = new Audio('/toggle.mp3')
 
-   let clientTheme = serverTheme
+   const getBtn = (doc: Document = document) => doc.getElementById('theme_switch')
+   const getSun = (doc: Document = document) => doc.getElementById('theme_sun_icon')
+   const getMoon = (doc: Document = document) => doc.getElementById('theme_moon_icon')
 
-   function hideEl(el) {
+   function setAria(el: HTMLElement, theme: 'light' | 'dark') {
+      const isDark = theme === 'dark'
+
+      el.ariaChecked = `${isDark}`
+      el.ariaLabel = isDark ? 'Disable dark mode' : 'Enable dark mode'
+   }
+
+   function hideEl(el: HTMLElement) {
       el.ontransitionend = null
       Object.assign(el.style, { display: 'none', transform: '', opacity: '' })
    }
 
-   button.addEventListener('click', function () {
-      audio.play()
+   function init() {
+      const button = getBtn()
+      const sunIcon = getSun()
+      const moonIcon = getMoon()
 
-      if (clientTheme === 'dark') {
-         Object.assign(sunIcon.style, { opacity: 0, transform: 'translateX(30%)' })
+      function onClick() {
+         audio.play()
 
-         sunIcon.ontransitionend = function () {
-            hideEl(this)
+         const { theme: currTheme } = document.documentElement.dataset
+
+         if (currTheme === 'dark') {
+            Object.assign(sunIcon.style, { opacity: 0, transform: 'translateX(30%)' })
+
+            sunIcon.ontransitionend = function () {
+               hideEl(this as HTMLElement)
+            }
+
+            requestAnimationFrame(() => {
+               Object.assign(moonIcon.style, {
+                  display: 'block',
+                  opacity: 0,
+                  transform: 'translateX(30%)',
+               })
+               requestAnimationFrame(() => {
+                  Object.assign(moonIcon.style, { opacity: '', transform: 'translateX(0)' })
+               })
+            })
+         } else {
+            Object.assign(moonIcon.style, { opacity: 0, transform: 'translateX(-30%)' })
+
+            moonIcon.ontransitionend = function () {
+               hideEl(this as HTMLElement)
+            }
+
+            requestAnimationFrame(() => {
+               Object.assign(sunIcon.style, {
+                  display: 'block',
+                  opacity: 0,
+                  transform: 'translateX(-30%)',
+               })
+               requestAnimationFrame(() => {
+                  Object.assign(sunIcon.style, { opacity: '', transform: 'translateX(0)' })
+               })
+            })
          }
 
-         requestAnimationFrame(() => {
-            Object.assign(moonIcon.style, {
-               display: 'block',
-               opacity: 0,
-               transform: 'translateX(30%)',
-            })
-            requestAnimationFrame(() => {
-               Object.assign(moonIcon.style, { opacity: '', transform: 'translateX(0)' })
-            })
-         })
-      } else {
-         Object.assign(moonIcon.style, { opacity: 0, transform: 'translateX(-30%)' })
+         const newTheme = currTheme === 'dark' ? 'light' : 'dark'
 
-         moonIcon.ontransitionend = function () {
-            hideEl(this)
-         }
+         document.cookie = `theme=${newTheme};max-age=${60 * 60 * 24 * 365};path=/`
+         document.documentElement.dataset.theme = newTheme
 
-         requestAnimationFrame(() => {
-            Object.assign(sunIcon.style, {
-               display: 'block',
-               opacity: 0,
-               transform: 'translateX(-30%)',
-            })
-            requestAnimationFrame(() => {
-               Object.assign(sunIcon.style, { opacity: '', transform: 'translateX(0)' })
-            })
-         })
+         setAria(this, newTheme)
       }
 
-      clientTheme = clientTheme === 'dark' ? 'light' : 'dark'
+      button.addEventListener('click', onClick)
 
-      document.cookie = `theme=${clientTheme};max-age=${60 * 60 * 24 * 365};path=/`
-      document.documentElement.dataset.theme = clientTheme
+      return () => {
+         button.removeEventListener('click', onClick)
+      }
+   }
 
-      const isNowDark = clientTheme === 'dark'
+   let destroy = init()
 
-      this.ariaChecked = `${isNowDark}`
-      this.ariaLabel = isNowDark ? captions.disable : captions.enable
+   // This is needed as Astro may have already prefetched pages before switching theme
+   document.addEventListener('astro:before-swap', (e) => {
+      const button = getBtn(e.newDocument)
+      const sunIcon = getSun(e.newDocument)
+      const moonIcon = getMoon(e.newDocument)
+
+      const isDark = document.documentElement.dataset.theme === 'dark'
+      const currTheme = isDark ? 'dark' : 'light'
+
+      e.newDocument.documentElement.dataset.theme = currTheme
+
+      sunIcon.style.display = isDark ? 'block' : 'none'
+      moonIcon.style.display = isDark ? 'none' : 'block'
+
+      setAria(button, currTheme)
+   })
+
+   document.addEventListener('astro:after-swap', () => {
+      destroy()
+      destroy = init()
    })
 </script>
 

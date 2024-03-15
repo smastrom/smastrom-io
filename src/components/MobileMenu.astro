@@ -2,11 +2,11 @@
 import { navLinks } from '@/lib/static'
 import { getLinkProps } from '@/lib/utils'
 
-const hamburgerClasses = ['hamburger', 'hamburger--squeeze'] // src/styles/hamburger.css
+const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburger.css
 ---
 
 <nav class="Wrapper">
-   <div class="Panel">
+   <div class="Panel" style="visibility: hidden" id="panel">
       {
          navLinks.map((l) => (
             <a {...getLinkProps(Astro.url, l.href)}>
@@ -17,7 +17,13 @@ const hamburgerClasses = ['hamburger', 'hamburger--squeeze'] // src/styles/hambu
       }
    </div>
 
-   <button class:list={['Hamburger_Button', hamburgerClasses]} type="button">
+   <button
+      class:list={['Hamburger_Button', hamburgerClasses]}
+      type="button"
+      aria-label="Menu"
+      aria-expanded="false"
+      aria-controls="panel"
+   >
       <span class="hamburger-box">
          <span class="hamburger-inner"></span>
       </span>
@@ -38,12 +44,20 @@ const hamburgerClasses = ['hamburger', 'hamburger--squeeze'] // src/styles/hambu
          isMenuOpen = !isMenuOpen
 
          if (isMenuOpen) {
-            panel.style.transform = 'translateX(0)'
-            hamburger.classList.add('is-active')
+            this.classList.add('is-active')
+            this.ariaExpanded = 'true'
+
+            panel.style.visibility = 'visible'
+            requestAnimationFrame(() => {
+               panel.style.transform = 'translateX(0)'
+            })
+
             scrollStart = window.scrollY
          } else {
+            this.classList.remove('is-active')
+            this.ariaExpanded = 'false'
+
             panel.style.transform = 'translateX(100%)'
-            hamburger.classList.remove('is-active')
          }
       }
 
@@ -58,11 +72,20 @@ const hamburgerClasses = ['hamburger', 'hamburger--squeeze'] // src/styles/hambu
          }
       }
 
+      function onTransitionEnd(e: TransitionEvent) {
+         if (e.target !== this) return
+         if (e.propertyName !== 'transform') return
+
+         this.style.visibility = isMenuOpen ? 'visible' : 'hidden'
+      }
+
       hamburger.addEventListener('click', onClick)
+      panel.addEventListener('transitionend', onTransitionEnd)
       document.addEventListener('scroll', onScroll, { passive: true })
 
       return () => {
          hamburger.removeEventListener('click', onClick)
+         panel.removeEventListener('transitionend', onTransitionEnd)
          document.removeEventListener('scroll', onScroll)
       }
    }

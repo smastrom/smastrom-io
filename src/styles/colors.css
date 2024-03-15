@@ -11,6 +11,11 @@
    --darker-green-alpha: hsla(140, 10%, 12%, 0.69);
 }
 
+html {
+   background-color: var(--bg);
+   color: var(--fg);
+}
+
 html[data-theme='dark'] {
    --fg: var(--light-green);
    --bg: var(--black-green);

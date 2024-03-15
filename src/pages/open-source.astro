@@ -1,7 +1,7 @@
 ---
 import type { Package } from '@/pages/api/packages'
 
-import { formatNumber, formatDate } from '@/lib/utils'
+import { formatNumber, formatDate, getBaseUrl } from '@/lib/utils'
 
 import Layout from '@/layouts/Layout.astro'
 
@@ -17,7 +17,7 @@ const pkgs = [
 
 const query = 'packages=' + pkgs.map((p) => p).join(',')
 
-const packages = (await fetch(`http://localhost:4321/api/packages?${query}`, {
+const packages = (await fetch(getBaseUrl() + `/api/packages?${query}`, {
    method: 'GET',
    headers: {
       'Content-Type': 'application/json',

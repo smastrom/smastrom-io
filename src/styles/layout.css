@@ -16,8 +16,6 @@ body {
    padding: 0 var(--content-margin) var(--content-margin) var(--content-margin);
    overflow-x: hidden;
    position: relative;
-   color: var(--fg);
-   background-color: var(--bg);
 }
 
 .Transitions {

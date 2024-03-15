@@ -1,10 +1,16 @@
 ---
+import { ViewTransitions } from 'astro:transitions'
+
 const url = 'https://smastrom.io'
 const title = 'Simone Mastromattei — Web Developer'
 const description = "My name is Simone Mastromattei. I'm a web developer based in Italy."
+
+const isFirefox = Astro.request.headers.get('user-agent')?.includes('Firefox')
 ---
 
 <head>
+   {!isFirefox && <ViewTransitions />}
+
    <!-- Common -->
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -1,13 +1,29 @@
 ---
 import Logo from './Logo.astro'
 import DarkMode from './DarkMode.astro'
+
 import IconGitHub from './IconGitHub.astro'
 import IconEmail from './IconEmail.astro'
+
+import { navLinks } from '@/lib/static'
+import { getLinkProps } from '@/lib/utils'
 ---
 
 <header>
    <Logo />
-   <div class="Nav">
+
+   <nav class="Nav">
+      {
+         navLinks.map((l) => (
+            <a {...getLinkProps(Astro.url, l.href)}>
+               <l.Icon />
+               {l.caption}
+            </a>
+         ))
+      }
+   </nav>
+
+   <div class="Nav_Right">
       <DarkMode />
       <span></span>
       <a href="https://github.com/smastrom" target="_blank" aria-label="GitHub" title="GitHub">
@@ -44,6 +60,77 @@ import IconEmail from './IconEmail.astro'
    }
 
    .Nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+
+      display: flex;
+      gap: 3rem;
+      font-weight: 500;
+
+      @media (max-width: 1366px) {
+         gap: 2rem;
+      }
+
+      @media (max-width: 1100px) {
+         display: none;
+      }
+
+      & a {
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+         white-space: nowrap;
+         padding: 0.35rem 0.75rem;
+         font-size: 1rem;
+         line-height: 1;
+         border: 1px solid rgba(0, 0, 0, 0);
+         transition: all var(--easing);
+         user-select: none;
+
+         & :global(svg) {
+            width: 1.25em;
+            height: 1.25em;
+            opacity: 0.75;
+         }
+
+         &:hover,
+         &[data-active] {
+            background-color: var(--bg);
+            border: 1px solid var(--divider);
+            border-radius: 999px;
+         }
+
+         &[data-active] {
+            pointer-events: none;
+
+            & :global(svg) {
+               color: var(--accent);
+            }
+         }
+      }
+   }
+
+   html[data-theme='light'] {
+      & .Nav a {
+         & :global(svg) {
+            stroke-width: 1.75;
+            color: currentColor;
+            opacity: 0.5;
+         }
+
+         &[data-active] {
+            pointer-events: none;
+
+            & :global(svg) {
+               color: currentColor;
+               opacity: 1;
+            }
+         }
+      }
+   }
+
+   .Nav_Right {
       --gap: 0.75rem;
 
       display: flex;

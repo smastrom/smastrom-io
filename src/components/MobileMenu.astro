@@ -26,8 +26,8 @@ const hamburgerClasses = ['hamburger', 'hamburger--squeeze'] // src/styles/hambu
 
 <script>
    function init() {
-      const links = document.querySelector('.Panel')
-      const hamburger = document.querySelector('.Hamburger_Button')
+      const panel = document.querySelector('.Panel') as HTMLElement
+      const hamburger = document.querySelector('.Hamburger_Button') as HTMLElement
 
       let isMenuOpen = false
 
@@ -38,11 +38,11 @@ const hamburgerClasses = ['hamburger', 'hamburger--squeeze'] // src/styles/hambu
          isMenuOpen = !isMenuOpen
 
          if (isMenuOpen) {
-            links.style.transform = 'translateX(0)'
+            panel.style.transform = 'translateX(0)'
             hamburger.classList.add('is-active')
             scrollStart = window.scrollY
          } else {
-            links.style.transform = 'translateX(100%)'
+            panel.style.transform = 'translateX(100%)'
             hamburger.classList.remove('is-active')
          }
       }
@@ -53,7 +53,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--squeeze'] // src/styles/hambu
          scrolledDistance = window.scrollY
 
          if (Math.abs(scrollStart - scrolledDistance) > 80) {
-            links.style.transform = 'translateX(100%)'
+            panel.style.transform = 'translateX(100%)'
             hamburger.classList.remove('is-active')
          }
       }

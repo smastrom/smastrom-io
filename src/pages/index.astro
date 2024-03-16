@@ -1,31 +1,29 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 
-interface HomeContentModel {
+import { useDato } from '@/lib/utils'
+
+interface CmsData {
+   home: {
+      seo: {
+         title: string
+         description: string
+      }
    title: string
    sections: {
       title: string
       text: string
    }[]
 }
-
-interface CmsData {
-   data: {
-      home: HomeContentModel
-   }
 }
 
-const { data } = (await fetch('https://graphql.datocms.com', {
-   method: 'POST',
-   headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: import.meta.env.DATO_TOKEN,
-   },
-   body: JSON.stringify({
-      query: /* GraphQL */ `
+const { home } = await useDato<CmsData>(/* GraphQL */ `
          {
             home {
+         seo {
+            title
+            description
+         }
                title(markdown: true)
                sections {
                   title
@@ -33,9 +31,7 @@ const { data } = (await fetch('https://graphql.datocms.com', {
                }
             }
          }
-      `,
-   }),
-}).then((res) => res.json())) as CmsData
+`)
 
 function withLinkAttrs(html: string) {
    return html.replace(/<a /g, '<a target="_blank" rel="nofollow noreferrer" ')

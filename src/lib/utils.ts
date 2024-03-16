@@ -1,7 +1,3 @@
-import { prefetch as astroPrefetch } from 'astro:prefetch'
-
-import { navLinks } from './static'
-
 export function getLinkProps(url: URL, href: string) {
    return {
       href,
@@ -24,13 +20,11 @@ export function capitalizeAll(str: string) {
 }
 
 export function formatDate(date: string) {
-   return new Date(date)
-      .toLocaleDateString('en-US', {
-         month: 'short',
-         day: 'numeric',
-         year: 'numeric',
-      })
-      .toLowerCase()
+   return new Date(date).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+   })
 }
 
 const WRANGLER_LOCAL_URL = 'http://127.0.0.1:8788'
@@ -38,4 +32,18 @@ const WRANGLER_LOCAL_URL = 'http://127.0.0.1:8788'
 export function getBaseUrl() {
    if (import.meta.env.DEV) return 'http://localhost:4321'
    return import.meta.env.CF_PAGES_URL || WRANGLER_LOCAL_URL
+}
+
+export async function useDato<Schema>(query: string) {
+   const { data } = (await fetch('https://graphql.datocms.com', {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json',
+         Accept: 'application/json',
+         Authorization: import.meta.env.DATO_TOKEN,
+      },
+      body: JSON.stringify({ query }),
+   }).then((res) => res.json())) as { data: Schema }
+
+   return data
 }

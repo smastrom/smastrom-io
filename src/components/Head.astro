@@ -1,9 +1,9 @@
 ---
 import { ViewTransitions } from 'astro:transitions'
 
-const url = 'https://smastrom.io'
-const title = 'Simone Mastromattei — Web Developer'
-const description = "My name is Simone Mastromattei. I'm a web developer based in Italy."
+const url = import.meta.env.SITE
+
+const { title, description } = Astro.props as { title: string; description: string }
 ---
 
 <head>

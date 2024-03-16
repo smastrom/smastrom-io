@@ -1,0 +1,89 @@
+@media (hover: hover) {
+   .Tilt_Square {
+      --square-size: calc(100% / 3);
+
+      position: absolute;
+      z-index: 2;
+      width: var(--square-size);
+      height: var(--square-size);
+
+      &:nth-child(1) {
+         top: 0;
+         left: 0;
+
+         &:hover ~ .Tilt_Content {
+            transform-origin: right top;
+            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) rotateZ(0.5deg);
+            box-shadow: var(--shadow-accent);
+         }
+      }
+
+      &:nth-child(2) {
+         top: 0;
+         left: var(--square-size);
+
+         &:hover ~ .Tilt_Content {
+            transform-origin: center top;
+            transform: perspective(1000px) rotateX(5deg);
+            box-shadow: var(--shadow-accent-mid);
+         }
+      }
+
+      &:nth-child(3) {
+         top: 0;
+         right: 0;
+
+         &:hover ~ .Tilt_Content {
+            transform-origin: left top;
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) rotateZ(-0.5deg);
+            box-shadow: var(--shadow-accent);
+         }
+      }
+
+      &:nth-child(4) {
+         width: 43%;
+         top: var(--square-size);
+         left: 0;
+
+         &:hover ~ .Tilt_Content {
+            transform-origin: left center;
+            transform: perspective(1000px) rotateY(-5deg);
+            box-shadow: var(--shadow-accent-mid);
+         }
+      }
+
+      &:nth-child(5) {
+         width: 43%;
+         top: var(--square-size);
+         right: 0;
+
+         &:hover ~ .Tilt_Content {
+            transform-origin: right center;
+            transform: perspective(1000px) rotateY(5deg);
+            box-shadow: var(--shadow-accent-mid);
+         }
+      }
+
+      &:nth-child(6) {
+         bottom: 0;
+         left: 0;
+
+         &:hover ~ .Tilt_Content {
+            transform-origin: right bottom;
+            transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg) rotateZ(-0.5deg);
+            box-shadow: var(--shadow-accent);
+         }
+      }
+
+      &:nth-child(7) {
+         bottom: 0;
+         left: var(--square-size);
+
+         &:hover ~ .Tilt_Content {
+            transform-origin: center bottom;
+            transform: perspective(1000px) rotateX(-5deg);
+            box-shadow: var(--shadow-accent-mid);
+         }
+      }
+   }
+}

@@ -1,0 +1,225 @@
+---
+import IconClock from '@/components/IconClock.astro'
+import IconStar from '@/components/IconStar.astro'
+import IconDownloads from '@/components/IconDownloads.astro'
+import IconGlobe from '@/components/IconGlobe.astro'
+import IconGitHub from '@/components/IconGitHub.astro'
+import IconNpm from '@/components/IconNpm.astro'
+
+import { formatNumber, formatDate } from '@/lib/utils'
+
+import type { Package } from '@/pages/api/stats'
+
+import '@/styles/tilt.css'
+
+const { project: p } = Astro.props as { project: Package }
+---
+
+<li class="Card">
+   {Array.from({ length: 7 }).map(() => <div class="Tilt_Square" aria-hidden="true" />)}
+
+   <section class="Card_Content Tilt_Content">
+      <div>
+         <h2>{p.title}</h2>
+         <p class="Subtitle">{p.description}</p>
+         <span class="Date">
+            <IconClock />
+            First commit: {formatDate(p.created_at)}
+         </span>
+      </div>
+
+      <span class="Divider" aria-hidden="true"></span>
+      <div class="Bottom">
+         <div class="Stats">
+            <div class="Icon_Box">
+               <IconStar />
+               {formatNumber(p.stargazers_count)}
+               <span class="SR_Only">stars</span>
+            </div>
+
+            <div class="Icon_Box">
+               <IconDownloads />
+               {formatNumber(p.downloads)}
+               <span class="SR_Only">downloads</span>
+            </div>
+         </div>
+
+         <nav class="Right_Nav">
+            {
+               p.demo_url && (
+                  <a
+                     href={p.demo_url}
+                     target="_blank"
+                     title="Demo Website"
+                     aria-label="Demo Website"
+                  >
+                     <IconGlobe />
+                  </a>
+               )
+            }
+
+            <a
+               href={p.github_url}
+               target="_blank"
+               title="GitHub Repository"
+               aria-label="GitHub Repository"
+            >
+               <IconGitHub />
+            </a>
+
+            <a href={p.npm_url} target="_blank" title="NPM Package" aria-label="NPM Package">
+               <IconNpm />
+            </a>
+         </nav>
+      </div>
+   </section>
+</li>
+
+<style>
+   .Card {
+      width: 100%;
+      position: relative;
+   }
+
+   html[data-theme='light'] .Card_Content {
+      background: transparent;
+      box-shadow: 0 0 0 2px var(--divider-light);
+      backdrop-filter: blur(6px);
+
+      &:hover {
+         box-shadow: 0 0 0 2px var(--accent);
+      }
+
+      & .Date {
+         opacity: 1;
+      }
+   }
+
+   .Card_Content {
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 0 1px var(--divider-light);
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.035);
+      backdrop-filter: blur(10px);
+      transition:
+         transform 500ms linear,
+         transform-origin 500ms linear,
+         box-shadow var(--easing),
+         background-color var(--easing);
+
+      &:hover {
+         box-shadow: 0 0 0 1px var(--accent);
+      }
+
+      & h2 {
+         font-size: 1.25rem;
+         font-weight: 700;
+         line-height: 1;
+         margin-bottom: 0.75rem;
+
+         @media (max-width: 910px) {
+            font-size: 1.125rem;
+         }
+      }
+
+      & .Subtitle {
+         font-size: 1rem;
+         font-weight: 400;
+         margin-bottom: 1.25rem;
+      }
+
+      & .Date {
+         font-size: 0.925rem;
+         margin-bottom: 0.5rem;
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+         opacity: 0.75;
+
+         & :global(svg) {
+            width: 1.25rem;
+            height: 1.25rem;
+            opacity: 0.5;
+         }
+      }
+
+      & .Divider {
+         width: 100%;
+         height: 1px;
+         background-color: var(--divider-light);
+         display: block;
+         margin: 1.25rem 0;
+         transition: background-color var(--easing);
+      }
+
+      & .Bottom {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         flex-wrap: wrap;
+         gap: 1.5rem;
+      }
+
+      & .Stats {
+         display: flex;
+         align-items: center;
+         gap: 1.5rem;
+
+         @media (max-width: 910px) {
+            gap: 1rem;
+         }
+      }
+
+      & .Icon_Box {
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+         font-size: 0.925rem;
+         font-weight: 500;
+         transition: color var(--easing);
+
+         & :global(svg) {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: var(--accent);
+            transition: all var(--easing);
+         }
+      }
+
+      .Right_Nav {
+         display: flex;
+         align-items: center;
+         gap: 0.75rem;
+
+         & a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+            height: 100%;
+            border: 1px solid var(--divider);
+            background-color: var(--bg-elv);
+            cursor: pointer;
+            transition:
+               background-color var(--easing),
+               border-color var(--easing);
+
+            & :global(svg) {
+               transition: color var(--easing);
+            }
+
+            &:hover {
+               & :global(svg) {
+                  color: var(--accent);
+               }
+            }
+         }
+      }
+   }
+</style>

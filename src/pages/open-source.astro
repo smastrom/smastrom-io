@@ -1,54 +1,86 @@
 ---
-import type { Package } from '@/pages/api/packages'
-
-import { formatNumber, formatDate, getBaseUrl } from '@/lib/utils'
-
 import Layout from '@/layouts/Layout.astro'
+import ProjectCard from '@/components/ProjectCard.astro'
 
-const pkgs = [
-   'notivue',
-   '@smastrom/react-rating',
-   'vue-collapsed',
-   'vue-use-active-scroll',
-   '@smastrom/react-email-autocomplete',
-   'vue-use-fixed-header',
-   'vue-global-loader',
-]
+import { getBaseUrl, useDato } from '@/lib/utils'
+import { packages as pkgs } from '@/lib/static'
+
+import type { Package } from '@/pages/api/stats'
+
+interface CmsData {
+   openSource: {
+      seo: {
+         title: string
+         description: string
+      }
+      title: string
+      text: string
+   }
+}
+
+const { openSource } = await useDato<CmsData>(/* GraphQL */ `
+   {
+      openSource {
+         seo {
+            title
+            description
+         }
+         title
+         text(markdown: true)
+      }
+   }
+`)
 
 const query = 'packages=' + pkgs.map((p) => p).join(',')
 
-const packages = (await fetch(getBaseUrl() + `/api/packages?${query}`, {
+const packages = (await fetch(getBaseUrl() + `/api/stats?${query}`, {
    method: 'GET',
    headers: {
       'Content-Type': 'application/json',
    },
 }).then((res) => res.json())) as Package[]
+
+const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
 ---
 
-<Layout
-   ><div style="margin-top: 8rem">
-      {
-         packages.map((p) => (
-            <div class="Card">
-               <h2>{p.title}</h2>
-               <p>{p.description}</p>
-               <p>{p.demo_url}</p>
-               <p>{p.npm_url}</p>
-               <p>{p.github_url}</p>
+<Layout isArticleLayout title={openSource.seo.title} description={openSource.seo.description}>
+   <article class="Wrapper">
+      <div class="Prose Prose_Open_Source">
+         <h1 class="Title">{openSource.title}</h1>
+         <Fragment set:html={withAttrs(openSource.text)} />
+      </div>
 
-               <p>{formatNumber(p.stargazers_count)}</p>
-               <p>{formatNumber(p.downloads)}</p>
-               <p>{formatDate(p.created_at)}</p>
-            </div>
-         ))
-      }
-   </div></Layout
->
+      <ul class="Cards">
+         {packages.map((p) => <ProjectCard project={p} />)}
+      </ul>
+   </article>
+</Layout>
 
 <style>
-   .Card {
-      background-color: #2e372f;
-      padding: 1rem;
-      margin-bottom: 1rem;
+   .Wrapper {
+      max-width: var(--article-container);
+      margin: var(--header-height) auto 2rem auto;
+      padding: 3rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      @media (max-width: 1240px) {
+         padding: 2rem 0;
+         margin: var(--header-height) auto 1.5rem auto;
+      }
+   }
+
+   .Cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      z-index: 1;
+
+      @media (max-width: 910px) {
+         grid-template-columns: 1fr;
+         gap: var(--content-margin);
+      }
    }
 </style>

@@ -7,3 +7,13 @@ export const navLinks = [
    { caption: 'Open Source', href: '/open-source', Icon: IconGit },
    { caption: 'Professional Work', href: '/professional-work', Icon: IconHandshake },
 ]
+
+export const packages = [
+   'notivue',
+   '@smastrom/react-rating',
+   'vue-collapsed',
+   'vue-use-active-scroll',
+   'vue-use-fixed-header',
+   '@smastrom/react-email-autocomplete',
+   'vue-global-loader',
+]

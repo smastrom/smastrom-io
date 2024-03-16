@@ -9,28 +9,28 @@ interface CmsData {
          title: string
          description: string
       }
-   title: string
-   sections: {
       title: string
-      text: string
-   }[]
-}
+      sections: {
+         title: string
+         text: string
+      }[]
+   }
 }
 
 const { home } = await useDato<CmsData>(/* GraphQL */ `
-         {
-            home {
+   {
+      home {
          seo {
             title
             description
          }
-               title(markdown: true)
-               sections {
-                  title
-                  text(markdown: true)
-               }
-            }
+         title(markdown: true)
+         sections {
+            title
+            text(markdown: true)
          }
+      }
+   }
 `)
 
 function withLinkAttrs(html: string) {
@@ -38,17 +38,43 @@ function withLinkAttrs(html: string) {
 }
 ---
 
-<Layout>
-   <article class="Prose">
-      <Fragment set:html={data.home.title} />
+<Layout title={home.seo.title} description={home.seo.description}>
+   <div class="Wrapper">
+      <article class="Prose Prose_Index">
+         <div class="Hero_Title" set:html={home.title} />
 
-      {
-         data.home.sections.map((s) => (
-            <section>
-               <h2>{s.title}</h2>
-               <div set:html={withLinkAttrs(s.text)} />
-            </section>
-         ))
-      }
-   </article>
+         {
+            home.sections.map((s) => (
+               <section>
+                  <h2>{s.title}</h2>
+                  <Fragment set:html={withLinkAttrs(s.text)} />
+               </section>
+            ))
+         }
+      </article>
+   </div>
 </Layout>
+
+<style>
+   .Wrapper {
+      margin-top: var(--header-height);
+   }
+
+   .Prose_Index {
+      & :global(h1) {
+         @media (min-width: 769px) {
+            text-wrap: balance;
+         }
+      }
+
+      & :global(h2, p) {
+         @media (min-width: 768px) {
+            max-width: var(--content-max);
+         }
+
+         @media (min-width: 910px) {
+            max-width: var(--content-half);
+         }
+      }
+   }
+</style>

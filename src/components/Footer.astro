@@ -1,11 +1,13 @@
 ---
+const { isCentered } = Astro.props as { isCentered?: boolean }
+
 const attrs = {
    rel: 'nofollow noreferrer',
    target: '_blank',
 }
 ---
 
-<footer>
+<footer {...isCentered ? { 'data-centered': '' } : {}}>
    <small>
       Typeface by
       <a href="https://www.atipofoundry.com/" {...attrs}>Atipo</a>
@@ -19,6 +21,12 @@ const attrs = {
       font-size: responsive 1.125rem 1.75rem;
       font-range: 768px 3840px;
       position: relative;
+
+      &[data-centered] {
+         width: var(--article-container);
+         max-width: 100%;
+         margin: 0 auto;
+      }
    }
 
    a {

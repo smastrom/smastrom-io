@@ -4,28 +4,60 @@ import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
 import Background from '@/components/Background.astro'
 
+import { useDato } from '@/lib/utils'
+
 import '@/styles/reset.css'
 import '@/styles/colors.css'
 import '@/styles/fonts.css'
 import '@/styles/layout.css'
 import '@/styles/prose.css'
 import '@/styles/hamburger.css'
+import '@/styles/utils.css'
 
 const theme = Astro.cookies.get('theme')?.value || 'dark'
+
+const { isArticleLayout } = Astro.props as { isArticleLayout?: boolean }
+
+interface GlobalSeo {
+   _site: { globalSeo: { siteName: string; fallbackSeo: { title: string; description: string } } }
+}
+
+const data = await useDato<GlobalSeo>(/* GraphQL */ `
+   {
+      _site {
+         globalSeo {
+            fallbackSeo {
+               title
+               description
+            }
+         }
+      }
+   }
+`)
+
+const { fallbackSeo } = data._site.globalSeo
+
+const { title = fallbackSeo.title, description = fallbackSeo.description } = Astro.props as {
+   title: string
+   description: string
+}
 ---
 
 <!doctype html>
-<html lang="en" dir="ltr" data-theme={theme}>
-   <Head />
+<html lang="en" dir="ltr" data-theme={theme} class="Transitions">
+   <Head {title} {description} />
 
-   <body class="Transitions">
+   <body>
+      <a href="#main" class="SR_Only">Skip to main content</a>
+
       <Header />
 
-      <main>
+      <main id="main">
          <slot />
          <Background />
       </main>
 
+      <Footer isCentered={isArticleLayout} />
       <!-- -->
    </body>
 </html>

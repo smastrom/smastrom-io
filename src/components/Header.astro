@@ -11,7 +11,9 @@ import { getLinkProps } from '@/lib/utils'
 ---
 
 <header>
-   <Logo />
+   <a href="/" aria-label="Home">
+      <Logo />
+   </a>
 
    <nav class="Nav">
       {
@@ -66,7 +68,6 @@ import { getLinkProps } from '@/lib/utils'
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-
       display: flex;
       gap: 3rem;
       font-weight: 500;

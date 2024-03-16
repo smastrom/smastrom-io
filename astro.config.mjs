@@ -7,6 +7,10 @@ export default defineConfig({
    devToolbar: {
       enabled: false,
    },
+   prefetch: {
+      prefetchAll: true,
+      defaultStrategy: 'viewport',
+   },
    output: 'server',
    adapter: cloudflare(),
 })

@@ -1,20 +1,17 @@
 :root {
    --easing: 200ms ease-out;
-   --content-margin: 1.25rem;
+   --page-margin: 1.25rem;
    --article-container: 1240px;
-   --content: calc(100vw - var(--content-margin) * 2);
-   --content-max: calc((var(--content) / 6) * 4);
-   --content-half: calc(var(--content) / 2);
    --header-height: 80px;
    --header-icon-size: 28px;
 
    @media (min-width: 1920px) {
-      --content-margin: 2%;
+      --page-margin: 2%;
    }
 }
 
 body {
-   padding: 0 var(--content-margin) var(--content-margin) var(--content-margin);
+   padding: 0 var(--page-margin) var(--page-margin) var(--page-margin);
    overflow-x: hidden;
    position: relative;
 }

@@ -8,6 +8,14 @@
 
 @font-face {
    font-family: 'Basier Square';
+   src: url('/basier-square-medium-webfont.woff2') format('woff2');
+   font-weight: 500;
+   font-style: normal;
+   font-display: optional;
+}
+
+@font-face {
+   font-family: 'Basier Square';
    src: url('/basier-square-regular-webfont.woff2') format('woff2');
    font-weight: 400;
    font-style: normal;

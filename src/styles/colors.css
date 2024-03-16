@@ -1,33 +1,36 @@
-:root {
-   --bright-green: hsl(142 75% 53%);
-   --base-green: hsl(142 75% 35%);
-   --white-green: hsl(138, 76%, 97%);
-   --white-alpha: hsla(0, 0%, 100%, 0.32);
-   --light-green: hsl(142, 29%, 80%);
-   --dark-green: hsl(142 16% 24%);
-   --black-green: hsl(142 10% 12%);
-   --light-green-alpha: hsla(141, 79%, 85%, 0.3);
-   --dark-green-alpha: hsla(159, 21%, 21%, 0.4);
-   --darker-green-alpha: hsla(140, 10%, 12%, 0.69);
-}
-
 html {
    background-color: var(--bg);
    color: var(--fg);
 }
 
 html[data-theme='dark'] {
-   --fg: var(--light-green);
-   --bg: var(--black-green);
-   --accent: var(--bright-green);
-   --divider: var(--light-green-alpha);
-   --bg-alpha: var(--darker-green-alpha);
+   --accent: hsl(142 75% 53%);
+
+   --fg: hsl(142, 29%, 80%);
+   --bg: hsl(142 10% 12%);
+
+   --divider: hsla(141, 79%, 85%, 0.3);
+   --divider-light: hsl(141, 10%, 25%);
+
+   --bg-elv: hsl(142 16% 24%);
+   --bg-alpha: hsla(159, 21%, 21%, 0.4);
+
+   --shadow-accent: 0 0 0 1px var(--accent);
+   --shadow-accent-mid: 0 0 0 1px hsla(142, 75%, 53%, 0.5);
 }
 
 html[data-theme='light'] {
-   --fg: var(--dark-green);
-   --bg: var(--white-green);
-   --accent: var(--base-green);
-   --divider: var(--dark-green-alpha);
-   --bg-alpha: var(--white-alpha);
+   --accent: hsl(142 75% 35%);
+
+   --fg: hsl(142 16% 24%);
+   --bg: hsl(138, 76%, 97%);
+
+   --divider: hsla(159, 21%, 21%, 0.4);
+   --divider-light: hsl(150, 2%, 83%);
+
+   --bg-elv: #fff;
+   --bg-alpha: hsla(0, 0%, 100%, 0.32);
+
+   --shadow-accent: 0 0 0 2px var(--accent);
+   --shadow-accent-mid: 0 0 0 2px hsla(142, 75%, 35%, 0.5);
 }

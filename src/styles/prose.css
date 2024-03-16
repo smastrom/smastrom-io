@@ -1,67 +1,58 @@
-.Prose {
-   & h1 {
-      margin-top: var(--header-height);
-      padding: 3rem 0;
-      letter-spacing: -0.025ch;
-      font-size: responsive 2.25rem 10rem;
-      font-range: 768px 3840px;
-      font-weight: 700;
-      line-height: 1.25;
+.Hero_Title {
+   padding: 3rem 0;
+   letter-spacing: -0.025ch;
+   font-size: responsive 2.25rem 7rem;
+   font-range: 768px 2440px;
+   font-weight: 700;
+   line-height: 1.25;
 
-      & span {
-         color: var(--accent);
-      }
-
-      @media (min-width: 769px) {
-         max-width: var(--content-max);
-         padding: 5% 0;
-      }
-
-      @media (min-width: 3840px) {
-         padding: calc(3840px / 100 * 4) 0;
-      }
+   & span {
+      color: var(--accent);
    }
+
+   @media (min-width: 769px) {
+      padding: 1.25em 0;
+   }
+}
+
+.Title {
+   letter-spacing: -0.025ch;
+   font-weight: 700;
+   font-size: responsive 1.75rem 2.75rem;
+   font-range: 768px 1240px;
+   color: var(--accent);
+   margin-bottom: 2rem;
+
+   @media (max-width: 768px) {
+      margin-bottom: 1em;
+   }
+}
+
+.Prose {
+   width: 100%;
 
    & h2 {
       letter-spacing: -0.025ch;
       font-weight: 700;
-      font-size: responsive 1.375rem 4rem;
-      font-range: 768px 3840px;
+      font-size: responsive 1.375rem 3.5rem;
+      font-range: 768px 2440px;
       color: var(--accent);
    }
 
    & p {
+      max-width: 65ch;
       margin: 1rem 0 1.5rem 0;
-      font-size: responsive 1.125rem 2.25rem;
+      font-size: responsive 1.125rem 2rem;
       letter-spacing: -0.015ch;
-      font-range: 768px 3840px;
+      font-range: 768px 2440px;
       line-height: 1.55;
 
+      @media (min-width: 769px) {
+         margin: 1em 0 1.25em 0;
+      }
+
       &:last-of-type {
-         margin: 1rem 0 3rem 0;
-
-         @media (min-width: 769px) {
-            margin: 1% 0 4.5% 0;
-         }
-
-         @media (min-width: 3840px) {
-            margin: calc(3840px / 100) 0 calc(3840px / 100 * 3) 0;
-         }
-      }
-
-      @media (min-width: 769px) {
-         margin: 1% 0 2% 0;
-      }
-
-      @media (min-width: 3840px) {
-         margin: calc(3840px / 100) 0;
-      }
-   }
-
-   & h2,
-   & p {
-      @media (min-width: 769px) {
-         max-width: var(--content-half);
+         margin: 1em 0 2.5em 0;
       }
    }
 

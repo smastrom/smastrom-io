@@ -1,39 +1,31 @@
 ---
-const { isCentered } = Astro.props as { isCentered?: boolean }
+const { content, isCentered } = Astro.props as { content: string; isCentered?: boolean }
 
-const attrs = {
-   rel: 'nofollow noreferrer',
-   target: '_blank',
-}
+const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
 ---
 
 <footer {...isCentered ? { 'data-centered': '' } : {}}>
-   <small>
-      Typeface by
-      <a href="https://www.atipofoundry.com/" {...attrs}>Atipo</a>
-      — Source code on <a href="https://github.com/smastrom/smastrom-io" {...attrs}>GitHub</a>
-   </small>
+   <small set:html={withAttrs(content)} />
 </footer>
 
 <style>
    footer {
       color: var(--fg);
-      font-size: responsive 1.125rem 1.75rem;
-      font-range: 768px 3840px;
-      position: relative;
+      font-size: responsive 1.25rem 1.5rem;
+      font-range: 768px 2440px;
 
       &[data-centered] {
          width: var(--article-container);
          max-width: 100%;
          margin: 0 auto;
       }
-   }
 
-   a {
-      color: var(--accent);
+      :global(a) {
+         color: var(--accent);
 
-      &:hover {
-         text-decoration: underline;
+         &:hover {
+            text-decoration: underline;
+         }
       }
    }
 </style>

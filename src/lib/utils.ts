@@ -53,6 +53,12 @@ export async function useDato<Schema>(query: string) {
          body: JSON.stringify({ query }),
       })
 
+      if (!res.ok) {
+         throw `DatoCMS request failed with ${res.status}: ${res.statusText} - ${await res.text()}`
+      }
+
+      // Dato always returns 200 on GraphQL requests errors
+
       const data = await res.json()
 
       if ('errors' in data) {

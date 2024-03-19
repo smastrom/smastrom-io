@@ -7,15 +7,29 @@ const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
 ---
 
 <footer {...isCentered ? { 'data-centered': '' } : {}}>
-   <Logo width="40" height="40" style={{ display: 'flex', marginBottom: '0.75rem' }} />
    <small set:html={withAttrs(content)} />
+
+   <Logo width="40" height="40" style={{ display: 'flex', marginBottom: '0.75rem' }} />
 </footer>
 
 <style>
    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
       color: var(--fg);
       font-size: responsive 1.25rem 1.5rem;
       font-range: 768px 2440px;
+
+      & small {
+         height: min-content;
+      }
+
+      @media (max-width: 910px) {
+         align-items: flex-start;
+         flex-direction: column-reverse;
+      }
 
       &[data-centered] {
          width: var(--article-container);

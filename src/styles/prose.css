@@ -77,6 +77,8 @@
       & img {
          width: 100%;
          border-radius: 1rem;
+         position: relative;
+         z-index: 1;
 
          @media (max-width: 610px) {
             border-radius: 0.5rem;

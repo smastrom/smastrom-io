@@ -9,6 +9,8 @@
       height: 100%;
       position: absolute;
       inset: 0;
+      mask-size: 200%;
+      mask-repeat: no-repeat;
 
       @supports (-moz-appearance: none) {
          /* Peformance drops on firefox if opacity is below than 1 */
@@ -16,21 +18,19 @@
       }
 
       @media (max-width: 768px) {
-         display: none;
+         mask-image: url('/logo-background-notebook.svg');
+         mask-position: -10% 0%;
+         mask-size: 250%;
       }
 
       @media (min-width: 769px) {
          mask-image: url('/logo-background-tablet.svg');
          mask-position: -10% -40%;
-         mask-repeat: no-repeat;
-         mask-size: 200%;
       }
 
       @media (min-width: 1366px) {
          mask-image: url('/logo-background-notebook.svg');
-         mask-position: -100% 40%;
-         mask-repeat: no-repeat;
-         mask-size: 120%;
+         mask-position: 0 40%;
       }
 
       @media (min-width: 1920px) {

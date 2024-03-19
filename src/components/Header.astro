@@ -12,9 +12,14 @@ import { getLinkProps } from '@/lib/utils'
 
 <header id="header">
    <a href="/" aria-label="Home">
-      <Logo />
+      <Logo
+         width="40"
+         height="40"
+         style={{
+            display: 'flex',
+         }}
+      />
    </a>
-
    <nav class="Nav">
       {
          navLinks.map((l) => (

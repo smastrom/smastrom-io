@@ -1,10 +1,13 @@
 ---
+import Logo from './Logo.astro'
+
 const { content, isCentered } = Astro.props as { content: string; isCentered?: boolean }
 
 const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
 ---
 
 <footer {...isCentered ? { 'data-centered': '' } : {}}>
+   <Logo width="40" height="40" style={{ display: 'flex', marginBottom: '0.75rem' }} />
    <small set:html={withAttrs(content)} />
 </footer>
 

@@ -26,3 +26,24 @@ export interface CmsOpenSource {
       text: string
    }
 }
+
+export interface CmsProfessionalWork {
+   professionalWork: {
+      seo: Seo
+      title: string
+      subtitle: string
+      sections: {
+         title: string
+         text: string
+      }[]
+      services: {
+         caption: string
+         title: string
+         image: {
+            url: string
+         }
+         imageDescription: string
+         description: string
+      }[]
+   }
+}

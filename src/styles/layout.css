@@ -13,6 +13,7 @@
 body {
    padding: 0 var(--page-margin) var(--page-margin) var(--page-margin);
    overflow-x: hidden;
+   touch-action: pan-y;
    position: relative;
 }
 

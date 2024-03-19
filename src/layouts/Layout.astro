@@ -5,6 +5,7 @@ import Footer from '@/components/Footer.astro'
 import Background from '@/components/Background.astro'
 
 import { useDato } from '@/lib/utils'
+
 import type { CmsLayout } from '@/lib/types'
 
 import '@/styles/reset.css'
@@ -13,9 +14,7 @@ import '@/styles/fonts.css'
 import '@/styles/layout.css'
 import '@/styles/prose.css'
 import '@/styles/hamburger.css'
-import '@/styles/utils.css'
-
-const theme = Astro.cookies.get('theme')?.value || 'dark'
+import '@/styles/classes.css'
 
 const { isArticleLayout } = Astro.props as { isArticleLayout?: boolean }
 

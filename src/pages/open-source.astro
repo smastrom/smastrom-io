@@ -59,30 +59,17 @@ const withStats = (html: string) =>
 </Layout>
 
 <style>
-   .Wrapper {
-      max-width: var(--article-container);
-      margin: var(--header-height) auto 2rem auto;
-      padding: 3rem 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-
-      @media (max-width: 1240px) {
-         padding: 2rem 0;
-         margin: var(--header-height) auto 1.5rem auto;
-      }
-   }
-
-   .Cards {
+   .Card_Grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2.5rem;
       z-index: 1;
+      margin-bottom: 4rem;
 
       @media (max-width: 910px) {
          grid-template-columns: 1fr;
          gap: var(--page-margin);
+         margin-bottom: 3rem;
       }
    }
 </style>

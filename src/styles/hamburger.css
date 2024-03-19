@@ -28,7 +28,7 @@
 .hamburger-inner,
 .hamburger-inner::before,
 .hamburger-inner::after {
-   width: 40px;
+   width: 36px;
    height: 3px;
    background-color: var(--fg);
    border-radius: 4px;

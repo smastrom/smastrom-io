@@ -26,6 +26,10 @@ export function formatDate(date: string) {
    })
 }
 
+export function addLinkAttrs(html: string) {
+   return html.replace(/<a /g, '<a target="_blank" rel="nofollow noreferrer" ')
+}
+
 const WRANGLER_LOCAL_URL = 'http://127.0.0.1:8788'
 
 export function getBaseUrl() {

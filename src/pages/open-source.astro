@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
 
-import { formatNumber, getBaseUrl, useDato } from '@/lib/utils'
+import { addLinkAttrs, formatNumber, getBaseUrl, useDato } from '@/lib/utils'
 import { packages as pkgs } from '@/lib/static'
 
 import type { CmsOpenSource } from '@/lib/types'
@@ -40,7 +40,6 @@ const cms = data.openSource
 const countProp = (prop: 'stargazers_count' | 'downloads') =>
    formatNumber(packages.reduce((acc, p) => acc + p[prop], 0))
 
-const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
 const withStats = (html: string) =>
    html
       .replace('{{ downloads }}', countProp('downloads'))
@@ -50,7 +49,7 @@ const withStats = (html: string) =>
 <Layout title={cms.seo.title} description={cms.seo.description} isArticleLayout>
    <article class="Article_Wrapper">
       <h1 class="Title">{cms.title}</h1>
-      <div class="Prose" set:html={withStats(withAttrs(cms.text))} />
+      <div class="Prose" set:html={withStats(addLinkAttrs(cms.text))} />
 
       <ul class="Card_Grid">
          {packages.map((p) => <ProjectCard project={p} />)}

@@ -20,6 +20,14 @@ export interface StatsResponse {
 
 const removeScope = (pkg: string) => (pkg.startsWith('@') ? pkg.split('/')[1] : pkg)
 
+/**
+ * NOTES:
+ *
+ * 1. This API as-is only works for packages which have the same scope and name in both NPM and GitHub.
+ * 2. When calling the GitHub API below the username is hardcoded for simplicity, change this if you're copying the code.
+ * 3. Protect the access using Cloudflare Rules or something similar
+ */
+
 export const GET: APIRoute = async ({ request }) => {
    try {
       const url = new URL(request.url)

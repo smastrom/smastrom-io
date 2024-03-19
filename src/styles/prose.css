@@ -70,6 +70,20 @@
          margin: 1em 0 1.25em 0;
       }
 
+      &:has(img) {
+         margin: 0;
+      }
+
+      & img {
+         width: 100%;
+         max-width: 800px;
+         border-radius: 1rem;
+
+         @media (max-width: 610px) {
+            border-radius: 0.5rem;
+         }
+      }
+
       &:last-of-type {
          margin: 1em 0 2.5em 0;
       }

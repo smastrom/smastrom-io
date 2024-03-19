@@ -1,7 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions'
 
-import { isFirefox } from '@/lib/utils'
+import { isBrowser } from '@/lib/utils'
 
 const { title, description } = Astro.props as { title: string; description: string }
 
@@ -9,7 +9,7 @@ const url = import.meta.env.SITE + Astro.url.pathname
 ---
 
 <head>
-   <ViewTransitions fallback={isFirefox(Astro.request) ? 'none' : 'swap'} />
+   <ViewTransitions fallback={isBrowser(Astro.request, 'Firefox') ? 'none' : 'swap'} />
 
    <!-- Common -->
    <meta charset="utf-8" />
@@ -22,23 +22,21 @@ const url = import.meta.env.SITE + Astro.url.pathname
    <link rel="icon" href="/favicon.svg" />
    <link rel="canonical" href={url} />
 
-   <link
-      rel="preload"
-      href="/basier-square-bold-webfont.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-   />
-   <link
-      rel="preload"
-      href="/basier-square-regular-webfont.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-   />
+   {
+      ['regular', 'medium', 'bold'].map((weight) => (
+         <link
+            rel="preload"
+            href={`/basier-square-${weight}-webfont.woff2`}
+            as="font"
+            type="font/woff2"
+            crossorigin
+         />
+      ))
+   }
 
    <!-- PWA -->
    <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials" />
+   {!isBrowser(Astro.request, 'Safari') && <meta name="theme-color" content="#10853a" />}
    <meta name="apple-mobile-web-app-capable" content="yes" />
    <meta name="apple-mobile-web-app-title" content="smastrom" />
    <meta name="apple-mobile-web-app-status-bar-style" content="default" />

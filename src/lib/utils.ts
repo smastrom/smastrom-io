@@ -12,7 +12,9 @@ export function formatNumber(num: number) {
    return num.toString()
 }
 
-export const isFirefox = (req: Request) => req.headers.get('user-agent')?.includes('Firefox')
+export function isBrowser(req: Request, browser: 'Safari' | 'Firefox' | 'Chrome') {
+   return req.headers.get('user-agent')?.includes(browser)
+}
 
 export function capitalizeAll(str: string) {
    return str

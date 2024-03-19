@@ -20,20 +20,13 @@ body {
 .Transitions {
    transition: background-color var(--easing);
 
-   & a {
-      transition: color var(--easing);
-   }
-
-   & header {
-      transition: background-color var(--easing);
-   }
-
    & h1,
    & h1 > span,
    & h2,
    & p,
    & span,
-   & strong {
+   & strong,
+   & a {
       transition: color var(--easing);
    }
 }

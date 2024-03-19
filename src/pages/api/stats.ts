@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro'
 
 import { capitalizeAll } from '@/lib/utils'
 
-interface Package {
+export interface Package {
    title: string
    downloads: number
    stargazers_count: number

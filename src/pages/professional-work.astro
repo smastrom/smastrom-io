@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import GetInTouch from '@/components/GetInTouch.astro'
 
-import { useDato } from '@/lib/utils'
+import { addLinkAttrs, useDato } from '@/lib/utils'
 
 import type { CmsProfessionalWork } from '@/lib/types'
 
@@ -48,7 +48,7 @@ const cms = data.professionalWork
             <section class="Section">
                {s.caption && <h4 class="Caption">{s.caption}</h4>}
                <h3 class="Title_2">{s.title}</h3>
-               <div class="Prose" set:html={s.description} />
+               <div class="Prose" set:html={addLinkAttrs(s.description)} />
 
                {s.image && (
                   <div class="Img_Wrapper">

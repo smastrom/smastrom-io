@@ -1,0 +1,35 @@
+---
+import IconArrow from './IconArrow.astro'
+---
+
+<a href="mailto:hello@smastrom.io" target="_blank"> Get in Touch <IconArrow /> </a>
+
+<style>
+   a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      white-space: nowrap;
+      font-size: 1.125rem;
+      transition: opacity 100ms ease-out;
+      margin-bottom: 2rem;
+
+      @media (max-width: 768px) {
+         margin-bottom: 1em;
+      }
+
+      & :global(svg) {
+         transition: transform 100ms ease-out;
+      }
+
+      &:hover {
+         opacity: 0.8;
+         & :global(svg) {
+            transform: translateX(0.25rem);
+         }
+      }
+   }
+</style>

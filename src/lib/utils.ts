@@ -21,8 +21,7 @@ export function capitalizeAll(str: string) {
 
 export function formatDate(date: string) {
    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
+      month: 'long',
       year: 'numeric',
    })
 }
@@ -41,13 +40,13 @@ export async function useDato<Schema>(query: string) {
 
    try {
       const res = await fetch('https://graphql.datocms.com', {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json',
-         Accept: 'application/json',
-         Authorization: import.meta.env.DATO_TOKEN,
-      },
-      body: JSON.stringify({ query }),
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: import.meta.env.DATO_TOKEN,
+         },
+         body: JSON.stringify({ query }),
       })
 
       const data = await res.json()

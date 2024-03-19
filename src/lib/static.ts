@@ -16,4 +16,5 @@ export const packages = [
    'vue-use-fixed-header',
    '@smastrom/react-email-autocomplete',
    'vue-global-loader',
+   'solid-collapse',
 ]

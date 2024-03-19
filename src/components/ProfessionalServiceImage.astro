@@ -1,0 +1,86 @@
+---
+const { imageUrl, imageDescription } = Astro.props as { imageUrl: string; imageDescription: string }
+---
+
+<div class="Img_Wrapper">
+   <div class="Img_Scroller">
+      <img src={imageUrl} alt="" loading="lazy" decoding="async" />
+   </div>
+
+   <p class="Image_Description">{imageDescription}</p>
+</div>
+
+<style>
+   .Img_Wrapper {
+      position: relative;
+      max-width: max-content;
+      margin-top: -1.75rem;
+      margin-bottom: 5rem;
+
+      @media (max-width: 610px) {
+         margin-bottom: 2rem;
+      }
+   }
+
+   .Img_Scroller {
+      position: relative;
+      margin-top: 1.5rem;
+      max-width: 100%;
+      width: 1100px;
+      height: 100%;
+      max-height: 620px;
+      overflow: auto;
+      border-radius: 0.5rem;
+      scroll-snap-type: y proximity;
+      border: 1px solid var(--divider-light);
+      display: flex;
+      flex-direction: column;
+      z-index: 2;
+      overscroll-behavior: auto;
+
+      @media (max-width: 768px) {
+         max-height: 440px;
+      }
+
+      @media (max-width: 475px) {
+         max-height: 320px;
+      }
+
+      & img {
+         width: 100%;
+         object-fit: contain;
+         border-radius: 0.5rem;
+         pointer-events: none;
+      }
+   }
+
+   .Image_Description {
+      --padding: 1rem;
+
+      font-size: 0.925rem;
+      background-color: var(--bg);
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.25rem;
+      border: 1px solid var(--divider-light);
+      position: absolute;
+      bottom: var(--padding);
+      right: var(--padding);
+      z-index: 2;
+      max-width: 65ch;
+
+      @media (max-width: 610px) {
+         --padding: 0.5rem;
+         max-width: calc(100% - 2 * var(--padding));
+         margin-top: 0.5rem;
+      }
+
+      @media (max-width: 475px) {
+         border-radius: 0.5rem;
+         position: relative;
+         bottom: unset;
+         right: unset;
+         max-width: 100%;
+         background-color: var(--bg-alpha);
+      }
+   }
+</style>

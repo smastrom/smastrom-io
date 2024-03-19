@@ -5,6 +5,7 @@ import Footer from '@/components/Footer.astro'
 import Background from '@/components/Background.astro'
 
 import { useDato } from '@/lib/utils'
+import type { CmsLayout } from '@/lib/types'
 
 import '@/styles/reset.css'
 import '@/styles/colors.css'
@@ -18,12 +19,9 @@ const theme = Astro.cookies.get('theme')?.value || 'dark'
 
 const { isArticleLayout } = Astro.props as { isArticleLayout?: boolean }
 
-interface GlobalSeo {
-   _site: { globalSeo: { siteName: string; fallbackSeo: { title: string; description: string } } }
-   layout: { footerText: string }
-}
+const theme = Astro.cookies.get('theme')?.value || 'dark'
 
-const data = await useDato<GlobalSeo>(/* GraphQL */ `
+const { data, error } = await useDato<CmsLayout>(/* GraphQL */ `
    {
       _site {
          globalSeo {
@@ -38,6 +36,8 @@ const data = await useDato<GlobalSeo>(/* GraphQL */ `
       }
    }
 `)
+
+if (error) throw new Error(error)
 
 const { fallbackSeo } = data._site.globalSeo
 
@@ -62,6 +62,5 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
       </main>
 
       <Footer content={data.layout.footerText} isCentered={isArticleLayout} />
-      <!-- -->
    </body>
 </html>

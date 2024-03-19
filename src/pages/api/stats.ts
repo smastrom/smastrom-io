@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro'
 
 import { capitalizeAll } from '@/lib/utils'
 
-export interface Package {
+interface Package {
    title: string
    downloads: number
    stargazers_count: number
@@ -11,6 +11,11 @@ export interface Package {
    demo_url: string | null
    npm_url: string
    github_url: string
+}
+
+export interface StatsResponse {
+   data: Package[]
+   error: string | null
 }
 
 const removeScope = (pkg: string) => (pkg.startsWith('@') ? pkg.split('/')[1] : pkg)
@@ -68,16 +73,22 @@ export const GET: APIRoute = async ({ request }) => {
 
       await Promise.all(requests)
 
-      return new Response(JSON.stringify(Object.values(result)), {
-         status: 200,
-         headers: {
-            'Content-Type': 'application/json',
-         },
-      })
+      return new Response(
+         JSON.stringify({
+            data: Object.values(result),
+            error: null,
+         }),
+         {
+            status: 200,
+            headers: {
+               'Content-Type': 'application/json',
+            },
+         }
+      )
    } catch (err) {
       console.error(err)
 
-      return new Response(JSON.stringify({ error: err.message }), {
+      return new Response(JSON.stringify({ data: null, error: err.message }), {
          status: 500,
          headers: {
             'Content-Type': 'application/json',

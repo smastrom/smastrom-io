@@ -3,21 +3,9 @@ import Layout from '@/layouts/Layout.astro'
 
 import { useDato } from '@/lib/utils'
 
-interface CmsData {
-   home: {
-      seo: {
-         title: string
-         description: string
-      }
-      title: string
-      sections: {
-         title: string
-         text: string
-      }[]
-   }
-}
+import type { CmsIndex } from '@/lib/types'
 
-const { home } = await useDato<CmsData>(/* GraphQL */ `
+const { data, error } = await useDato<CmsIndex>(/* GraphQL */ `
    {
       home {
          seo {
@@ -33,18 +21,22 @@ const { home } = await useDato<CmsData>(/* GraphQL */ `
    }
 `)
 
+if (error) throw new Error(error)
+
+const cms = data.home
+
 function withLinkAttrs(html: string) {
    return html.replace(/<a /g, '<a target="_blank" rel="nofollow noreferrer" ')
 }
 ---
 
-<Layout title={home.seo.title} description={home.seo.description}>
+<Layout title={cms.seo.title} description={cms.seo.description}>
    <div class="Wrapper">
       <article class="Prose Prose_Index">
-         <div class="Hero_Title" set:html={home.title} />
+         <div class="Hero_Title" set:html={cms.title} />
 
          {
-            home.sections.map((s) => (
+            cms.sections.map((s) => (
                <section>
                   <h2>{s.title}</h2>
                   <Fragment set:html={withLinkAttrs(s.text)} />

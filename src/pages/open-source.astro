@@ -2,23 +2,13 @@
 import Layout from '@/layouts/Layout.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
 
-import { getBaseUrl, useDato } from '@/lib/utils'
+import { formatNumber, getBaseUrl, useDato } from '@/lib/utils'
 import { packages as pkgs } from '@/lib/static'
 
-import type { Package } from '@/pages/api/stats'
+import type { CmsOpenSource } from '@/lib/types'
+import type { StatsResponse } from '@/pages/api/stats'
 
-interface CmsData {
-   openSource: {
-      seo: {
-         title: string
-         description: string
-      }
-      title: string
-      text: string
-   }
-}
-
-const { openSource } = await useDato<CmsData>(/* GraphQL */ `
+const { data, error: cmsErr } = await useDato<CmsOpenSource>(/* GraphQL */ `
    {
       openSource {
          seo {
@@ -31,26 +21,38 @@ const { openSource } = await useDato<CmsData>(/* GraphQL */ `
    }
 `)
 
-const query = 'packages=' + pkgs.map((p) => p).join(',')
+if (cmsErr) throw new Error(cmsErr)
 
-const packages = (await fetch(getBaseUrl() + `/api/stats?${query}`, {
+const query = 'packages=' + pkgs.map((p) => p).join(',')
+const res = await fetch(getBaseUrl() + `/api/stats?${query}`, {
    method: 'GET',
    headers: {
       'Content-Type': 'application/json',
    },
-}).then((res) => res.json())) as Package[]
+})
+
+const { data: packages, error: packagesErr } = (await res.json()) as StatsResponse
+
+if (packagesErr) throw new Error(packagesErr)
+
+const cms = data.openSource
+
+const countProp = (prop: 'stargazers_count' | 'downloads') =>
+   formatNumber(packages.reduce((acc, p) => acc + p[prop], 0))
 
 const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
+const withStats = (html: string) =>
+   html
+      .replace('{{ downloads }}', countProp('downloads'))
+      .replace('{{ stars }}', countProp('stargazers_count'))
 ---
 
-<Layout isArticleLayout title={openSource.seo.title} description={openSource.seo.description}>
-   <article class="Wrapper">
-      <div class="Prose Prose_Open_Source">
-         <h1 class="Title">{openSource.title}</h1>
-         <Fragment set:html={withAttrs(openSource.text)} />
-      </div>
+<Layout title={cms.seo.title} description={cms.seo.description} isArticleLayout>
+   <article class="Article_Wrapper">
+      <h1 class="Title">{cms.title}</h1>
+      <div class="Prose" set:html={withStats(withAttrs(cms.text))} />
 
-      <ul class="Cards">
+      <ul class="Card_Grid">
          {packages.map((p) => <ProjectCard project={p} />)}
       </ul>
    </article>

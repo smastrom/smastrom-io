@@ -35,7 +35,12 @@ export function getBaseUrl() {
 }
 
 export async function useDato<Schema>(query: string) {
-   const { data } = (await fetch('https://graphql.datocms.com', {
+   type UseDatoResponse = { data: Schema; error: string | null }
+
+   const result = { error: null, data: null }
+
+   try {
+      const res = await fetch('https://graphql.datocms.com', {
       method: 'POST',
       headers: {
          'Content-Type': 'application/json',
@@ -43,7 +48,18 @@ export async function useDato<Schema>(query: string) {
          Authorization: import.meta.env.DATO_TOKEN,
       },
       body: JSON.stringify({ query }),
-   }).then((res) => res.json())) as { data: Schema }
+      })
 
-   return data
+      const data = await res.json()
+
+      if ('errors' in data) {
+         throw data.errors.map((e) => e.message).join(', ')
+      }
+
+      result.data = data.data
+      return result as UseDatoResponse
+   } catch (error) {
+      result.error = error
+      return result as UseDatoResponse
+   }
 }

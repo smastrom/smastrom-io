@@ -9,7 +9,7 @@ const url = import.meta.env.SITE + Astro.url.pathname
 ---
 
 <head>
-   <ViewTransitions fallback={isBrowser(Astro.request, 'Firefox') ? 'none' : 'swap'} />
+   <ViewTransitions fallback="swap" />
 
    <!-- Common -->
    <meta charset="utf-8" />

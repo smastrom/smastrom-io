@@ -1,7 +1,9 @@
+const isActive = (url: URL, href: string) => url.pathname === href || url.pathname + '/' === href
+
 export function getLinkProps(url: URL, href: string) {
    return {
       href,
-      ...(url.pathname === href ? { 'data-active': '' } : {}),
+      ...(isActive(url, href) ? { 'data-active': '' } : {}),
    }
 }
 
@@ -10,10 +12,6 @@ export function formatNumber(num: number) {
    if (num >= 1000) return `${(num / 1000).toFixed(1)}k`
 
    return num.toString()
-}
-
-export function isBrowser(req: Request, browser: 'Safari' | 'Firefox' | 'Chrome') {
-   return req.headers.get('user-agent')?.includes(browser)
 }
 
 export function capitalizeAll(str: string) {

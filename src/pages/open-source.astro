@@ -2,11 +2,13 @@
 import Layout from '@/layouts/Layout.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
 
-import { addLinkAttrs, formatNumber, getBaseUrl, useDato } from '@/lib/utils'
+import { addLinkAttrs, formatNumber, useDato } from '@/lib/utils'
 import { packages as pkgs } from '@/lib/static'
+import { getPackages } from '@/lib/fetch-packages'
 
 import type { CmsOpenSource } from '@/lib/types'
-import type { StatsResponse } from '@/pages/api/stats'
+
+export const prerender = true
 
 const { data, error: cmsErr } = await useDato<CmsOpenSource>(/* GraphQL */ `
    {
@@ -23,15 +25,7 @@ const { data, error: cmsErr } = await useDato<CmsOpenSource>(/* GraphQL */ `
 
 if (cmsErr) throw new Error(cmsErr)
 
-const query = 'packages=' + pkgs.map((p) => p).join(',')
-const res = await fetch(getBaseUrl() + `/api/stats?${query}`, {
-   method: 'GET',
-   headers: {
-      'Content-Type': 'application/json',
-   },
-})
-
-const { data: packages, error: packagesErr } = (await res.json()) as StatsResponse
+const { data: packages, error: packagesErr } = await getPackages(pkgs)
 
 if (packagesErr) throw new Error(packagesErr)
 

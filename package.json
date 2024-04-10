@@ -3,25 +3,29 @@
    "type": "module",
    "version": "1.0.0",
    "scripts": {
-      "dev": "astro dev --host",
-      "start": "astro dev --host",
-      "build": "astro check && astro build",
-      "preview": "pnpm astro build && npx wrangler pages dev dist",
+      "dev": "bun --bun astro:dev",
+      "start": "bun --bun astro:start",
+      "build": "bun --bun astro:build",
+      "preview": "bun --bun astro:preview",
+      "astro:dev": "astro dev --host",
+      "astro:start": "astro dev --host",
+      "astro:build": "astro build",
+      "astro:preview": "pnpm astro build && npx wrangler pages dev dist",
       "astro": "astro"
    },
    "dependencies": {
-      "@astrojs/check": "^0.4.1",
-      "astro": "^4.5.12"
+      "@astrojs/check": "^0.5.10",
+      "astro": "^4.5.18"
    },
    "devDependencies": {
-      "@astrojs/cloudflare": "^8.1.0",
+      "@astrojs/cloudflare": "^10.1.0",
       "autoprefixer": "^10.4.19",
       "postcss": "^8.4.38",
       "postcss-hover-media-feature": "^1.0.2",
-      "postcss-nesting": "^12.1.0",
+      "postcss-nesting": "^12.1.1",
       "postcss-responsive-type": "^1.0.0",
       "prettier": "^3.2.5",
       "prettier-plugin-astro": "^0.13.0",
-      "typescript": "^5.4.3"
+      "typescript": "^5.4.4"
    }
 }

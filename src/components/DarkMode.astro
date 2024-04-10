@@ -2,6 +2,8 @@
 import IconMoon from './icons/IconMoon.astro'
 import IconSun from './icons/IconSun.astro'
 
+// TODO: Remove SSR-only code as it's everything SSG now
+
 const theme = Astro.cookies.get('theme')?.value || 'dark'
 const isDark = theme === 'dark'
 ---

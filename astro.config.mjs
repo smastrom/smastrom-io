@@ -4,6 +4,7 @@ import cloudflare from '@astrojs/cloudflare'
 
 export default defineConfig({
    site: 'https://smastrom.io',
+   trailingSlash: 'never',
    devToolbar: {
       enabled: false,
    },
@@ -11,6 +12,6 @@ export default defineConfig({
       prefetchAll: true,
       defaultStrategy: 'viewport',
    },
-   output: 'server',
+   output: 'hybrid',
    adapter: cloudflare(),
 })

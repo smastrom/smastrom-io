@@ -1,8 +1,6 @@
 ---
 import { ViewTransitions } from 'astro:transitions'
 
-import { isBrowser } from '@/lib/utils'
-
 const { title, description } = Astro.props as { title: string; description: string }
 
 const url = import.meta.env.SITE + Astro.url.pathname
@@ -36,7 +34,7 @@ const url = import.meta.env.SITE + Astro.url.pathname
 
    <!-- PWA -->
    <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials" />
-   {!isBrowser(Astro.request, 'Safari') && <meta name="theme-color" content="#10853a" />}
+   <meta name="theme-color" content="#10853a" />
    <meta name="apple-mobile-web-app-capable" content="yes" />
    <meta name="apple-mobile-web-app-title" content="smastrom" />
    <meta name="apple-mobile-web-app-status-bar-style" content="default" />

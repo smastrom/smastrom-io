@@ -1,5 +1,3 @@
-import type { APIRoute } from 'astro'
-
 import { capitalizeAll } from '@/lib/utils'
 
 export interface Package {
@@ -23,17 +21,12 @@ const removeScope = (pkg: string) => (pkg.startsWith('@') ? pkg.split('/')[1] : 
 /**
  * NOTES:
  *
- * 1. This API as-is only works for packages which have the same scope and name in both NPM and GitHub.
+ * 1. This only works for packages which have the same scope and name in both NPM and GitHub.
  * 2. When calling the GitHub API below the username is hardcoded for simplicity, change this if you're copying the code.
- * 3. Protect the access using Cloudflare Rules or something similar
  */
 
-export const GET: APIRoute = async ({ request }) => {
+export async function getPackages(packages: string[]): Promise<StatsResponse> {
    try {
-      const url = new URL(request.url)
-
-      const packages = new URLSearchParams(url.search).get('packages').split(',')
-
       const result = packages.reduce(
          (acc, pkg, i) => {
             acc[i] = {
@@ -81,26 +74,16 @@ export const GET: APIRoute = async ({ request }) => {
 
       await Promise.all(requests)
 
-      return new Response(
-         JSON.stringify({
-            data: Object.values(result),
-            error: null,
-         }),
-         {
-            status: 200,
-            headers: {
-               'Content-Type': 'application/json',
-            },
-         }
-      )
+      return {
+         data: Object.values(result),
+         error: null,
+      }
    } catch (err) {
       console.error(err)
 
-      return new Response(JSON.stringify({ data: null, error: err.message }), {
-         status: 500,
-         headers: {
-            'Content-Type': 'application/json',
-         },
-      })
+      return {
+         data: null,
+         error: err.message,
+      }
    }
 }

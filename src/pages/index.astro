@@ -5,6 +5,8 @@ import { useDato, addLinkAttrs } from '@/lib/utils'
 
 import type { CmsIndex } from '@/lib/types'
 
+export const prerender = true
+
 const { data, error } = await useDato<CmsIndex>(/* GraphQL */ `
    {
       home {

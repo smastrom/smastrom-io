@@ -8,6 +8,8 @@ import { addLinkAttrs, useDato } from '@/lib/utils'
 
 import type { CmsProfessionalWork } from '@/lib/types'
 
+export const prerender = true
+
 const { data, error } = await useDato<CmsProfessionalWork>(/* GraphQL */ `
    {
       professionalWork {

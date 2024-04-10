@@ -9,11 +9,12 @@
       "preview": "bun --bun astro:preview",
       "astro:dev": "astro dev --host",
       "astro:start": "astro dev --host",
-      "astro:build": "astro build",
+      "astro:build": "astro check && astro build",
       "astro:preview": "pnpm astro build && npx wrangler pages dev dist",
       "astro": "astro"
    },
    "dependencies": {
+      "@astrojs/check": "^0.5.10",
       "astro": "^4.5.18"
    },
    "devDependencies": {

@@ -8,17 +8,17 @@ import IconArrow from './icons/IconArrow.astro'
    a {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: var(--s-05);
       text-decoration: none;
       color: var(--text);
       font-weight: 500;
       white-space: nowrap;
-      font-size: 1.125rem;
+      font-size: var(--f-2);
       transition: opacity 100ms ease-out;
-      margin-bottom: 2rem;
+      margin-bottom: var(--s-4);
 
-      @media (max-width: 768px) {
-         margin-bottom: 1em;
+      @media (--tablet-to) {
+         margin-bottom: var(--s-1);
       }
 
       & :global(svg) {
@@ -26,9 +26,9 @@ import IconArrow from './icons/IconArrow.astro'
       }
 
       &:hover {
-         opacity: 0.8;
+         opacity: var(--o-3);
          & :global(svg) {
-            transform: translateX(0.25rem);
+            transform: translateX(var(--s-02));
          }
       }
    }

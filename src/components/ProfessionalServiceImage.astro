@@ -14,68 +14,68 @@ const { imageUrl, imageDescription } = Astro.props as { imageUrl: string; imageD
    .Img_Wrapper {
       position: relative;
       max-width: max-content;
-      margin-top: -1.75rem;
-      margin-bottom: 5rem;
+      margin-top: calc(-1 * var(--s-3));
+      margin-bottom: var(--s-10);
 
-      @media (max-width: 610px) {
-         margin-bottom: 2rem;
+      @media (--tablet-to) {
+         margin-bottom: var(--s-4);
       }
    }
 
    .Img_Scroller {
       position: relative;
-      margin-top: 1.5rem;
+      margin-top: var(--s-3);
       max-width: 100%;
       width: 1100px;
       height: 100%;
       max-height: 620px;
       overflow: auto;
-      border-radius: 0.5rem;
+      border-radius: var(--r-3);
       scroll-snap-type: y proximity;
-      border: 1px solid var(--divider-light);
+      border: var(--b-1) solid var(--divider-light);
       display: flex;
       flex-direction: column;
-      z-index: 2;
+      z-index: var(--z-1);
       overscroll-behavior: auto;
 
-      @media (max-width: 768px) {
+      @media (--tablet-to) {
          max-height: 440px;
       }
 
-      @media (max-width: 475px) {
+      @media (--mobile-to) {
          max-height: 320px;
       }
 
       & img {
          width: 100%;
          object-fit: contain;
-         border-radius: 0.5rem;
+         border-radius: var(--r-3);
          pointer-events: none;
       }
    }
 
    .Image_Description {
-      --padding: 1rem;
+      --padding: var(--s-1);
 
-      font-size: 0.925rem;
+      font-size: var(--f-09);
       background-color: var(--bg);
-      padding: 0.5rem 0.75rem;
-      border-radius: 0.25rem;
-      border: 1px solid var(--divider-light);
+      padding: var(--s-05) var(--s-07);
+      border-radius: var(--r-2);
+      border: var(--b-1) solid var(--divider-light);
       position: absolute;
       bottom: var(--padding);
       right: var(--padding);
-      z-index: 2;
-      max-width: 65ch;
+      z-index: var(--z-1);
+      max-width: var(--paragraph-max);
 
-      @media (max-width: 610px) {
-         --padding: 0.5rem;
+      @media (--tablet-to) {
+         --padding: var(--s-05);
          max-width: calc(100% - 2 * var(--padding));
-         margin-top: 0.5rem;
+         margin-top: var(--s-05);
       }
 
-      @media (max-width: 475px) {
-         border-radius: 0.5rem;
+      @media (--mobile-to) {
+         border-radius: var(--r-3);
          position: relative;
          bottom: unset;
          right: unset;

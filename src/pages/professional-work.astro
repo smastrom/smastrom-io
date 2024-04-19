@@ -42,18 +42,18 @@ const cms = data.professionalWork
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description} isArticleLayout>
-   <article class="Article_Wrapper">
-      <h1 class="Title">{cms.title}</h1>
+   <article class="G_Article_Wrapper G_Page_Top_Spacing Wrapper">
+      <h1 class="G_Title">{cms.title}</h1>
       <GetInTouch />
 
-      <div class="Prose Subtitle" set:html={cms.subtitle} />
+      <div class="G_Prose Subtitle" set:html={cms.subtitle} />
       {
          cms.services.map((s) => (
             <section class="Section">
-               {s.caption && <h3 class="Caption">{s.caption}</h3>}
+               {s.caption && <h3 class="G_Caption">{s.caption}</h3>}
 
-               <h2 class="Title_2">{s.title}</h2>
-               <div class="Prose" set:html={addLinkAttrs(s.description)} />
+               <h2 class="G_Title_2">{s.title}</h2>
+               <div class="G_Prose" set:html={addLinkAttrs(s.description)} />
 
                {s.image && (
                   <ProfessionalServiceImage
@@ -67,8 +67,8 @@ const cms = data.professionalWork
       {
          cms.sections.map((s) => (
             <section class="Section">
-               <h3 class="Title_2">{s.title}</h3>
-               <div class="Prose" set:html={s.text} />
+               <h3 class="G_Title_2">{s.title}</h3>
+               <div class="G_Prose" set:html={s.text} />
             </section>
          ))
       }
@@ -76,11 +76,19 @@ const cms = data.professionalWork
 </Layout>
 
 <style>
+   .Wrapper {
+      padding-top: var(--s-7);
+
+      @media (--tablet-to) {
+         padding-top: var(--s-4);
+      }
+   }
+
    .Section {
       width: 100%;
 
-      & .Caption {
-         margin-bottom: 0.35em;
+      & .G_Caption {
+         margin-bottom: var(--s-05);
       }
    }
 </style>

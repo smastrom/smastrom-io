@@ -11,8 +11,8 @@
    --bg-elv-darker: hsl(140, 8%, 15%);
    --bg-alpha: hsla(159, 21%, 21%, 0.4);
 
-   --shadow-accent: 0 0 0 1px var(--accent);
-   --shadow-accent-mid: 0 0 0 1px hsla(142, 75%, 53%, 0.5);
+   --shadow-accent: 0 0 0 var(--b-1) var(--accent);
+   --shadow-accent-mid: 0 0 0 var(--b-1) hsla(142, 75%, 53%, 0.5);
 }
 
 @define-mixin light-theme {

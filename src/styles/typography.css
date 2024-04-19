@@ -1,68 +1,98 @@
+@font-face {
+   font-family: 'Basier Square';
+   src: url('/basier-square-bold-webfont.woff2') format('woff2');
+   font-weight: 700;
+   font-style: normal;
+   font-display: optional;
+}
+
+@font-face {
+   font-family: 'Basier Square';
+   src: url('/basier-square-medium-webfont.woff2') format('woff2');
+   font-weight: 500;
+   font-style: normal;
+   font-display: optional;
+}
+
+@font-face {
+   font-family: 'Basier Square';
+   src: url('/basier-square-regular-webfont.woff2') format('woff2');
+   font-weight: 400;
+   font-style: normal;
+   font-display: optional;
+}
+
+html {
+   font-family: 'Basier Square', system-ui, Arial, sans-serif;
+   line-height: var(--lh-6);
+}
+
 @define-mixin titles {
    letter-spacing: var(--titles-letter-spacing);
    font-weight: 700;
    color: var(--accent);
 }
 
-.Hero_Title {
-   padding: 3rem 0;
+.G_Hero_Title {
+   padding: var(--s-7) 0;
    letter-spacing: var(--titles-letter-spacing);
-   font-size: responsive 2.25rem 5rem;
-   font-range: 768px 1240px;
+   font-size: responsive 2.25rem 4.5rem;
+   font-range: 475px 1240px;
    font-weight: 700;
-   line-height: 1.25;
+   line-height: var(--lh-3);
+   text-wrap: balance;
 
    & span {
       color: var(--accent);
    }
 
-   @media (min-width: 769px) {
+   @media (--tablet-from) {
       padding: 1.25em 0;
    }
 }
 
-.Title {
+.G_Title {
    @mixin titles;
    font-size: responsive 1.75rem 2.75rem;
-   font-range: 768px 1240px;
+   font-range: 475px 1240px;
 }
 
-.Title_2 {
+.G_Title_2 {
    @mixin titles;
    font-size: responsive 1.25rem 2rem;
-   font-range: 768px 1240px;
+   font-range: 475px 1240px;
 }
 
-.Caption {
+.G_Caption {
    font-weight: 400;
    font-size: responsive 0.925rem 1.125rem;
    text-transform: uppercase;
-   font-range: 768px 2440px;
+   font-range: 475px 2440px;
    color: var(--accent);
 }
 
-.Prose {
+.G_Prose {
    width: 100%;
 
    & h2 {
       @mixin titles;
       font-size: responsive 1.375rem 3rem;
-      font-range: 768px 2440px;
+      font-range: 475px 2440px;
    }
 
    & h3 {
       @mixin titles;
       font-size: responsive 1.25rem 2rem;
-      font-range: 768px 2440px;
+      font-range: 475px 2440px;
    }
 
    & p {
       font-size: responsive 1.125rem 1.75rem;
-      font-range: 768px 2440px;
-      max-width: 65ch;
-      margin: 1rem 0 1.5rem 0;
+      font-range: 475px 2440px;
+      max-width: var(--paragraph-max);
+      margin: var(--s-1) 0 var(--s-3) 0;
 
-      @media (min-width: 769px) {
+      @media (--tablet-from) {
          margin: 1em 0 1.25em 0;
       }
 
@@ -72,12 +102,12 @@
 
       & img {
          width: 100%;
-         border-radius: 1rem;
+         border-radius: var(--r-4);
          position: relative;
          z-index: 1;
 
-         @media (max-width: 610px) {
-            border-radius: 0.5rem;
+         @media (--tablet-to) {
+            border-radius: var(--r-03);
          }
       }
 
@@ -100,10 +130,10 @@
          right: -0.1em;
          opacity: 0.25;
          position: absolute;
-         height: 1.2em;
+         height: 1.25em;
          transform: scaleY(0.5);
-         border-radius: 0.2em;
-         z-index: -1;
+         border-radius: 1.25em;
+         z-index: var(--z-behind);
          transform-origin: bottom;
          transition:
             transform var(--easing),

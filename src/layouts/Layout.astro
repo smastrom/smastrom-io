@@ -10,11 +10,11 @@ import type { CmsLayout } from '@/lib/types'
 
 import '@/styles/reset.css'
 import '@/styles/colors.css'
-import '@/styles/fonts.css'
 import '@/styles/layout.css'
-import '@/styles/prose.css'
+import '@/styles/typography.css'
 import '@/styles/hamburger.css'
 import '@/styles/classes.css'
+import '@/styles/smastrom-variables.css'
 
 const { isArticleLayout } = Astro.props as { isArticleLayout?: boolean }
 
@@ -45,11 +45,11 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
 ---
 
 <!doctype html>
-<html lang="en" dir="ltr" data-theme="auto" class="Transitions">
+<html lang="en" dir="ltr" data-theme="auto" class="G_Transitions">
    <Head {title} {description} />
 
    <body>
-      <a href="#main" class="SR_Only">Skip to main content</a>
+      <a href="#main" class="G_SR_Only">Skip to main content</a>
 
       <Header />
 

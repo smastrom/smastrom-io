@@ -30,8 +30,8 @@ const cms = data.home
 
 <Layout title={cms.seo.title} description={cms.seo.description} isArticleLayout>
    <div class="Wrapper">
-      <article class="Prose Container">
-         <div class="Hero_Title" set:html={cms.title} />
+      <article class="G_Prose G_Article_Wrapper">
+         <div class="G_Hero_Title" set:html={cms.title} />
 
          {
             cms.sections.map((s) => (
@@ -48,14 +48,5 @@ const cms = data.home
 <style>
    .Wrapper {
       margin-top: var(--header-height);
-   }
-
-   .Container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      flex-direction: column;
-      max-width: var(--article-container);
-      margin: 0 auto;
    }
 </style>

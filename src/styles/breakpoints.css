@@ -1,0 +1,14 @@
+@custom-media --mobile-to (max-width: 475px);
+@custom-media --mobile-from (min-width: 476px);
+
+@custom-media --tablet-to (max-width: 910px);
+@custom-media --tablet-from (min-width: 911px);
+
+@custom-media --laptop-to (max-width: 1366px);
+@custom-media --laptop-from (min-width: 1367px);
+
+@custom-media --desktop-to (max-width: 1920px);
+@custom-media --desktop-from (min-width: 1921px);
+
+@custom-media --menu-shift-to (max-width: 1100px);
+@custom-media --menu-shift-from (min-width: 1101px);

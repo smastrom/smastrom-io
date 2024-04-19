@@ -1,4 +1,4 @@
-.SR_Only {
+.G_SR_Only {
    border: 0;
    clip: rect(0 0 0 0);
    height: 1px;
@@ -9,16 +9,19 @@
    width: 1px;
 }
 
-.Article_Wrapper {
+.G_Article_Wrapper {
    max-width: var(--article-container);
    margin: var(--header-height) auto 0 auto;
-   padding-top: 3rem;
    display: flex;
    justify-content: flex-start;
    align-items: flex-start;
    flex-direction: column;
+}
 
-   @media (max-width: 910px) {
-      padding-top: 2rem;
+.G_Page_Top_Spacing {
+   padding-top: var(--s-7);
+
+   @media (--tablet-to) {
+      padding-top: var(--s-4);
    }
 }

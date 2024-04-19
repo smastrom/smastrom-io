@@ -41,9 +41,9 @@ const withStats = (html: string) =>
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description} isArticleLayout>
-   <article class="Article_Wrapper">
-      <h1 class="Title">{cms.title}</h1>
-      <div class="Prose" set:html={withStats(addLinkAttrs(cms.text))} />
+   <article class="G_Article_Wrapper G_Page_Top_Spacing Wrapper">
+      <h1 class="G_Title">{cms.title}</h1>
+      <div class="G_Prose" set:html={withStats(addLinkAttrs(cms.text))} />
 
       <ul class="Card_Grid">
          {packages.map((p) => <ProjectCard project={p} />)}
@@ -52,17 +52,25 @@ const withStats = (html: string) =>
 </Layout>
 
 <style>
+   .Wrapper {
+      padding-top: var(--s-7);
+
+      @media (--tablet-to) {
+         padding-top: var(--s-4);
+      }
+   }
+
    .Card_Grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
+      gap: var(--s-5);
       z-index: 1;
-      margin-bottom: 4rem;
+      margin-bottom: var(--s-9);
 
-      @media (max-width: 910px) {
+      @media (--tablet-to) {
          grid-template-columns: 1fr;
          gap: var(--page-margin);
-         margin-bottom: 3rem;
+         margin-bottom: var(--s-7);
       }
    }
 </style>

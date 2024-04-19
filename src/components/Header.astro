@@ -109,25 +109,25 @@ import { getLinkProps } from '@/lib/utils'
       padding: 0 var(--page-margin);
       display: flex;
       height: var(--header-height);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(var(--s-05));
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      border-bottom: 1px solid var(--divider);
+      border-bottom: var(--b-1) solid var(--divider);
       justify-content: space-between;
       align-items: center;
-      z-index: 5;
+      z-index: var(--z-2);
       transition:
          transform 300ms cubic-bezier(0.33, 1, 0.68, 1),
          background-color var(--easing),
          color var(--easing);
 
-      @supports not (backdrop-filter: blur(8px)) {
+      @supports not (backdrop-filter: blur(var(--s-05))) {
          background-color: var(--bg);
       }
 
-      @media (min-width: 1920px) {
+      @media (--desktop-from) {
          padding: 0 var(--page-margin);
       }
    }
@@ -137,40 +137,40 @@ import { getLinkProps } from '@/lib/utils'
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 3rem;
+      gap: var(--s-7);
       font-weight: 500;
 
-      @media (max-width: 1366px) {
-         gap: 2rem;
+      @media (--laptop-to) {
+         gap: var(--s-4);
       }
 
-      @media (max-width: 1100px) {
+      @media (--menu-shift-to) {
          display: none;
       }
 
       & a {
          display: flex;
          align-items: center;
-         gap: 0.5rem;
+         gap: var(--s-05);
          white-space: nowrap;
-         padding: 0.35rem 0.75rem;
-         font-size: 1rem;
+         padding: var(--s-02) var(--s-07);
+         font-size: var(--f-1);
          line-height: 1;
-         border: 1px solid rgba(0, 0, 0, 0);
+         border: var(--b-1) solid rgba(0, 0, 0, 0);
          transition: all var(--easing);
          user-select: none;
 
          & :global(svg) {
             width: 1.25em;
             height: 1.25em;
-            opacity: 0.75;
+            opacity: var(--o-3);
          }
 
          &:hover,
          &[data-active] {
             background-color: var(--bg);
-            border: 1px solid var(--divider);
-            border-radius: 999px;
+            border: var(--b-1) solid var(--divider);
+            border-radius: var(--r-max);
          }
 
          &[data-active] {
@@ -188,7 +188,7 @@ import { getLinkProps } from '@/lib/utils'
          & :global(svg) {
             stroke-width: 1.75;
             color: currentColor;
-            opacity: 0.5;
+            opacity: var(--o-2);
          }
 
          &[data-active] {
@@ -203,26 +203,18 @@ import { getLinkProps } from '@/lib/utils'
    }
 
    .Nav_Right {
-      --gap: 0.75rem;
+      --gap: var(--s-3);
 
       display: flex;
       gap: var(--gap);
       align-items: center;
 
-      @media (min-width: 375px) {
-         --gap: 1rem;
-      }
-
-      @media (min-width: 390px) {
-         --gap: 1.25rem;
-      }
-
-      @media (min-width: 1280px) {
-         --gap: 1.5rem;
+      @media (--mobile-to) {
+         --gap: var(--s-2);
       }
 
       & a {
-         --padding: 0.5rem;
+         --padding: var(--s-05);
 
          padding: var(--padding);
          margin-right: calc(-1 * var(--padding));
@@ -236,7 +228,7 @@ import { getLinkProps } from '@/lib/utils'
 
          &:hover {
             & :global(svg) {
-               opacity: 0.5;
+               opacity: var(--o-2);
             }
          }
       }

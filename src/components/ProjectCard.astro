@@ -16,9 +16,9 @@ const { project: p } = Astro.props as { project: Package }
 ---
 
 <li class="Card">
-   {Array.from({ length: 7 }).map(() => <div class="Tilt_Square" aria-hidden="true" />)}
+   {Array.from({ length: 7 }).map(() => <div class="G_Tilt_Square" aria-hidden="true" />)}
 
-   <section class="Card_Content Tilt_Content">
+   <section class="Card_Content G_Tilt_Content">
       <div>
          <h2>{p.title}</h2>
          <p class="Subtitle">{p.description}</p>
@@ -34,13 +34,13 @@ const { project: p } = Astro.props as { project: Package }
             <div class="Icon_Box">
                <IconStar />
                {formatNumber(p.stargazers_count)}
-               <span class="SR_Only">stars</span>
+               <span class="G_SR_Only">stars</span>
             </div>
 
             <div class="Icon_Box">
                <IconDownloads />
                {formatNumber(p.downloads)}
-               <span class="SR_Only">downloads</span>
+               <span class="G_SR_Only">downloads</span>
             </div>
          </div>
 
@@ -84,7 +84,7 @@ const { project: p } = Astro.props as { project: Package }
    html[data-theme='light'] .Card_Content {
       background: transparent;
       box-shadow: 0 0 0 2px var(--divider-light);
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(var(--s-05));
 
       &:hover {
          box-shadow: 0 0 0 2px var(--accent);
@@ -96,9 +96,9 @@ const { project: p } = Astro.props as { project: Package }
    }
 
    .Card_Content {
-      padding: 1.25rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 0 0 1px var(--divider-light);
+      padding: var(--s-2);
+      border-radius: var(--r-3);
+      box-shadow: 0 0 0 var(--b-1) var(--divider-light);
       user-select: none;
       display: flex;
       flex-direction: column;
@@ -113,52 +113,52 @@ const { project: p } = Astro.props as { project: Package }
          background-color var(--easing);
 
       &:hover {
-         box-shadow: 0 0 0 1px var(--accent);
+         box-shadow: 0 0 0 var(--b-1) var(--accent);
       }
 
-      @media (max-width: 768px) {
+      @media (--tablet-to) {
          background-color: var(--bg-elv-darker);
          backdrop-filter: none;
       }
 
       & h2 {
-         font-size: 1.25rem;
+         font-size: var(--f-3);
          font-weight: 700;
          line-height: 1;
-         margin-bottom: 0.75rem;
+         margin-bottom: var(--s-07);
 
-         @media (max-width: 910px) {
-            font-size: 1.125rem;
+         @media (--tablet-to) {
+            font-size: var(--f-2);
          }
       }
 
       & .Subtitle {
-         font-size: 1rem;
+         font-size: var(--f-1);
          font-weight: 400;
-         margin-bottom: 1.25rem;
+         margin-bottom: var(--s-2);
       }
 
       & .Date {
-         font-size: 0.925rem;
-         margin-bottom: 0.5rem;
+         font-size: var(--f-09);
+         margin-bottom: var(--s-05);
          display: flex;
          align-items: center;
-         gap: 0.5rem;
-         opacity: 0.75;
+         gap: var(--s-05);
+         opacity: var(--o-3);
 
          & :global(svg) {
-            width: 1.25rem;
-            height: 1.25rem;
-            opacity: 0.5;
+            width: var(--s-2);
+            height: var(--s-2);
+            opacity: var(--o-2);
          }
       }
 
       & .Divider {
          width: 100%;
-         height: 1px;
+         height: var(--b-1);
          background-color: var(--divider-light);
          display: block;
-         margin: 1.25rem 0;
+         margin: var(--s-2) 0;
          transition: background-color var(--easing);
       }
 
@@ -167,30 +167,30 @@ const { project: p } = Astro.props as { project: Package }
          align-items: center;
          justify-content: space-between;
          flex-wrap: wrap;
-         gap: 1.5rem;
+         gap: var(--s-3);
       }
 
       & .Stats {
          display: flex;
          align-items: center;
-         gap: 1.5rem;
+         gap: var(--s-3);
 
-         @media (max-width: 910px) {
-            gap: 1rem;
+         @media (--tablet-to) {
+            gap: var(--s-1);
          }
       }
 
       & .Icon_Box {
          display: flex;
          align-items: center;
-         gap: 0.5rem;
-         font-size: 0.925rem;
+         gap: var(--s-05);
+         font-size: var(--f-09);
          font-weight: 500;
          transition: color var(--easing);
 
          & :global(svg) {
-            width: 1.5rem;
-            height: 1.5rem;
+            width: var(--s-3);
+            height: var(--s-3);
             color: var(--accent);
             transition: all var(--easing);
          }
@@ -199,16 +199,16 @@ const { project: p } = Astro.props as { project: Package }
       .Right_Nav {
          display: flex;
          align-items: center;
-         gap: 0.75rem;
+         gap: var(--s-07);
 
          & a {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.25rem;
-            border-radius: 0.25rem;
+            padding: var(--s-02);
+            border-radius: var(--r-2);
             height: 100%;
-            border: 1px solid var(--divider);
+            border: var(--b-1) solid var(--divider);
             background-color: var(--bg-elv);
             cursor: pointer;
             transition:

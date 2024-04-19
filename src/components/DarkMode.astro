@@ -12,7 +12,7 @@ import IconSun from './icons/IconSun.astro'
 
 <style>
    .Divider {
-      width: 1px;
+      width: var(--b-1);
       align-self: stretch;
       background-color: var(--divider);
    }
@@ -166,7 +166,7 @@ import IconSun from './icons/IconSun.astro'
 
 <style>
    button {
-      --padding: 0.75rem;
+      --padding: var(--s-07);
       --size: calc(var(--header-icon-size) + (2 * var(--padding)));
 
       border: none;
@@ -187,7 +187,7 @@ import IconSun from './icons/IconSun.astro'
 
       &:hover {
          & :global(svg) {
-            opacity: 0.5;
+            opacity: var(--o-2);
          }
       }
    }

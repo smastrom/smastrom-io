@@ -1,32 +1,34 @@
 {
-   "name": "smastrom-io",
-   "version": "1.0.0",
-   "type": "module",
-   "scripts": {
-      "astro": "astro",
-      "astro:build": "astro build",
-      "astro:dev": "astro dev --host",
-      "astro:preview": "pnpm astro build && npx wrangler pages dev dist",
-      "astro:start": "astro dev --host",
-      "build": "bun --bun astro:build",
-      "dev": "bun --bun astro:dev",
-      "preview": "bun --bun astro:preview",
-      "start": "bun --bun astro:start"
-   },
-   "dependencies": {
-      "astro": "^4.6.3"
-   },
-   "devDependencies": {
-      "@astrojs/cloudflare": "10.2.0",
-      "@astrojs/sitemap": "^3.1.4",
-      "autoprefixer": "^10.4.19",
-      "postcss": "^8.4.38",
-      "postcss-hover-media-feature": "^1.0.2",
-      "postcss-mixins": "^10.0.0",
-      "postcss-nesting": "^12.1.1",
-      "postcss-responsive-type": "^1.0.0",
-      "prettier": "^3.2.5",
-      "prettier-plugin-astro": "^0.13.0",
-      "typescript": "^5.4.3"
-   }
+  "name": "smastrom-io",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "astro": "astro",
+    "astro:build": "astro build",
+    "astro:dev": "astro dev --host",
+    "astro:preview": "pnpm astro build && npx wrangler pages dev dist",
+    "astro:start": "astro dev --host",
+    "build": "bun --bun astro:build",
+    "dev": "bun --bun astro:dev",
+    "preview": "bun --bun astro:preview",
+    "start": "bun --bun astro:start"
+  },
+  "dependencies": {
+    "astro": "^4.6.3"
+  },
+  "devDependencies": {
+    "@astrojs/cloudflare": "10.2.0",
+    "@astrojs/sitemap": "^3.1.4",
+    "@csstools/postcss-global-data": "^2.1.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "postcss-custom-media": "^10.0.4",
+    "postcss-hover-media-feature": "^1.0.2",
+    "postcss-mixins": "^10.0.0",
+    "postcss-nesting": "^12.1.1",
+    "postcss-responsive-type": "^1.0.0",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0",
+    "typescript": "^5.4.3"
+  }
 }

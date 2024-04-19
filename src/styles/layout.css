@@ -1,14 +1,11 @@
 :root {
    --easing: 100ms ease-out;
-   --page-margin: 1.25rem;
+   --page-margin: var(--s-2);
    --article-container: 1240px;
    --header-height: 80px;
    --header-icon-size: 28px;
    --titles-letter-spacing: -0.025ch;
-
-   @media (min-width: 1920px) {
-      --page-margin: 2%;
-   }
+   --paragraph-max: 65ch;
 }
 
 body {
@@ -18,7 +15,7 @@ body {
    position: relative;
 }
 
-.Transitions {
+.G_Transitions {
    transition: background-color var(--easing);
 
    & h1,

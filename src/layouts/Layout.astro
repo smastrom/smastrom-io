@@ -18,8 +18,6 @@ import '@/styles/classes.css'
 
 const { isArticleLayout } = Astro.props as { isArticleLayout?: boolean }
 
-const theme = Astro.cookies.get('theme')?.value || 'dark'
-
 const { data, error } = await useDato<CmsLayout>(/* GraphQL */ `
    {
       _site {
@@ -47,7 +45,7 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
 ---
 
 <!doctype html>
-<html lang="en" dir="ltr" data-theme={theme} class="Transitions">
+<html lang="en" dir="ltr" data-theme="auto" class="Transitions">
    <Head {title} {description} />
 
    <body>

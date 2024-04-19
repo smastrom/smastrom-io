@@ -1,25 +1,22 @@
-html {
-   background-color: var(--bg);
-   color: var(--fg);
-}
-
-html[data-theme='dark'] {
+@define-mixin dark-theme {
    --accent: hsl(142 75% 53%);
 
-   --fg: hsl(142, 29%, 80%);
+   --fg: hsla(142, 29.4%, 80%, 0.9);
    --bg: hsl(142 10% 12%);
 
    --divider: hsla(141, 79%, 85%, 0.3);
    --divider-light: hsl(141, 10%, 25%);
 
    --bg-elv: hsl(142 16% 24%);
+   --bg-elv-darker: hsl(140, 8%, 15%);
    --bg-alpha: hsla(159, 21%, 21%, 0.4);
 
    --shadow-accent: 0 0 0 1px var(--accent);
    --shadow-accent-mid: 0 0 0 1px hsla(142, 75%, 53%, 0.5);
 }
 
-html[data-theme='light'] {
+@define-mixin light-theme {
+   --accent: hsl(142 75% 35%);
    --accent: hsl(142 75% 35%);
 
    --fg: hsl(142 16% 24%);
@@ -29,8 +26,36 @@ html[data-theme='light'] {
    --divider-light: hsl(150, 2%, 83%);
 
    --bg-elv: #fff;
+   --bg-elv-darker: #fff;
    --bg-alpha: hsla(0, 0%, 100%, 0.32);
 
    --shadow-accent: 0 0 0 2px var(--accent);
    --shadow-accent-mid: 0 0 0 2px hsla(142, 75%, 35%, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+   html[data-theme='auto'] {
+      @mixin dark-theme;
+   }
+}
+
+@media (prefers-color-scheme: light) {
+   html[data-theme='auto'] {
+      @mixin light-theme;
+   }
+}
+
+html[data-theme='dark'] {
+   color-scheme: dark;
+   @mixin dark-theme;
+}
+
+html[data-theme='light'] {
+   color-scheme: light;
+   @mixin light-theme;
+}
+
+html {
+   background-color: var(--bg);
+   color: var(--fg);
 }

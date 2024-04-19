@@ -5,6 +5,7 @@ import DarkMode from './DarkMode.astro'
 
 import IconGitHub from './icons/IconGitHub.astro'
 import IconEmail from './icons/IconEmail.astro'
+import IconDiscord from './icons/IconDiscord.astro'
 
 import { navLinks } from '@/lib/static'
 import { getLinkProps } from '@/lib/utils'
@@ -34,11 +35,37 @@ import { getLinkProps } from '@/lib/utils'
    <div class="Nav_Right">
       <DarkMode />
 
-      <a href="https://github.com/smastrom" target="_blank" aria-label="GitHub" title="GitHub">
+      <a
+         href="https://github.com/smastrom"
+         rel="noreferrer"
+         target="_blank"
+         aria-label="GitHub"
+         title="GitHub"
+      >
          <IconGitHub />
       </a>
-      <a href="mailto:hello@smastrom.io" target="_blank" aria-label="Email" title="Email">
+      <a
+         href="mailto:hello@smastrom.io"
+         rel="noreferrer"
+         target="_blank"
+         aria-label="Email"
+         title="Email"
+      >
          <IconEmail />
+      </a>
+      <a
+         href="https://discordapp.com/users/1174395637660401695"
+         target="_blank"
+         aria-label="Discord"
+         title="Discord"
+         rel="noreferrer"
+      >
+         <IconDiscord
+            style={{
+               width: 'auto',
+               height: 'calc(var(--header-icon-size) - 2px)',
+            }}
+         />
       </a>
    </div>
 </header>
@@ -133,9 +160,6 @@ import { getLinkProps } from '@/lib/utils'
    }
 
    .Nav {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
       gap: var(--s-7);
       font-weight: 500;
@@ -146,6 +170,12 @@ import { getLinkProps } from '@/lib/utils'
 
       @media (--menu-shift-to) {
          display: none;
+      }
+
+      @media (--article-container-from) {
+         position: absolute;
+         left: 50%;
+         transform: translateX(-50%);
       }
 
       & a {
@@ -210,7 +240,7 @@ import { getLinkProps } from '@/lib/utils'
       align-items: center;
 
       @media (--mobile-to) {
-         --gap: var(--s-2);
+         --gap: var(--s-1);
       }
 
       & a {

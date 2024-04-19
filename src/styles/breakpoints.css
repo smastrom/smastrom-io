@@ -12,3 +12,6 @@
 
 @custom-media --menu-shift-to (max-width: 1100px);
 @custom-media --menu-shift-from (min-width: 1101px);
+
+@custom-media --article-container-to (max-width: 1240px);
+@custom-media --article-container-from (min-width: 1241px);

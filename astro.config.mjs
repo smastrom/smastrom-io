@@ -14,5 +14,6 @@ export default defineConfig({
       defaultStrategy: 'viewport',
    },
    output: 'hybrid',
-   adapter: cloudflare(),  integrations: [sitemap()],
+   adapter: cloudflare(),
+   integrations: [sitemap()],
 })

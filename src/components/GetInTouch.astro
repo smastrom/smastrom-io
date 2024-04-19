@@ -14,7 +14,7 @@ import IconArrow from './icons/IconArrow.astro'
       font-weight: 500;
       white-space: nowrap;
       font-size: var(--f-2);
-      transition: opacity 100ms ease-out;
+      transition: opacity var(--easing);
       margin-bottom: var(--s-4);
 
       @media (--tablet-to) {
@@ -22,11 +22,12 @@ import IconArrow from './icons/IconArrow.astro'
       }
 
       & :global(svg) {
-         transition: transform 100ms ease-out;
+         transition: transform var(--easing);
       }
 
       &:hover {
          opacity: var(--o-3);
+
          & :global(svg) {
             transform: translateX(var(--s-02));
          }

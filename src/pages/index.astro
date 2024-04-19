@@ -29,24 +29,26 @@ const cms = data.home
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description} isArticleLayout>
-   <div class="Wrapper">
-      <article class="G_Prose G_Article_Wrapper">
-         <div class="G_Hero_Title" set:html={cms.title} />
+   <article class="G_Prose G_Article_Wrapper Wrapper">
+      <div class="G_Hero_Title Hero_Title" set:html={cms.title} />
 
-         {
-            cms.sections.map((s) => (
-               <section>
-                  <h2>{s.title}</h2>
-                  <Fragment set:html={addLinkAttrs(s.text)} />
-               </section>
-            ))
-         }
-      </article>
-   </div>
+      {
+         cms.sections.map((s) => (
+            <section>
+               <h2>{s.title}</h2>
+               <Fragment set:html={addLinkAttrs(s.text)} />
+            </section>
+         ))
+      }
+   </article>
 </Layout>
 
 <style>
    .Wrapper {
       margin-top: var(--header-height);
+   }
+
+   .Hero_Title {
+      max-width: 25ch;
    }
 </style>

@@ -19,6 +19,7 @@ const url = import.meta.env.SITE + Astro.url.pathname
 
    <link rel="icon" href="/favicon.svg" />
    <link rel="canonical" href={url} />
+   <link rel="sitemap" href="/sitemap-index.xml" />
 
    {
       ['regular', 'medium', 'bold'].map((weight) => (

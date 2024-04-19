@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config'
 
 import cloudflare from '@astrojs/cloudflare'
+import sitemap from '@astrojs/sitemap'
 
 export default defineConfig({
    site: 'https://smastrom.io',
@@ -13,5 +14,5 @@ export default defineConfig({
       defaultStrategy: 'viewport',
    },
    output: 'hybrid',
-   adapter: cloudflare(),
+   adapter: cloudflare(),  integrations: [sitemap()],
 })

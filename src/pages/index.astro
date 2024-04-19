@@ -28,9 +28,9 @@ if (error) throw new Error(error)
 const cms = data.home
 ---
 
-<Layout title={cms.seo.title} description={cms.seo.description}>
+<Layout title={cms.seo.title} description={cms.seo.description} isArticleLayout>
    <div class="Wrapper">
-      <article class="Prose Prose_Index">
+      <article class="Prose Container">
          <div class="Hero_Title" set:html={cms.title} />
 
          {
@@ -50,11 +50,12 @@ const cms = data.home
       margin-top: var(--header-height);
    }
 
-   .Prose_Index {
-      & :global(h1) {
-         @media (min-width: 769px) {
-            text-wrap: balance;
-         }
-      }
+   .Container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      max-width: var(--article-container);
+      margin: 0 auto;
    }
 </style>

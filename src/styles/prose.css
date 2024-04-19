@@ -1,8 +1,14 @@
+@define-mixin titles {
+   letter-spacing: var(--titles-letter-spacing);
+   font-weight: 700;
+   color: var(--accent);
+}
+
 .Hero_Title {
    padding: 3rem 0;
-   letter-spacing: -0.025ch;
-   font-size: responsive 2.25rem 7rem;
-   font-range: 768px 2440px;
+   letter-spacing: var(--titles-letter-spacing);
+   font-size: responsive 2.25rem 5rem;
+   font-range: 768px 1240px;
    font-weight: 700;
    line-height: 1.25;
 
@@ -16,23 +22,18 @@
 }
 
 .Title {
-   letter-spacing: -0.025ch;
-   font-weight: 700;
+   @mixin titles;
    font-size: responsive 1.75rem 2.75rem;
    font-range: 768px 1240px;
-   color: var(--accent);
 }
 
 .Title_2 {
-   letter-spacing: -0.025ch;
-   font-weight: 700;
+   @mixin titles;
    font-size: responsive 1.25rem 2rem;
-   font-range: 768px 2440px;
-   color: var(--accent);
+   font-range: 768px 1240px;
 }
 
 .Caption {
-   letter-spacing: -0.025ch;
    font-weight: 400;
    font-size: responsive 0.925rem 1.125rem;
    text-transform: uppercase;
@@ -44,19 +45,15 @@
    width: 100%;
 
    & h2 {
-      letter-spacing: -0.025ch;
-      font-weight: 700;
+      @mixin titles;
       font-size: responsive 1.375rem 3rem;
       font-range: 768px 2440px;
-      color: var(--accent);
    }
 
    & h3 {
-      letter-spacing: -0.025ch;
-      font-weight: 700;
+      @mixin titles;
       font-size: responsive 1.25rem 2rem;
       font-range: 768px 2440px;
-      color: var(--accent);
    }
 
    & p {

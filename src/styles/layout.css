@@ -1,9 +1,10 @@
 :root {
-   --easing: 200ms ease-out;
+   --easing: 100ms ease-out;
    --page-margin: 1.25rem;
    --article-container: 1240px;
    --header-height: 80px;
    --header-icon-size: 28px;
+   --titles-letter-spacing: -0.025ch;
 
    @media (min-width: 1920px) {
       --page-margin: 2%;

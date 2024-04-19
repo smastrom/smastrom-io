@@ -50,9 +50,9 @@ const cms = data.professionalWork
       {
          cms.services.map((s) => (
             <section class="Section">
-               {s.caption && <h4 class="Caption">{s.caption}</h4>}
+               {s.caption && <h3 class="Caption">{s.caption}</h3>}
 
-               <h3 class="Title_2">{s.title}</h3>
+               <h2 class="Title_2">{s.title}</h2>
                <div class="Prose" set:html={addLinkAttrs(s.description)} />
 
                {s.image && (
@@ -79,7 +79,7 @@ const cms = data.professionalWork
    .Section {
       width: 100%;
 
-      & h4 {
+      & .Caption {
          margin-bottom: 0.35em;
       }
    }

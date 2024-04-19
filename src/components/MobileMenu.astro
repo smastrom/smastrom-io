@@ -23,12 +23,31 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
       aria-label="Menu"
       aria-expanded="false"
       aria-controls="panel"
+      id="hamburger"
    >
       <span class="hamburger-box">
          <span class="hamburger-inner"></span>
       </span>
    </button>
 </nav>
+
+<noscript>
+   <style>
+      #hamburger {
+         display: none;
+      }
+
+      #panel {
+         visibility: visible !important;
+         position: fixed;
+         opacity: 1;
+         transform: translateX(0);
+         top: calc(var(--header-height) + 1rem);
+         bottom: unset;
+         right: -2px;
+      }
+   </style>
+</noscript>
 
 <script>
    function init() {
@@ -123,7 +142,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
       background-color: var(--bg-alpha);
       backdrop-filter: blur(8px);
       margin-bottom: 1rem;
-      right: calc(1.125rem - 1px);
+      right: -2px;
       position: absolute;
       bottom: 1rem;
       transition:

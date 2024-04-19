@@ -61,7 +61,6 @@
 
    & p {
       font-size: responsive 1.125rem 1.75rem;
-      letter-spacing: -0.015ch;
       font-range: 768px 2440px;
       max-width: 65ch;
       margin: 1rem 0 1.5rem 0;

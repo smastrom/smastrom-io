@@ -1,32 +1,72 @@
 ---
 import IconMoon from './icons/IconMoon.astro'
 import IconSun from './icons/IconSun.astro'
-
-// TODO: Remove SSR-only code as it's everything SSG now
-
-const theme = Astro.cookies.get('theme')?.value || 'dark'
-const isDark = theme === 'dark'
 ---
 
-<button
-   id="theme_switch"
-   type="button"
-   role="switch"
-   aria-checked={`${isDark}`}
-   aria-label={isDark ? 'Disable dark mode' : 'Enable dark mode'}
->
-   <IconSun id="theme_sun_icon" style={{ display: isDark ? 'block' : 'none' }} />
-   <IconMoon id="theme_moon_icon" style={{ display: isDark ? 'none' : 'block' }} />
+<button id="theme_switch" type="button" role="switch">
+   <IconSun id="theme_sun_icon" />
+   <IconMoon id="theme_moon_icon" />
 </button>
 
+<span id="theme_divider" class="Divider"></span>
+
+<style>
+   .Divider {
+      width: 1px;
+      align-self: stretch;
+      background-color: var(--divider);
+   }
+
+   @media (prefers-color-scheme: dark) {
+      html[data-theme='auto'] #theme_moon_icon {
+         display: none;
+      }
+   }
+
+   @media (prefers-color-scheme: light) {
+      html[data-theme='auto'] #theme_sun_icon {
+         display: none;
+      }
+   }
+</style>
+
+<noscript>
+   <style>
+      #theme_switch,
+      #theme_divider {
+         display: none;
+      }ì
+   </style>
+</noscript>
+
 <script>
+   type Theme = 'light' | 'dark'
+
    const audio = new Audio('/toggle.mp3')
 
    const getBtn = (doc: Document = document) => doc.getElementById('theme_switch')
    const getSun = (doc: Document = document) => doc.getElementById('theme_sun_icon')
    const getMoon = (doc: Document = document) => doc.getElementById('theme_moon_icon')
 
-   function setAria(el: HTMLElement, theme: 'light' | 'dark') {
+   const getTheme = () => document.documentElement.dataset.theme as Theme
+
+   function setInitialTheme() {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+         ? 'dark'
+         : 'light'
+
+      document.documentElement.dataset.theme = systemTheme
+
+      setAria(getBtn(), systemTheme as Theme)
+
+      if (systemTheme === 'dark') {
+         getMoon().style.display = 'none'
+      } else {
+         getSun().style.display = 'none'
+      }
+   }
+
+   function setAria(el: HTMLElement, theme: Theme) {
       const isDark = theme === 'dark'
 
       el.ariaChecked = `${isDark}`
@@ -38,7 +78,7 @@ const isDark = theme === 'dark'
       Object.assign(el.style, { display: 'none', transform: '', opacity: '' })
    }
 
-   function init() {
+   function initSwitch() {
       const button = getBtn()
       const sunIcon = getSun()
       const moonIcon = getMoon()
@@ -46,7 +86,7 @@ const isDark = theme === 'dark'
       function onClick() {
          audio.play()
 
-         const { theme: currTheme } = document.documentElement.dataset
+         const currTheme = getTheme()
 
          if (currTheme === 'dark') {
             Object.assign(sunIcon.style, { opacity: 0, transform: 'translateX(30%)' })
@@ -86,7 +126,6 @@ const isDark = theme === 'dark'
 
          const newTheme = currTheme === 'dark' ? 'light' : 'dark'
 
-         document.cookie = `theme=${newTheme};max-age=${60 * 60 * 24 * 365};path=/`
          document.documentElement.dataset.theme = newTheme
 
          setAria(this, newTheme)
@@ -99,16 +138,17 @@ const isDark = theme === 'dark'
       }
    }
 
-   let destroy = init()
+   setInitialTheme()
 
-   // This is needed as Astro may have already prefetched pages before switching theme
+   let destroySwitch = initSwitch()
+
    document.addEventListener('astro:before-swap', (e) => {
       const button = getBtn(e.newDocument)
       const sunIcon = getSun(e.newDocument)
       const moonIcon = getMoon(e.newDocument)
 
-      const isDark = document.documentElement.dataset.theme === 'dark'
-      const currTheme = isDark ? 'dark' : 'light'
+      const currTheme = getTheme()
+      const isDark = currTheme === 'dark'
 
       e.newDocument.documentElement.dataset.theme = currTheme
 
@@ -119,8 +159,8 @@ const isDark = theme === 'dark'
    })
 
    document.addEventListener('astro:after-swap', () => {
-      destroy()
-      destroy = init()
+      destroySwitch()
+      destroySwitch = initSwitch()
    })
 </script>
 

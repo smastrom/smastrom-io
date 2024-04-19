@@ -15,10 +15,11 @@
    },
    "dependencies": {
       "@astrojs/check": "^0.5.10",
-      "astro": "^4.5.18"
+      "astro": "^4.6.3",
+      "postcss-mixins": "^10.0.0"
    },
    "devDependencies": {
-      "@astrojs/cloudflare": "^10.1.0",
+      "@astrojs/cloudflare": "10.2.0",
       "autoprefixer": "^10.4.19",
       "postcss": "^8.4.38",
       "postcss-hover-media-feature": "^1.0.2",
@@ -26,6 +27,6 @@
       "postcss-responsive-type": "^1.0.0",
       "prettier": "^3.2.5",
       "prettier-plugin-astro": "^0.13.0",
-      "typescript": "^5.4.4"
+      "typescript": "^5.4.3"
    }
 }

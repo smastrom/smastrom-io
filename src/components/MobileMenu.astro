@@ -139,8 +139,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
       border-radius: var(--r-4) 0 0 var(--r-4);
       padding: var(--s-05) 0;
       border: var(--border-width) solid var(--divider);
-      background-color: var(--bg-alpha);
-      backdrop-filter: blur(var(--s-05));
+      background-color: var(--bg);
       margin-bottom: var(--s-1);
       right: -2px;
       position: absolute;
@@ -168,7 +167,6 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
          transition: all var(--easing);
          user-select: none;
          gap: var(--s-1);
-         opacity: var(--o-3);
 
          &:hover {
             opacity: 1;
@@ -192,10 +190,20 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
    }
 
    html[data-theme='light'] {
+      & .Panel a[data-active] {
+         text-decoration: underline;
+      }
+
       & .Links a:hover {
          & :global(svg) {
             color: var(--accent);
          }
+      }
+   }
+
+   html[data-theme='dark'] {
+      .Panel a:not([data-active]) {
+         opacity: var(--o-3);
       }
    }
 

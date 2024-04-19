@@ -35,14 +35,14 @@ import IconSun from './icons/IconSun.astro'
       #theme_switch,
       #theme_divider {
          display: none;
-      }ì
+      }
    </style>
 </noscript>
 
 <script>
    type Theme = 'light' | 'dark'
 
-   const audio = new Audio('/toggle.mp3')
+   let audio: HTMLAudioElement = null
 
    const getBtn = (doc: Document = document) => doc.getElementById('theme_switch')
    const getSun = (doc: Document = document) => doc.getElementById('theme_sun_icon')
@@ -78,12 +78,26 @@ import IconSun from './icons/IconSun.astro'
       Object.assign(el.style, { display: 'none', transform: '', opacity: '' })
    }
 
+   function cleanupAudio() {
+      if (!audio) return
+
+      audio.removeEventListener('ended', cleanupAudio)
+      audio.pause()
+      audio.src = ''
+      audio.load()
+      audio = null
+   }
+
    function initSwitch() {
       const button = getBtn()
       const sunIcon = getSun()
       const moonIcon = getMoon()
 
       function onClick() {
+         if (audio) cleanupAudio()
+
+         audio = new Audio('/toggle.mp3')
+         audio.addEventListener('ended', cleanupAudio)
          audio.play()
 
          const currTheme = getTheme()
@@ -135,6 +149,7 @@ import IconSun from './icons/IconSun.astro'
 
       return () => {
          button.removeEventListener('click', onClick)
+         cleanupAudio()
       }
    }
 

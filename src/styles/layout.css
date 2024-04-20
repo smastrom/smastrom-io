@@ -4,7 +4,14 @@
    --article-container: 1240px;
    --header-height: 80px;
    --header-icon-size: 28px;
-   --footer-top-margin: var(--s-8);
+   --footer-top-margin: var(--s-10);
+}
+
+@media (--tablet-to) {
+   :root {
+      --footer-top-margin: var(--s-8);
+      --page-margin: var(--s-1);
+   }
 }
 
 body {

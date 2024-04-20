@@ -4,7 +4,8 @@ import Layout from '@/layouts/Layout.astro'
 import ProfessionalServiceImage from '@/components/ProfessionalServiceImage.astro'
 import GetInTouch from '@/components/GetInTouch.astro'
 
-import { addLinkAttrs, useDato } from '@/lib/utils'
+import { useDato } from '@/lib/dato-cms'
+import { addLinkAttrs } from '@/lib/utils'
 
 import type { CmsProfessionalWork } from '@/lib/types'
 
@@ -41,19 +42,21 @@ if (error) throw new Error(error)
 const cms = data.professionalWork
 ---
 
-<Layout title={cms.seo.title} description={cms.seo.description} isArticleLayout>
-   <article class="G_Article_Wrapper G_Page_Top_Spacing Wrapper">
-      <h1 class="G_Title">{cms.title}</h1>
-      <GetInTouch />
+<Layout title={cms.seo.title} description={cms.seo.description}>
+   <article class="G_Article_Wrapper G_Page_Top_Spacing">
+      <section class="Section">
+         <h1 class="G_Title" style={{ marginBottom: 0 }}>{cms.title}</h1>
+         <GetInTouch />
+         <div class="G_Paragraphs" set:html={cms.subtitle} />
+      </section>
 
-      <div class="G_Prose Subtitle" set:html={cms.subtitle} />
       {
          cms.services.map((s) => (
             <section class="Section">
                {s.caption && <h3 class="G_Caption">{s.caption}</h3>}
 
                <h2 class="G_Title_2">{s.title}</h2>
-               <div class="G_Prose" set:html={addLinkAttrs(s.description)} />
+               <div class="G_Paragraphs" set:html={addLinkAttrs(s.description)} />
 
                {s.image && (
                   <ProfessionalServiceImage
@@ -64,11 +67,12 @@ const cms = data.professionalWork
             </section>
          ))
       }
+
       {
          cms.sections.map((s) => (
             <section class="Section">
                <h3 class="G_Title_2">{s.title}</h3>
-               <div class="G_Prose" set:html={s.text} />
+               <div class="G_Paragraphs" set:html={s.text} />
             </section>
          ))
       }
@@ -76,19 +80,19 @@ const cms = data.professionalWork
 </Layout>
 
 <style>
-   .Wrapper {
-      padding-top: var(--s-7);
+   .Section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
 
-      @media (--tablet-to) {
-         padding-top: var(--s-4);
+      &:not(:last-of-type) {
+         margin-bottom: var(--space-between-sections);
       }
    }
 
-   .Section {
-      width: 100%;
-
-      & .G_Caption {
-         margin-bottom: var(--s-05);
+   .Remove_Last_Margin p {
+      &:last-of-type {
+         margin-bottom: 0;
       }
    }
 </style>

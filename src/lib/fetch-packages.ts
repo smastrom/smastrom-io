@@ -22,7 +22,7 @@ const removeScope = (pkg: string) => (pkg.startsWith('@') ? pkg.split('/')[1] : 
  * NOTES:
  *
  * 1. This only works for packages which have the same scope and name in both NPM and GitHub.
- * 2. When calling the GitHub API below the username is hardcoded for simplicity, change this if you're copying the code.
+ * 2. When calling the GitHub API below the username is hardcoded for simplicity, change it if you're copying the code.
  */
 
 export async function getPackages(packages: string[]): Promise<StatsResponse> {

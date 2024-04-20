@@ -18,17 +18,16 @@ const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
       justify-content: space-between;
       align-items: center;
       margin: var(--footer-top-margin) auto 0 auto;
-      color: var(--fg);
-      font-size: responsive 1.25rem 1.5rem;
-      font-range: 475px 2440px;
       width: var(--article-container);
       max-width: 100%;
+      font-size: var(--f-5);
 
       & small {
          height: min-content;
       }
 
       @media (--tablet-to) {
+         font-size: var(--f-3);
          align-items: flex-start;
          flex-direction: column-reverse;
       }

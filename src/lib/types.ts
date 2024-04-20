@@ -17,6 +17,7 @@ export type BlockProperties = {
 
 export type ArticleImageBlock = BlockProperties & {
    image: {
+      alt: string
       width: number
       height: number
       url: string

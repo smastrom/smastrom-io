@@ -24,6 +24,7 @@ const { data, error } = await useDato<CmsIndex>(/* GraphQL */ `
                   image {
                      width
                      height
+                     alt
                      url(imgixParams: { fm: webp, auto: enhance, cs: srgb })
                   }
                }
@@ -51,6 +52,9 @@ const cms = data.home
                      src={block.image.url}
                      width={block.image.width}
                      height={block.image.height}
+                     alt={block.image.alt}
+                     loading="lazy"
+                     decoding="async"
                   />
                )
             },
@@ -59,11 +63,3 @@ const cms = data.home
       }
    </article>
 </Layout>
-
-<style>
-   .Img_Wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-   }
-</style>

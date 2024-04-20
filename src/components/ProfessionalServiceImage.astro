@@ -4,7 +4,7 @@ const { imageUrl, imageDescription } = Astro.props as { imageUrl: string; imageD
 
 <div class="Img_Wrapper">
    <div class="Img_Scroller">
-      <img src={imageUrl} alt="" loading="lazy" decoding="async" />
+      <img src={imageUrl} alt={imageDescription} loading="lazy" decoding="async" />
    </div>
 
    <p class="Image_Description">{imageDescription}</p>
@@ -14,17 +14,11 @@ const { imageUrl, imageDescription } = Astro.props as { imageUrl: string; imageD
    .Img_Wrapper {
       position: relative;
       max-width: max-content;
-      margin-top: calc(-1 * var(--s-3));
-      margin-bottom: var(--s-10);
-
-      @media (--tablet-to) {
-         margin-bottom: var(--s-4);
-      }
+      margin-top: var(--paragraph-m-bottom);
    }
 
    .Img_Scroller {
       position: relative;
-      margin-top: var(--s-3);
       max-width: 100%;
       width: 1100px;
       height: 100%;

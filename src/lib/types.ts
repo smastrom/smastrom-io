@@ -1,3 +1,5 @@
+import type { Document } from 'datocms-structured-text-utils'
+
 type Seo = {
    title: string
    description: string
@@ -8,14 +10,27 @@ export interface CmsLayout {
    layout: { footerText: string }
 }
 
-export interface CmsIndex {
+export type BlockProperties = {
+   __typename: string
+   id: string
+}
+
+export type ArticleImageBlock = BlockProperties & {
+   image: {
+      width: number
+      height: number
+      url: string
+   }
+}
+
+export type CmsIndex = {
    home: {
       seo: Seo
       title: string
-      sections: {
-         title: string
-         text: string
-      }[]
+      body: {
+         value: Document
+         blocks: ArticleImageBlock[]
+      }
    }
 }
 

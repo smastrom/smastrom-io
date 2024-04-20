@@ -1,9 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 
-import { useDato, addLinkAttrs } from '@/lib/utils'
+import { useDato, StructuredText } from '@/lib/dato-cms'
 
-import type { CmsIndex } from '@/lib/types'
+import type { ArticleImageBlock, CmsIndex } from '@/lib/types'
 
 export const prerender = true
 
@@ -15,9 +15,19 @@ const { data, error } = await useDato<CmsIndex>(/* GraphQL */ `
             description
          }
          title(markdown: true)
-         sections {
-            title
-            text(markdown: true)
+         body {
+            value
+            blocks {
+               __typename
+               ... on ArticleImageRecord {
+                  id
+                  image {
+                     width
+                     height
+                     url(imgixParams: { fm: webp, auto: enhance, cs: srgb })
+                  }
+               }
+            }
          }
       }
    }
@@ -28,27 +38,32 @@ if (error) throw new Error(error)
 const cms = data.home
 ---
 
-<Layout title={cms.seo.title} description={cms.seo.description} isArticleLayout>
-   <article class="G_Prose G_Article_Wrapper Wrapper">
-      <div class="G_Hero_Title Hero_Title" set:html={cms.title} />
+<Layout title={cms.seo.title} description={cms.seo.description}>
+   <article class="G_Prose G_Article_Wrapper" id="article">
+      <div class="G_Hero_Title" set:html={cms.title} />
 
       {
-         cms.sections.map((s) => (
-            <section>
-               <h2>{s.title}</h2>
-               <Fragment set:html={addLinkAttrs(s.text)} />
-            </section>
-         ))
+         StructuredText(cms.body, {
+            ArticleImageRecord: (block: ArticleImageBlock) => {
+               return (
+                  <img
+                     id="img"
+                     src={block.image.url}
+                     width={block.image.width}
+                     height={block.image.height}
+                  />
+               )
+            },
+            content: (html) => <Fragment set:html={html} />,
+         })
       }
    </article>
 </Layout>
 
 <style>
-   .Wrapper {
-      margin-top: var(--header-height);
-   }
-
-   .Hero_Title {
-      max-width: 25ch;
+   .Img_Wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
    }
 </style>

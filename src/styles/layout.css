@@ -4,8 +4,7 @@
    --article-container: 1240px;
    --header-height: 80px;
    --header-icon-size: 28px;
-   --titles-letter-spacing: -0.025ch;
-   --paragraph-max: 65ch;
+   --footer-top-margin: var(--s-8);
 }
 
 body {

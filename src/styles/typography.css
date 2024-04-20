@@ -1,25 +1,25 @@
-@font-face {
+@define-mixin basier-square {
    font-family: 'Basier Square';
+   font-style: normal;
+   font-display: optional;
+}
+
+@font-face {
+   @mixin basier-square;
    src: url('/basier-square-bold-webfont.woff2') format('woff2');
    font-weight: 700;
-   font-style: normal;
-   font-display: optional;
 }
 
 @font-face {
-   font-family: 'Basier Square';
+   @mixin basier-square;
    src: url('/basier-square-medium-webfont.woff2') format('woff2');
    font-weight: 500;
-   font-style: normal;
-   font-display: optional;
 }
 
 @font-face {
-   font-family: 'Basier Square';
+   @mixin basier-square;
    src: url('/basier-square-regular-webfont.woff2') format('woff2');
    font-weight: 400;
-   font-style: normal;
-   font-display: optional;
 }
 
 html {
@@ -27,122 +27,165 @@ html {
    line-height: var(--lh-6);
 }
 
-@define-mixin titles {
-   letter-spacing: var(--titles-letter-spacing);
+/* font-range: 475px 1240px; */
+/* https://clamp.font-size.app */
+:root {
+   --hero-font-size: clamp(2.25rem, 0.8529rem + 4.7059vw, 4.5rem);
+   --heading-1-font-size: clamp(1.75rem, 1.1291rem + 2.0915vw, 2.75rem);
+   --heading-2-font-size: clamp(1.375rem, 0.9869rem + 1.3072vw, 2rem);
+   --paragraph-font-size: clamp(1.125rem, 0.8922rem + 0.7843vw, 1.5rem);
+
+   --heading-letter-spacing: -0.025ch;
+
+   --hero-max: 25ch;
+   --paragraph-max: 65ch;
+
+   --hero-margin-y: calc(1.25 * var(--hero-font-size));
+   --top-heading-m-bottom: calc(0.5 * var(--heading-1-font-size));
+
+   --next-heading-m-top: calc(2 * var(--paragraph-font-size));
+   --next-heading-m-bottom: calc(0.5 * var(--paragraph-font-size));
+
+   --paragraph-m-bottom: calc(1.25 * var(--paragraph-font-size));
+   --space-between-sections: calc(2 * var(--paragraph-m-bottom));
+}
+
+@define-mixin heading-common {
+   letter-spacing: var(--heading-letter-spacing);
    font-weight: 700;
+   line-height: var(--lh-normal);
    color: var(--accent);
 }
 
+@define-mixin paragraph-common {
+   font-size: var(--paragraph-font-size);
+   max-width: var(--paragraph-max);
+}
+
 .G_Hero_Title {
-   padding: var(--s-7) 0;
-   letter-spacing: var(--titles-letter-spacing);
-   font-size: responsive 2.25rem 4.5rem;
-   font-range: 475px 1240px;
+   letter-spacing: var(--heading-letter-spacing);
    font-weight: 700;
+   font-size: var(--hero-font-size);
    line-height: var(--lh-3);
+   margin: var(--hero-margin-y) 0;
+   max-width: var(--hero-max);
 
    & span {
       color: var(--accent);
    }
-
-   @media (--tablet-from) {
-      padding: 1.25em 0;
-   }
 }
 
 .G_Title {
-   @mixin titles;
-   font-size: responsive 1.75rem 2.75rem;
-   font-range: 475px 1240px;
+   @mixin heading-common;
+   font-size: var(--heading-1-font-size);
+   margin-bottom: var(--top-heading-m-bottom);
 }
 
 .G_Title_2 {
-   @mixin titles;
-   font-size: responsive 1.25rem 2rem;
-   font-range: 475px 1240px;
+   @mixin heading-common;
+   font-size: var(--heading-2-font-size);
+   margin-bottom: var(--next-heading-m-bottom);
 }
 
 .G_Caption {
    font-weight: 400;
-   font-size: responsive 0.925rem 1.125rem;
+   font-size: var(--s-09);
    text-transform: uppercase;
-   font-range: 475px 2440px;
    color: var(--accent);
+   margin-bottom: var(--s-05);
+}
+
+@define-mixin paragraph-links {
+   color: var(--fg);
+   position: relative;
+   display: inline-flex;
+   text-decoration: underline;
+
+   &::after {
+      content: '';
+      background-color: var(--accent);
+      bottom: 0.1em;
+      left: -0.1em;
+      right: -0.1em;
+      opacity: var(--o-1);
+      position: absolute;
+      height: 1.25em;
+      transform: scaleY(0.5);
+      border-radius: 0.25em;
+      z-index: var(--z-behind);
+      transform-origin: bottom;
+      transition:
+         transform var(--easing),
+         background-color var(--easing);
+   }
+
+   &:hover {
+      &::after {
+         transform: scaleY(1);
+      }
+   }
+}
+
+.G_Paragraphs {
+   @mixin paragraph-common;
+
+   display: flex;
+   flex-direction: column;
+   gap: var(--paragraph-m-bottom);
+
+   & a {
+      @mixin paragraph-links;
+   }
 }
 
 .G_Prose {
    width: 100%;
 
    & h2 {
-      @mixin titles;
-      font-size: responsive 1.375rem 3rem;
-      font-range: 475px 2440px;
-   }
-
-   & h3 {
-      @mixin titles;
-      font-size: responsive 1.25rem 2rem;
-      font-range: 475px 2440px;
+      @mixin heading-common;
+      font-size: var(--heading-2-font-size);
+      margin-bottom: var(--next-heading-m-bottom);
    }
 
    & p {
-      font-size: responsive 1.125rem 1.75rem;
-      font-range: 475px 2440px;
-      max-width: var(--paragraph-max);
-      margin: var(--s-1) 0 var(--s-3) 0;
+      @mixin paragraph-common;
+      margin-bottom: var(--paragraph-m-bottom);
 
-      @media (--tablet-from) {
-         margin: 1em 0 1.25em 0;
+      /* Remove margin from next p */
+      & + p {
+         margin-top: 0;
       }
 
-      &:has(img) {
-         margin: 0;
+      /* Remove margin last p before h2 */
+      &:has(+ h2) {
+         margin-bottom: 0;
       }
 
-      & img {
-         width: 100%;
-         border-radius: var(--r-4);
-         position: relative;
-         z-index: 1;
-
-         @media (--tablet-to) {
-            border-radius: var(--r-03);
-         }
+      /* Add margin to next h2 */
+      & + h2 {
+         margin-top: var(--next-heading-m-top);
       }
 
-      &:last-of-type {
-         margin: 1em 0 2.5em 0;
+      /* Add margin to next img */
+      & + img {
+         margin-bottom: var(--paragraph-m-bottom);
+      }
+
+      & a {
+         @mixin paragraph-links;
       }
    }
 
-   & a {
-      color: var(--fg);
+   & img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--r-4);
       position: relative;
-      display: inline-flex;
-      text-decoration: underline;
+      z-index: 1;
+      max-width: 1000px;
 
-      &::after {
-         content: '';
-         background-color: var(--accent);
-         bottom: 0.1em;
-         left: -0.1em;
-         right: -0.1em;
-         opacity: 0.25;
-         position: absolute;
-         height: 1.25em;
-         transform: scaleY(0.5);
-         border-radius: 1.25em;
-         z-index: var(--z-behind);
-         transform-origin: bottom;
-         transition:
-            transform var(--easing),
-            background-color var(--easing);
-      }
-
-      &:hover {
-         &::after {
-            transform: scaleY(1);
-         }
+      @media (--tablet-to) {
+         border-radius: var(--r-3);
       }
    }
 }

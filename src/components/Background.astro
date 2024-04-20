@@ -2,7 +2,6 @@
 
 <style>
    div {
-      opacity: var(--o-3);
       pointer-events: none;
       background-color: var(--divider);
       width: 100%;
@@ -10,27 +9,17 @@
       position: absolute;
       inset: 0;
       mask-repeat: no-repeat;
-      mask-image: url('/logo-background-notebook.svg');
+      mask-image: url('/logo-background.svg');
       mask-position: -10% 0%;
       mask-size: 200%;
 
-      @supports (-moz-appearance: none) {
-         /* Peformance drops on firefox if opacity is below than 1 */
-         opacity: 1;
-      }
-
       @media (--tablet-from) {
-         mask-image: url('/logo-background-tablet.svg');
          mask-position: -10% -40%;
       }
 
       @media (--laptop-from) {
-         mask-image: url('/logo-background-notebook.svg');
+         mask-image: url('/logo-background-large.svg');
          mask-position: 0 40%;
-      }
-
-      @media (--desktop-from) {
-         mask-image: url('/logo-background.svg');
       }
    }
 </style>

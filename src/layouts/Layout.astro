@@ -16,8 +16,6 @@ import '@/styles/hamburger.css'
 import '@/styles/classes.css'
 import '@/styles/smastrom-variables.css'
 
-const { isArticleLayout } = Astro.props as { isArticleLayout?: boolean }
-
 const { data, error } = await useDato<CmsLayout>(/* GraphQL */ `
    {
       _site {
@@ -58,6 +56,6 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
          <Background />
       </main>
 
-      <Footer content={data.layout.footerText} isCentered={isArticleLayout} />
+      <Footer content={data.layout.footerText} />
    </body>
 </html>

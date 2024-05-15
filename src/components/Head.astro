@@ -17,21 +17,24 @@ const url = import.meta.env.SITE + Astro.url.pathname
    <title>{title}</title>
    <meta name="description" content={description} />
 
-   <link rel="icon" href="/favicon.svg" />
+   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
    <link rel="canonical" href={url} />
    <link rel="sitemap" href="/sitemap-index.xml" />
 
    {
-      ['regular', 'medium', 'bold'].map((weight) => (
+      ['regular', 'medium', 'bold'].map((w) => (
          <link
             rel="preload"
-            href={`/basier-square-${weight}-webfont.woff2`}
+            href={`/basier-square-${w}-webfont.woff2`}
             as="font"
             type="font/woff2"
             crossorigin
          />
       ))
    }
+
+   <link rel="preload" type="image/svg+xml" href="/logo-background.svg" />
+   <link rel="preload" type="image/svg+xml" href="/logo-background-large.svg" />
 
    <!-- PWA -->
    <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials" />

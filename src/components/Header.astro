@@ -188,13 +188,13 @@ function getExtLinkAttrs(label: string) {
          }
 
          &:hover,
-         &[data-active] {
+         &[aria-current='page'] {
             background-color: var(--bg);
             border: var(--b-1) solid var(--divider);
             border-radius: var(--r-max);
          }
 
-         &[data-active] {
+         &[aria-current='page'] {
             pointer-events: none;
 
             & :global(svg) {
@@ -212,7 +212,7 @@ function getExtLinkAttrs(label: string) {
             opacity: var(--o-2);
          }
 
-         &[data-active] {
+         &[aria-current='page'] {
             pointer-events: none;
 
             & :global(svg) {

@@ -10,11 +10,7 @@ export const navLinks = [
 
 export const packages = [
    'notivue',
-   '@smastrom/react-rating',
    'vue-collapsed',
+   '@smastrom/react-rating',
    'vue-use-active-scroll',
-   'vue-use-fixed-header',
-   '@smastrom/react-email-autocomplete',
-   'vue-global-loader',
-   'solid-collapse',
 ]

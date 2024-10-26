@@ -9,6 +9,7 @@ export default defineConfig({
    devToolbar: {
       enabled: false,
    },
+   output: 'hybrid',
    image: {
       remotePatterns: [
          {
@@ -27,10 +28,17 @@ export default defineConfig({
       },
    }),
    integrations: [sitemap()],
-   env: {
-      schema: {
-         DATO_TOKEN: envField.string({ context: 'client', access: 'public' }),
-         GITHUB_TOKEN: envField.string({ context: 'server', access: 'secret' }),
+   experimental: {
+      env: {
+         schema: {
+            DATO_TOKEN: envField.string({ context: 'client', access: 'public' }),
+            GITHUB_TOKEN: envField.string({ context: 'server', access: 'secret' }),
+         },
+      },
+   },
+   vite: {
+      build: {
+         minify: import.meta.env.PROD,
       },
    },
 })

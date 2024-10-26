@@ -1,33 +1,33 @@
 {
-  "name": "smastrom-io",
-  "type": "module",
-  "scripts": {
-    "astro": "astro",
-    "astro:build": "astro build",
-    "astro:dev": "astro dev --host",
-    "astro:preview": "pnpm astro build && npx wrangler pages dev dist",
-    "astro:start": "astro dev --host",
-    "build": "bun --bun astro:build",
-    "dev": "bun --bun astro:dev",
-    "preview": "bun --bun astro:preview",
-    "start": "bun --bun astro:start"
-  },
-  "dependencies": {
-    "astro": "5.0.0-beta.5",
-    "datocms-structured-text-to-html-string": "^3.0.0"
-  },
-  "devDependencies": {
-    "@astrojs/cloudflare": "12.0.0-beta.0",
-    "@astrojs/sitemap": "^3.2.1",
-    "@csstools/postcss-global-data": "^2.1.1",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "postcss-custom-media": "^10.0.6",
-    "postcss-hover-media-feature": "^1.0.2",
-    "postcss-mixins": "^10.0.1",
-    "postcss-nesting": "^12.1.4",
-    "prettier": "^3.2.5",
-    "prettier-plugin-astro": "^0.13.0",
-    "typescript": "^5.4.5"
-  }
+   "name": "smastrom-io",
+   "type": "module",
+   "scripts": {
+      "astro": "astro",
+      "astro:build": "astro build",
+      "astro:dev": "astro dev --host",
+      "astro:preview": "bun --bun astro build && npx wrangler pages dev dist",
+      "astro:start": "astro dev --host",
+      "build": "bun --bun astro:build",
+      "dev": "bun --bun astro:dev",
+      "preview": "bun --bun astro:preview",
+      "start": "bun --bun astro:start"
+   },
+   "dependencies": {
+      "astro": "^4.16.7",
+      "datocms-structured-text-to-html-string": "^3.0.0"
+   },
+   "devDependencies": {
+      "@astrojs/cloudflare": "^11.1.0",
+      "@astrojs/sitemap": "^3.2.1",
+      "@csstools/postcss-global-data": "^2.1.1",
+      "autoprefixer": "^10.4.20",
+      "postcss": "^8.4.47",
+      "postcss-custom-media": "^10.0.8",
+      "postcss-hover-media-feature": "^1.0.2",
+      "postcss-mixins": "^10.0.1",
+      "postcss-nesting": "^12.1.5",
+      "prettier": "^3.3.3",
+      "prettier-plugin-astro": "^0.13.0",
+      "typescript": "^5.6.3"
+   }
 }

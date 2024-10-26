@@ -7,11 +7,9 @@ import GetInTouch from '@/components/GetInTouch.astro'
 import { useDato } from '@/lib/dato-cms'
 import { addLinkAttrs } from '@/lib/utils'
 
-import type { CmsProfessionalWork } from '@/lib/types'
+import type { ProfessionalWorkPage } from '@/lib/types'
 
-export const prerender = true
-
-const { data, error } = await useDato<CmsProfessionalWork>(/* GraphQL */ `
+const { data, error } = await useDato<ProfessionalWorkPage>(/* GraphQL */ `
    {
       professionalWork {
          seo {
@@ -86,7 +84,7 @@ const cms = data.professionalWork
       flex-direction: column;
 
       &:not(:last-of-type) {
-         margin-bottom: var(--space-between-sections);
+         margin-bottom: var(--section-gap);
       }
    }
 </style>

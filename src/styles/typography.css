@@ -44,7 +44,7 @@ html {
    --next-heading-m-bottom: calc(0.5 * var(--paragraph-font-size));
 
    --paragraph-m-bottom: calc(1.25 * var(--paragraph-font-size));
-   --space-between-sections: calc(2 * var(--paragraph-m-bottom));
+   --section-gap: calc(2 * var(--paragraph-m-bottom));
 }
 
 @define-mixin heading-common {

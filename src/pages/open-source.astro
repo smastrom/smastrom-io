@@ -7,11 +7,9 @@ import { addLinkAttrs, formatNumber } from '@/lib/utils'
 import { packages as pkgs } from '@/lib/static'
 import { getPackages } from '@/lib/fetch-packages'
 
-import type { CmsOpenSource } from '@/lib/types'
+import type { OpenSourcePage } from '@/lib/types'
 
-export const prerender = true
-
-const { data, error: cmsErr } = await useDato<CmsOpenSource>(/* GraphQL */ `
+const { data, error: cmsErr } = await useDato<OpenSourcePage>(/* GraphQL */ `
    {
       openSource {
          seo {
@@ -58,7 +56,7 @@ const withStats = (html: string) =>
       grid-template-columns: 1fr 1fr;
       gap: var(--s-5);
       z-index: 1;
-      margin-top: var(--space-between-sections);
+      margin-top: var(--section-gap);
 
       @media (--tablet-to) {
          grid-template-columns: 1fr;

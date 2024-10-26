@@ -1,3 +1,5 @@
+import { GITHUB_TOKEN } from "astro:env/server";
+
 import { capitalizeAll } from '@/lib/utils'
 
 export interface Package {
@@ -16,14 +18,16 @@ export interface StatsResponse {
    error: string | null
 }
 
-const removeScope = (pkg: string) => (pkg.startsWith('@') ? pkg.split('/')[1] : pkg)
-
 /**
  * NOTES:
  *
  * 1. This only works for packages which have the same scope and name in both NPM and GitHub.
  * 2. When calling the GitHub API below the username is hardcoded for simplicity, change it if you're copying the code.
  */
+
+const USERNAME = 'smastrom'
+
+const removeScope = (pkg: string) => (pkg.startsWith('@') ? pkg.split('/')[1] : pkg)
 
 export async function getPackages(packages: string[]): Promise<StatsResponse> {
    try {
@@ -47,21 +51,26 @@ export async function getPackages(packages: string[]): Promise<StatsResponse> {
             if (!res.ok) throw new Error(await res.text())
 
             const data = await res.json()
+
             result[i].downloads = data.downloads
          }),
 
          ...packages.map(async (pkg, i) => {
-            const res = await fetch(`https://api.github.com/repos/smastrom/${removeScope(pkg)}`, {
-               headers: {
-                  Accept: 'application/vnd.github+json',
-                  Authorization: `Bearer ${import.meta.env.GITHUB_TOKEN}`,
-                  'User-Agent': 'smastrom',
-               },
-            })
+            const res = await fetch(
+               `https://api.github.com/repos/${USERNAME}/${removeScope(pkg)}`,
+               {
+                  headers: {
+                     Accept: 'application/vnd.github+json',
+                     Authorization: `Bearer ${GITHUB_TOKEN}`,
+                     'User-Agent': USERNAME,
+                  },
+               }
+            )
 
             if (!res.ok) throw new Error(await res.text())
 
             const data = await res.json()
+
             Object.assign(result[i], {
                demo_url: data.homepage || null,
                created_at: data.created_at,

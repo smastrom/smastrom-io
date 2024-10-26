@@ -177,7 +177,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
             height: var(--s-2);
          }
 
-         &[data-active] {
+         &[aria-current='page'] {
             pointer-events: none;
             opacity: 1;
 
@@ -190,7 +190,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
    }
 
    html[data-theme='light'] {
-      & .Panel a[data-active] {
+      & .Panel a[aria-current='page'] {
          text-decoration: underline;
       }
 
@@ -202,7 +202,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
    }
 
    html[data-theme='dark'] {
-      .Panel a:not([data-active]) {
+      .Panel a:not([aria-current='page']) {
          opacity: var(--o-3);
       }
    }

@@ -34,8 +34,6 @@ html {
    --heading-2-font-size: clamp(var(--f-4), 0.9869rem + 1.3072vw, var(--f-7));
    --paragraph-font-size: clamp(var(--f-2), 0.8922rem + 0.7843vw, var(--f-5));
 
-   --heading-letter-spacing: -0.025ch;
-
    --hero-max: 25ch;
    --paragraph-max: 65ch;
 
@@ -46,11 +44,10 @@ html {
    --next-heading-m-bottom: calc(0.5 * var(--paragraph-font-size));
 
    --paragraph-m-bottom: calc(1.25 * var(--paragraph-font-size));
-   --space-between-sections: calc(2 * var(--paragraph-m-bottom));
+   --section-gap: calc(2 * var(--paragraph-m-bottom));
 }
 
 @define-mixin heading-common {
-   letter-spacing: var(--heading-letter-spacing);
    font-weight: 700;
    line-height: var(--lh-normal);
    color: var(--accent);
@@ -62,7 +59,6 @@ html {
 }
 
 .G_Hero_Title {
-   letter-spacing: var(--heading-letter-spacing);
    font-weight: 700;
    font-size: var(--hero-font-size);
    line-height: var(--lh-3);

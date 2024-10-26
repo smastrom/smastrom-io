@@ -24,7 +24,7 @@ export type ArticleImageBlock = BlockProperties & {
    }
 }
 
-export type CmsIndex = {
+export type IndexPage = {
    home: {
       seo: Seo
       title: string
@@ -35,7 +35,7 @@ export type CmsIndex = {
    }
 }
 
-export interface CmsOpenSource {
+export interface OpenSourcePage {
    openSource: {
       seo: Seo
       title: string
@@ -43,7 +43,7 @@ export interface CmsOpenSource {
    }
 }
 
-export interface CmsProfessionalWork {
+export interface ProfessionalWorkPage {
    professionalWork: {
       seo: Seo
       title: string

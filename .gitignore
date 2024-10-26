@@ -22,3 +22,4 @@ pnpm-lock.yaml
 
 # Cloudflare
 .wrangler
+.dev.vars

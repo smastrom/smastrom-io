@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig, envField } from 'astro/config'
 
 import cloudflare from '@astrojs/cloudflare'
 import sitemap from '@astrojs/sitemap'
@@ -9,11 +9,28 @@ export default defineConfig({
    devToolbar: {
       enabled: false,
    },
+   image: {
+      remotePatterns: [
+         {
+            protocol: 'https',
+         },
+      ],
+   },
    prefetch: {
       prefetchAll: true,
       defaultStrategy: 'viewport',
    },
-   output: 'hybrid',
-   adapter: cloudflare(),
+   adapter: cloudflare({
+      imageService: 'passthrough',
+      platformProxy: {
+         enabled: true,
+      },
+   }),
    integrations: [sitemap()],
+   env: {
+      schema: {
+         DATO_TOKEN: envField.string({ context: 'client', access: 'public' }),
+         GITHUB_TOKEN: envField.string({ context: 'server', access: 'secret' }),
+      },
+   },
 })

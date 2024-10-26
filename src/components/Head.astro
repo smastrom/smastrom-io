@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions'
+import { ClientRouter } from 'astro:transitions'
 
 const { title, description } = Astro.props as { title: string; description: string }
 
@@ -7,7 +7,7 @@ const url = import.meta.env.SITE + Astro.url.pathname
 ---
 
 <head>
-   <ViewTransitions fallback="swap" />
+   <ClientRouter />
 
    <!-- Common -->
    <meta charset="utf-8" />

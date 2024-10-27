@@ -1,5 +1,4 @@
 ---
-import IconClock from '@/components/icons/IconClock.astro'
 import IconStar from '@/components/icons/IconStar.astro'
 import IconDownloads from '@/components/icons/IconDownloads.astro'
 import IconGlobe from '@/components/icons/IconGlobe.astro'
@@ -22,13 +21,8 @@ const { project: p } = Astro.props as { project: Package }
       <div>
          <h2>{p.title}</h2>
          <p class="Subtitle">{p.description}</p>
-         <span class="Date">
-            <IconClock />
-            First commit: {formatDate(p.created_at)}
-         </span>
       </div>
 
-      <span class="Divider" aria-hidden="true"></span>
       <div class="Bottom">
          <div class="Stats">
             <div class="Icon_Box">
@@ -69,6 +63,7 @@ const { project: p } = Astro.props as { project: Package }
    .Card {
       width: 100%;
       position: relative;
+      height: 200px;
    }
 
    html[data-theme='light'] .Card_Content {
@@ -78,10 +73,6 @@ const { project: p } = Astro.props as { project: Package }
 
       &:hover {
          box-shadow: 0 0 0 2px var(--accent);
-      }
-
-      & .Date {
-         opacity: 1;
       }
    }
 
@@ -115,7 +106,7 @@ const { project: p } = Astro.props as { project: Package }
          font-size: var(--f-3);
          font-weight: 700;
          line-height: 1;
-         margin-bottom: var(--s-07);
+         margin-bottom: var(--s-1);
 
          @media (--tablet-to) {
             font-size: var(--f-2);
@@ -124,23 +115,7 @@ const { project: p } = Astro.props as { project: Package }
 
       & .Subtitle {
          font-size: var(--f-1);
-         font-weight: 400;
          margin-bottom: var(--s-2);
-      }
-
-      & .Date {
-         font-size: var(--f-09);
-         margin-bottom: var(--s-05);
-         display: flex;
-         align-items: center;
-         gap: var(--s-05);
-         opacity: var(--o-3);
-
-         & :global(svg) {
-            width: var(--s-2);
-            height: var(--s-2);
-            opacity: var(--o-2);
-         }
       }
 
       & .Divider {
@@ -179,8 +154,8 @@ const { project: p } = Astro.props as { project: Package }
          transition: color var(--easing);
 
          & :global(svg) {
-            width: var(--s-3);
-            height: var(--s-3);
+            width: var(--s-2);
+            height: var(--s-2);
             color: var(--accent);
             transition: all var(--easing);
          }

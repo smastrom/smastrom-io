@@ -3,8 +3,9 @@ import Logo from './Logo.astro'
 import MobileMenu from './MobileMenu.astro'
 import DarkMode from './DarkMode.astro'
 
-import IconGitHub from './icons/IconGitHub.astro'
 import IconEmail from './icons/IconEmail.astro'
+import IconTelegram from './icons/IconTelegram.astro'
+import IconGitHub from './icons/IconGitHub.astro'
 import IconDiscord from './icons/IconDiscord.astro'
 
 import { navLinks } from '@/lib/static'
@@ -44,19 +45,20 @@ function getExtLinkAttrs(label: string) {
    <nav class="Nav_Right">
       <DarkMode />
 
-      <a href="https://github.com/smastrom" {...getExtLinkAttrs('GitHub')}>
-         <IconGitHub />
-      </a>
       <a href="mailto:hello@smastrom.io" {...getExtLinkAttrs('Email')}>
          <IconEmail />
       </a>
+
+      <a href="https://t.me/smastrom" {...getExtLinkAttrs('Telegram')}>
+         <IconTelegram />
+      </a>
+
+      <a href="https://github.com/smastrom" {...getExtLinkAttrs('GitHub')}>
+         <IconGitHub />
+      </a>
+
       <a href="https://discordapp.com/users/1174395637660401695" {...getExtLinkAttrs('Discord')}>
-         <IconDiscord
-            style={{
-               width: 'auto',
-               height: 'calc(var(--header-icon-size) - 2px)',
-            }}
-         />
+         <IconDiscord />
       </a>
    </nav>
 </header>
@@ -224,7 +226,7 @@ function getExtLinkAttrs(label: string) {
    }
 
    .Nav_Right {
-      --gap: var(--s-3);
+      --gap: var(--s-2);
 
       display: flex;
       gap: var(--gap);

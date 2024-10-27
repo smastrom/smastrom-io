@@ -1,8 +1,10 @@
 ---
 import IconArrow from './icons/IconArrow.astro'
+
+import { EMAIL } from '@/lib/constants'
 ---
 
-<a href="mailto:hello@smastrom.io" target="_blank"> Get in Touch <IconArrow /> </a>
+<a href={'mailto:' + EMAIL} target="_blank"> Get in Touch <IconArrow /> </a>
 
 <style>
    a {

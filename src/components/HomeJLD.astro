@@ -1,0 +1,51 @@
+---
+const { url, name, description, email, addressCountry, sameAs, knowsAbout } = Astro.props as {
+   url: string
+   name: string
+   description: string
+   email: string
+   addressCountry: string
+   sameAs: string[]
+   knowsAbout: string[]
+}
+
+const obj = JSON.stringify({
+   '@context': 'https://schema.org',
+   '@type': 'Person',
+   name,
+   description,
+   url,
+   jobTitle: 'Web Developer',
+   worksFor: {
+      '@type': 'Organization',
+      name: 'Independent',
+   },
+   homeLocation: {
+      '@type': 'Place',
+      address: {
+         '@type': 'PostalAddress',
+         addressCountry,
+      },
+   },
+   knowsAbout,
+   mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+   },
+   contactPoint: {
+      '@type': 'ContactPoint',
+      email: `mailto:${email}`,
+      contactType: 'Customer Support',
+   },
+   sameAs,
+   makesOffer: {
+      '@type': 'Offer',
+      itemOffered: {
+         '@type': 'Service',
+         serviceType: 'Web Development',
+      },
+   },
+})
+---
+
+<script type="application/ld+json" is:inline set:html={obj} />

@@ -9,16 +9,8 @@ import IconGitHub from './icons/IconGitHub.astro'
 import IconDiscord from './icons/IconDiscord.astro'
 
 import { navLinks } from '@/lib/static'
-import { getLinkProps } from '@/lib/utils'
-
-function getExtLinkAttrs(label: string) {
-   return {
-      rel: 'noreferrer',
-      target: '_blank',
-      'aria-label': label,
-      title: label,
-   }
-}
+import { EMAIL, LINKS } from '@/lib/constants'
+import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
 ---
 
 <header id="header">
@@ -45,21 +37,13 @@ function getExtLinkAttrs(label: string) {
    <nav class="Nav_Right">
       <DarkMode />
 
-      <a href="mailto:hello@smastrom.io" {...getExtLinkAttrs('Email')}>
+      <a {...getExtLinkAttrs('mailto:' + EMAIL, 'Email')}>
          <IconEmail />
       </a>
 
-      <a href="https://t.me/smastrom" {...getExtLinkAttrs('Telegram')}>
-         <IconTelegram />
-      </a>
-
-      <a href="https://github.com/smastrom" {...getExtLinkAttrs('GitHub')}>
-         <IconGitHub />
-      </a>
-
-      <a href="https://discordapp.com/users/1174395637660401695" {...getExtLinkAttrs('Discord')}>
-         <IconDiscord />
-      </a>
+      <a {...getExtLinkAttrs(LINKS.telegram, 'Telegram')}><IconTelegram /> </a>
+      <a {...getExtLinkAttrs(LINKS.github, 'GitHub')}><IconGitHub /> </a>
+      <a {...getExtLinkAttrs(LINKS.discord, 'Discord')}><IconDiscord /> </a>
    </nav>
 </header>
 

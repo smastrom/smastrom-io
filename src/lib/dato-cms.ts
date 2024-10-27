@@ -1,4 +1,4 @@
-import { DATO_TOKEN } from "astro:env/client";
+import { DATO_TOKEN } from 'astro:env/client'
 
 import { isBlock, type Document as Dast } from 'datocms-structured-text-utils'
 import { render } from 'datocms-structured-text-to-html-string'

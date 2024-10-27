@@ -1,7 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import HomeJLD from '@/components/HomeJLD.astro'
 
 import { useDato, StructuredText } from '@/lib/dato-cms'
+import { EMAIL, LINKS, NAME } from '@/lib/constants'
+import { jsonLdKnowsAbout as knowsAbout } from '@/lib/static'
 
 import type { ArticleImageBlock, IndexPage } from '@/lib/types'
 
@@ -38,19 +41,30 @@ const cms = data.home
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
+   <HomeJLD
+      slot="head-end"
+      url={import.meta.env.SITE}
+      name={NAME}
+      description={cms.seo.description}
+      email={EMAIL}
+      addressCountry="Italy"
+      sameAs={Object.values(LINKS)}
+      knowsAbout={knowsAbout}
+   />
+
    <article class="G_Prose G_Article_Wrapper" id="article">
       <div class="G_Hero_Title" set:html={cms.title} />
 
       {
          StructuredText(cms.body, {
-            ArticleImageRecord: (block: ArticleImageBlock) => {
+            ArticleImageRecord: (b: ArticleImageBlock) => {
                return (
                   <img
                      id="img"
-                     src={block.image.url}
-                     width={block.image.width}
-                     height={block.image.height}
-                     alt={block.image.alt}
+                     src={b.image.url}
+                     width={b.image.width}
+                     height={b.image.height}
+                     alt={b.image.alt}
                      loading="lazy"
                      decoding="async"
                   />

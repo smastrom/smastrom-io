@@ -1,4 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="23" height="16.346" viewBox="0 0 23 16.346">
+---
+import type { HTMLAttributes } from 'astro/types'
+
+const attrs = Astro.props as HTMLAttributes<'svg'>
+---
+
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="23"
+   height="16.346"
+   viewBox="0 0 23 16.346"
+   aria-hidden="true"
+   {...attrs}
+>
    <g
       transform="translate(-7.281 -5.879)"
       fill="none"

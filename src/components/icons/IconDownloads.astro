@@ -1,5 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"
-   ><rect width="256" height="256" fill="none"></rect><line
+---
+import type { HTMLAttributes } from 'astro/types'
+
+const attrs = Astro.props as HTMLAttributes<'svg'>
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true" {...attrs}>
+   <rect width="256" height="256" fill="none"></rect>
+   <line
       x1="128"
       y1="152"
       x2="128"
@@ -8,17 +15,19 @@
       stroke="currentColor"
       stroke-linecap="round"
       stroke-linejoin="round"
-      stroke-width="16"></line><path
+      stroke-width="16"></line>
+   <path
       d="M216,152v56a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V152"
       fill="none"
       stroke="currentColor"
       stroke-linecap="round"
       stroke-linejoin="round"
-      stroke-width="16"></path><polyline
+      stroke-width="16"></path>
+   <polyline
       points="168 112 128 152 88 112"
       fill="none"
       stroke="currentColor"
       stroke-linecap="round"
       stroke-linejoin="round"
-      stroke-width="16"></polyline></svg
->
+      stroke-width="16"></polyline>
+</svg>

@@ -11,6 +11,17 @@ export const navLinks = [
 export const packages = [
    'notivue',
    'vue-collapsed',
-   '@smastrom/react-rating',
    'vue-use-active-scroll',
+   '@smastrom/react-rating',
+]
+
+export const jsonLdKnowsAbout = [
+   'Vite',
+   'Vue.js',
+   'Nuxt',
+   'Astro',
+   'Cloudflare',
+   'Supabase',
+   'Directus',
+   'Storyblok',
 ]

@@ -44,7 +44,9 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
 
 <!doctype html>
 <html lang="en" dir="ltr" data-theme="auto" class="G_Transitions">
-   <Head {title} {description} />
+   <Head {title} {description}>
+      <slot name="head-end" />
+   </Head>
 
    <body>
       <a href="#main" class="G_SR_Only">Skip to main content</a>

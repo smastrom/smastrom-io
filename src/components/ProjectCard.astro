@@ -6,7 +6,7 @@ import IconGlobe from '@/components/icons/IconGlobe.astro'
 import IconGitHub from '@/components/icons/IconGitHub.astro'
 import IconNpm from '@/components/icons/IconNpm.astro'
 
-import { formatNumber, formatDate } from '@/lib/utils'
+import { formatNumber, formatDate, getExtLinkAttrs } from '@/lib/utils'
 
 import type { Package } from '@/lib/fetch-packages'
 
@@ -47,27 +47,17 @@ const { project: p } = Astro.props as { project: Package }
          <nav class="Right_Nav">
             {
                p.demo_url && (
-                  <a
-                     href={p.demo_url}
-                     target="_blank"
-                     title="Demo Website"
-                     aria-label="Demo Website"
-                  >
+                  <a {...getExtLinkAttrs(p.demo_url, 'Demo Website')}>
                      <IconGlobe />
                   </a>
                )
             }
 
-            <a
-               href={p.github_url}
-               target="_blank"
-               title="GitHub Repository"
-               aria-label="GitHub Repository"
-            >
+            <a {...getExtLinkAttrs(p.github_url, 'GitHub Repository')}>
                <IconGitHub />
             </a>
 
-            <a href={p.npm_url} target="_blank" title="NPM Package" aria-label="NPM Package">
+            <a {...getExtLinkAttrs(p.npm_url, 'NPM Package')}>
                <IconNpm />
             </a>
          </nav>
@@ -199,7 +189,7 @@ const { project: p } = Astro.props as { project: Package }
       .Right_Nav {
          display: flex;
          align-items: center;
-         gap: var(--s-07);
+         gap: var(--s-1);
 
          & a {
             display: flex;
@@ -217,6 +207,8 @@ const { project: p } = Astro.props as { project: Package }
 
             & :global(svg) {
                transition: color var(--easing);
+               width: 1.5rem;
+               height: 1.5rem;
             }
 
             &:hover {

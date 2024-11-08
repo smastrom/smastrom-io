@@ -178,13 +178,25 @@ html {
    & img {
       width: 100%;
       height: auto;
-      border-radius: var(--r-4);
+      border-radius: var(--r-3);
       position: relative;
       z-index: 1;
-      max-width: 1000px;
+      max-width: 840px;
+      opacity: var(--o-3);
+      transition: opacity var(--easing);
+      border-left: 5px solid var(--accent);
 
-      @media (--tablet-to) {
-         border-radius: var(--r-3);
+      @media (--mobile-to) {
+         width: 100vw;
+         margin-left: calc(-1 * var(--page-margin));
+         border-radius: 0;
+         height: 90vw;
+         object-fit: cover;
+         border-left: none;
+      }
+
+      &:hover {
+         opacity: 1;
       }
    }
 }

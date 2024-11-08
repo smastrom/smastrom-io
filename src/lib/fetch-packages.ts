@@ -96,3 +96,51 @@ export async function getPackages(packages: string[]): Promise<StatsResponse> {
       }
    }
 }
+
+/**
+ * Get total NPM downloads for all packages published by an user.
+ */
+export async function getTotalDownloads() {
+   try {
+      const res = await fetch(
+         `https://registry.npmjs.org/-/v1/search?text=author:${USERNAME}&size=250`
+      )
+
+      if (!res.ok) throw new Error(await res.text())
+
+      const data = (await res.json()) as { objects: { package: { name: string; scope: string } }[] }
+
+      const pkgs = data.objects
+         .filter((pkg) => pkg.package.scope === 'unscoped' || pkg.package.scope === USERNAME)
+         .map((pkg) => pkg.package.name)
+
+      const requests = pkgs.map(async (pkg) => {
+         const res = await fetch(
+            `https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkg}`
+         )
+
+         if (!res.ok) throw new Error(await res.text())
+
+         const data = await res.json()
+
+         return {
+            name: pkg,
+            downloads: data.downloads,
+         }
+      })
+
+      const downloads = await Promise.all(requests)
+
+      return {
+         error: null,
+         data: downloads.reduce((acc, pkg) => acc + pkg.downloads, 0),
+      }
+   } catch (err) {
+      console.error(err)
+
+      return {
+         error: err.message,
+         data: null,
+      }
+   }
+}

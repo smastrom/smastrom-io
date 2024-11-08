@@ -19,6 +19,7 @@ body {
    overflow-x: hidden;
    touch-action: pan-y;
    position: relative;
+   min-height: 100dvh;
 }
 
 .G_Transitions {

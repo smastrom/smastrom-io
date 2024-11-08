@@ -5,7 +5,7 @@ import ProjectCard from '@/components/ProjectCard.astro'
 import { useDato } from '@/lib/dato-cms'
 import { addLinkAttrs, formatNumber } from '@/lib/utils'
 import { packages as pkgs } from '@/lib/static'
-import { getPackages } from '@/lib/fetch-packages'
+import { getPackages, getTotalDownloads } from '@/lib/fetch-packages'
 
 import type { OpenSourcePage } from '@/lib/types'
 
@@ -28,15 +28,14 @@ const { data: packages, error: packagesErr } = await getPackages(pkgs)
 
 if (packagesErr) throw new Error(packagesErr)
 
+const { data: totalDownloads, error: totalDownloadsErr } = await getTotalDownloads()
+
+if (totalDownloadsErr) throw new Error(totalDownloadsErr)
+
 const cms = data.openSource
 
-const countProp = (prop: 'stargazers_count' | 'downloads') =>
-   formatNumber(packages.reduce((acc, p) => acc + p[prop], 0))
-
 const withStats = (html: string) =>
-   html
-      .replace('{{ downloads }}', countProp('downloads'))
-      .replace('{{ stars }}', countProp('stargazers_count'))
+   html.replace('{{ total_downloads }}', formatNumber(totalDownloads))
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
@@ -44,7 +43,7 @@ const withStats = (html: string) =>
       <h1 class="G_Title">{cms.title}</h1>
       <div class="G_Paragraphs" set:html={withStats(addLinkAttrs(cms.text))} />
 
-      <ul class="Card_Grid">
+      <ul class="Card_Grid" aria-label="Open source projects">
          {packages.map((p) => <ProjectCard project={p} />)}
       </ul>
    </article>

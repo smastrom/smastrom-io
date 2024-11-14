@@ -149,10 +149,6 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
          background-color var(--easing),
          border-color var(--easing);
 
-      @supports not (backdrop-filter: blur(var(--s-05))) {
-         background-color: var(--bg);
-      }
-
       @media (--menu-shift-from) {
          display: none;
       }
@@ -218,6 +214,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
       border-radius: var(--r-max) 0 0 var(--r-max);
       transition: all var(--easing);
       backdrop-filter: blur(var(--s-05));
+      background-color: var(--bg-alpha);
 
       @supports not (backdrop-filter: blur(var(--s-05))) {
          background-color: var(--bg);

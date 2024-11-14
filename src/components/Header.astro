@@ -114,6 +114,7 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
       display: flex;
       height: var(--header-height);
       backdrop-filter: blur(var(--s-05));
+      background-color: var(--bg-alpha);
       position: fixed;
       top: 0;
       left: 0;
@@ -193,7 +194,6 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
    html[data-theme='light'] {
       & .Nav a {
          & :global(svg) {
-            color: currentColor;
             opacity: var(--o-2);
          }
 
@@ -201,7 +201,6 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
             pointer-events: none;
 
             & :global(svg) {
-               color: currentColor;
                opacity: 1;
             }
          }

@@ -20,6 +20,9 @@ body {
    touch-action: pan-y;
    position: relative;
    min-height: 100dvh;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
 }
 
 .G_Transitions {

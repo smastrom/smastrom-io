@@ -3,13 +3,13 @@
 
    --fg: hsla(142, 29.4%, 80%, 0.9);
    --bg: hsl(142 10% 12%);
+   --bg-alpha: hsla(150, 10%, 12%, 0.85);
 
    --divider: hsla(141, 79%, 85%, 0.3);
    --divider-light: hsl(141, 10%, 25%);
 
    --bg-elv: hsl(142 16% 24%);
    --bg-elv-darker: hsl(140, 8%, 15%);
-   --bg-alpha: hsla(159, 21%, 21%, 0.4);
 
    --shadow-accent: 0 0 0 var(--b-1) var(--accent);
    --shadow-accent-mid: 0 0 0 var(--b-1) hsla(142, 75%, 53%, 0.5);
@@ -21,13 +21,13 @@
 
    --fg: hsl(142 16% 24%);
    --bg: hsl(138, 76%, 97%);
+   --bg-alpha: hsla(135, 80%, 95%, 0.8);
 
    --divider: hsla(159, 21%, 21%, 0.4);
    --divider-light: hsl(150, 2%, 83%);
 
    --bg-elv: #fff;
    --bg-elv-darker: #fff;
-   --bg-alpha: hsla(0, 0%, 100%, 0.32);
 
    --shadow-accent: 0 0 0 2px var(--accent);
    --shadow-accent-mid: 0 0 0 2px hsla(142, 75%, 35%, 0.5);

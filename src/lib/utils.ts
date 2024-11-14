@@ -44,6 +44,7 @@ export function addLinkAttrs(html: string) {
    return html.replace(/<a /g, '<a target="_blank" rel="nofollow noreferrer" ')
 }
 
+// https://stackoverflow.com/a/69661174
 export function stripEmoji(text: string) {
    return text.replace(
       /(?![*#0-9]+)[\p{Emoji}\p{Emoji_Modifier}\p{Emoji_Component}\p{Emoji_Modifier_Base}\p{Emoji_Presentation}]/gu,

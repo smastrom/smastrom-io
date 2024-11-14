@@ -5,7 +5,7 @@ import IconGlobe from '@/components/icons/IconGlobe.astro'
 import IconGitHub from '@/components/icons/IconGitHub.astro'
 import IconNpm from '@/components/icons/IconNpm.astro'
 
-import { formatNumber, formatDate, getExtLinkAttrs } from '@/lib/utils'
+import { formatNumber, formatDate, getExtLinkAttrs, stripEmoji } from '@/lib/utils'
 
 import type { Package } from '@/lib/fetch-packages'
 
@@ -20,7 +20,7 @@ const { project: p } = Astro.props as { project: Package }
    <section class="Card_Content G_Tilt_Content">
       <div>
          <h2>{p.title}</h2>
-         <p class="Subtitle">{p.description}</p>
+         <p class="Subtitle">{stripEmoji(p.description)}</p>
       </div>
 
       <div class="Bottom">

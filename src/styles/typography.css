@@ -182,8 +182,6 @@ html {
       position: relative;
       z-index: 1;
       max-width: 840px;
-      opacity: var(--o-3);
-      transition: opacity var(--easing);
       border-left: 5px solid var(--accent);
 
       @media (--mobile-to) {
@@ -193,10 +191,20 @@ html {
          height: 90vw;
          object-fit: cover;
          border-left: none;
+         border-top: 2px solid var(--accent);
       }
 
-      &:hover {
-         opacity: 1;
+      @media (--desktop-from) {
+         max-width: 920px;
+      }
+
+      @media (hover: hover) {
+         opacity: 0.9;
+         transition: opacity var(--easing);
+
+         &:hover {
+            opacity: 1;
+         }
       }
    }
 }

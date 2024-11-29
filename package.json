@@ -13,7 +13,7 @@
       "start": "bun --bun astro:start"
    },
    "dependencies": {
-      "astro": "^4.16.7",
+      "astro": "^4.16.16",
       "datocms-structured-text-to-html-string": "^3.0.0"
    },
    "devDependencies": {

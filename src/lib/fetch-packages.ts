@@ -108,10 +108,10 @@ export async function getTotalDownloads() {
 
       if (!res.ok) throw new Error(await res.text())
 
-      const data = (await res.json()) as { objects: { package: { name: string; scope: string } }[] }
+      const data = await res.json()
 
       const pkgs = data.objects
-         .filter((pkg) => pkg.package.scope === 'unscoped' || pkg.package.scope === USERNAME)
+         .filter((pkg) => pkg.package.publisher.username === USERNAME)
          .map((pkg) => pkg.package.name)
 
       const requests = pkgs.map(async (pkg) => {

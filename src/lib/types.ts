@@ -43,8 +43,8 @@ export interface OpenSourcePage {
    }
 }
 
-export interface ProfessionalWorkPage {
-   professionalWork: {
+export interface ServicesPage {
+   servicesPage: {
       seo: Seo
       title: string
       subtitle: string

@@ -1,17 +1,17 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 
-import ProfessionalServiceImage from '@/components/ProfessionalServiceImage.astro'
+import ServiceImage from '@/components/ServiceImage.astro'
 import GetInTouch from '@/components/GetInTouch.astro'
 
 import { useDato } from '@/lib/dato-cms'
 import { addLinkAttrs } from '@/lib/utils'
 
-import type { ProfessionalWorkPage } from '@/lib/types'
+import type { ServicesPage } from '@/lib/types'
 
-const { data, error } = await useDato<ProfessionalWorkPage>(/* GraphQL */ `
+const { data, error } = await useDato<ServicesPage>(/* GraphQL */ `
    {
-      professionalWork {
+      servicesPage {
          seo {
             title
             description
@@ -37,7 +37,7 @@ const { data, error } = await useDato<ProfessionalWorkPage>(/* GraphQL */ `
 
 if (error) throw new Error(error)
 
-const cms = data.professionalWork
+const cms = data.servicesPage
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
@@ -57,10 +57,7 @@ const cms = data.professionalWork
                <div class="G_Paragraphs" set:html={addLinkAttrs(s.description)} />
 
                {s.image && (
-                  <ProfessionalServiceImage
-                     imageUrl={s.image.url}
-                     imageDescription={s.imageDescription}
-                  />
+                  <ServiceImage imageUrl={s.image.url} imageDescription={s.imageDescription} />
                )}
             </section>
          ))

@@ -4,7 +4,6 @@ import MobileMenu from './MobileMenu.astro'
 import DarkMode from './DarkMode.astro'
 
 import IconEmail from './icons/IconEmail.astro'
-import IconTelegram from './icons/IconTelegram.astro'
 import IconGitHub from './icons/IconGitHub.astro'
 import IconDiscord from './icons/IconDiscord.astro'
 
@@ -41,7 +40,6 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
          <IconEmail />
       </a>
 
-      <a {...getExtLinkAttrs(LINKS.telegram, 'Telegram')}><IconTelegram /> </a>
       <a {...getExtLinkAttrs(LINKS.github, 'GitHub')}><IconGitHub /> </a>
       <a {...getExtLinkAttrs(LINKS.discord, 'Discord')}><IconDiscord /> </a>
    </nav>
@@ -174,11 +172,18 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
             opacity: var(--o-3);
          }
 
-         &:hover,
          &[aria-current='page'] {
             background-color: var(--bg);
             border: var(--b-1) solid var(--divider);
             border-radius: var(--r-max);
+         }
+
+         @media (hover: hover) {
+            &:hover {
+               background-color: var(--bg);
+               border: var(--b-1) solid var(--divider);
+               border-radius: var(--r-max);
+            }
          }
 
          &[aria-current='page'] {
@@ -231,9 +236,11 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
             transition: opacity 100ms linear;
          }
 
-         &:hover {
-            & :global(svg) {
-               opacity: var(--o-2);
+         @media (hover: hover) {
+            &:hover {
+               & :global(svg) {
+                  opacity: var(--o-2);
+               }
             }
          }
       }

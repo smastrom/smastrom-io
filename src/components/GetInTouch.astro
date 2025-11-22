@@ -27,11 +27,13 @@ import { EMAIL } from '@/lib/constants'
          transition: transform var(--easing);
       }
 
-      &:hover {
-         opacity: var(--o-3);
+      @media (hover: hover) {
+         &:hover {
+            opacity: var(--o-3);
 
-         & :global(svg) {
-            transform: translateX(var(--s-02));
+            & :global(svg) {
+               transform: translateX(var(--s-02));
+            }
          }
       }
    }

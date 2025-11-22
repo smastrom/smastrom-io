@@ -114,9 +114,11 @@ html {
          background-color var(--easing);
    }
 
-   &:hover {
-      &::after {
-         transform: scaleY(1);
+   @media (hover: hover) {
+      &:hover {
+         &::after {
+            transform: scaleY(1);
+         }
       }
    }
 }
@@ -202,8 +204,10 @@ html {
          opacity: 0.9;
          transition: opacity var(--easing);
 
-         &:hover {
-            opacity: 1;
+         @media (hover: hover) {
+            &:hover {
+               opacity: 1;
+            }
          }
       }
    }

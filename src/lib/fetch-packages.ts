@@ -18,12 +18,7 @@ export interface StatsResponse {
    error: string | null
 }
 
-/**
- * NOTES:
- *
- * 1. This only works for packages which have the same scope and name on both NPM and GitHub.
- * 2. When calling the GitHub API below the username is hardcoded for simplicity, change it if you're copying the code.
- */
+// NOTO: This will only work for packages which have the same scope and name on both NPM and GitHub.
 
 const USERNAME = 'smastrom'
 
@@ -83,17 +78,11 @@ export async function getPackages(packages: string[]): Promise<StatsResponse> {
 
       await Promise.all(requests)
 
-      return {
-         data: Object.values(result),
-         error: null,
-      }
+      return { data: Object.values(result), error: null }
    } catch (err) {
       console.error(err)
 
-      return {
-         data: null,
-         error: err.message,
-      }
+      return { data: null, error: err.message }
    }
 }
 
@@ -123,24 +112,15 @@ export async function getTotalDownloads() {
 
          const data = await res.json()
 
-         return {
-            name: pkg,
-            downloads: data.downloads,
-         }
+         return { name: pkg, downloads: data.downloads }
       })
 
       const downloads = await Promise.all(requests)
 
-      return {
-         error: null,
-         data: downloads.reduce((acc, pkg) => acc + pkg.downloads, 0),
-      }
+      return { error: null, data: downloads.reduce((acc, pkg) => acc + pkg.downloads, 0) }
    } catch (err) {
       console.error(err)
 
-      return {
-         error: err.message,
-         data: null,
-      }
+      return { error: err.message, data: null }
    }
 }

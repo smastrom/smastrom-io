@@ -13,12 +13,12 @@
       "start": "bun --bun astro:start"
    },
    "dependencies": {
-      "astro": "^4.16.16",
+      "astro": "5.7.13",
       "datocms-structured-text-to-html-string": "^3.0.0"
    },
    "devDependencies": {
-      "@astrojs/cloudflare": "^11.1.0",
-      "@astrojs/sitemap": "^3.2.1",
+      "@astrojs/cloudflare": "12.5.3",
+      "@astrojs/sitemap": "3.4.0",
       "@csstools/postcss-global-data": "^2.1.1",
       "autoprefixer": "^10.4.20",
       "postcss": "^8.4.47",

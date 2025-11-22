@@ -33,8 +33,14 @@ const url = import.meta.env.SITE + Astro.url.pathname
       ))
    }
 
-   <link rel="preload" type="image/svg+xml" href="/logo-background.svg" />
-   <link rel="preload" type="image/svg+xml" href="/logo-background-large.svg" />
+   <link rel="preload" type="image/svg+xml" as="image" href="/logo-background.svg" crossorigin />
+   <link
+      rel="preload"
+      type="image/svg+xml"
+      as="image"
+      href="/logo-background-large.svg"
+      crossorigin
+   />
 
    <!-- PWA -->
    <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials" />
@@ -45,7 +51,7 @@ const url = import.meta.env.SITE + Astro.url.pathname
    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
    <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
 
-   <!--  Open Graph  -->
+   <!-- Open Graph -->
    <meta property="og:type" content="article" />
    <meta property="og:url" content={url} />
    <meta property="og:title" content={title} />

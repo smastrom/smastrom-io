@@ -3,13 +3,14 @@ import { defineConfig, envField } from 'astro/config'
 import cloudflare from '@astrojs/cloudflare'
 import sitemap from '@astrojs/sitemap'
 
+import { SITE_URL } from './src/lib/constants'
+
 export default defineConfig({
-   site: 'https://smastrom.io',
-   trailingSlash: 'never',
+   site: SITE_URL,
+   output: 'static',
    devToolbar: {
       enabled: false,
    },
-   output: 'hybrid',
    image: {
       remotePatterns: [
          {
@@ -28,12 +29,10 @@ export default defineConfig({
       },
    }),
    integrations: [sitemap()],
-   experimental: {
-      env: {
-         schema: {
-            DATO_TOKEN: envField.string({ context: 'client', access: 'public' }),
-            GITHUB_TOKEN: envField.string({ context: 'server', access: 'secret' }),
-         },
+   env: {
+      schema: {
+         DATO_TOKEN: envField.string({ context: 'client', access: 'public' }),
+         GITHUB_TOKEN: envField.string({ context: 'server', access: 'secret' }),
       },
    },
    vite: {

@@ -18,12 +18,7 @@ export interface StatsResponse {
    error: string | null
 }
 
-/**
- * NOTES:
- *
- * 1. This only works for packages which have the same scope and name on both NPM and GitHub.
- * 2. When calling the GitHub API below the username is hardcoded for simplicity, change it if you're copying the code.
- */
+// NOTO: This will only work for packages which have the same scope and name on both NPM and GitHub.
 
 const USERNAME = 'smastrom'
 

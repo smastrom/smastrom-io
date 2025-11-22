@@ -4,7 +4,6 @@ import MobileMenu from './MobileMenu.astro'
 import DarkMode from './DarkMode.astro'
 
 import IconEmail from './icons/IconEmail.astro'
-import IconTelegram from './icons/IconTelegram.astro'
 import IconGitHub from './icons/IconGitHub.astro'
 import IconDiscord from './icons/IconDiscord.astro'
 
@@ -41,7 +40,6 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
          <IconEmail />
       </a>
 
-      <a {...getExtLinkAttrs(LINKS.telegram, 'Telegram')}><IconTelegram /> </a>
       <a {...getExtLinkAttrs(LINKS.github, 'GitHub')}><IconGitHub /> </a>
       <a {...getExtLinkAttrs(LINKS.discord, 'Discord')}><IconDiscord /> </a>
    </nav>

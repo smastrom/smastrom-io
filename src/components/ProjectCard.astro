@@ -71,8 +71,10 @@ const { project: p } = Astro.props as { project: Package }
       box-shadow: 0 0 0 2px var(--divider-light);
       backdrop-filter: blur(var(--s-05));
 
-      &:hover {
-         box-shadow: 0 0 0 2px var(--accent);
+      @media (hover: hover) {
+         &:hover {
+            box-shadow: 0 0 0 2px var(--accent);
+         }
       }
    }
 
@@ -93,8 +95,10 @@ const { project: p } = Astro.props as { project: Package }
          box-shadow var(--easing),
          background-color var(--easing);
 
-      &:hover {
-         box-shadow: 0 0 0 var(--b-1) var(--accent);
+      @media (hover: hover) {
+         &:hover {
+            box-shadow: 0 0 0 var(--b-1) var(--accent);
+         }
       }
 
       @media (--tablet-to) {
@@ -186,9 +190,11 @@ const { project: p } = Astro.props as { project: Package }
                height: 1.5rem;
             }
 
-            &:hover {
-               & :global(svg) {
-                  color: var(--accent);
+            @media (hover: hover) {
+               &:hover {
+                  & :global(svg) {
+                     color: var(--accent);
+                  }
                }
             }
          }

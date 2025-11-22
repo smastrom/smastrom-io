@@ -164,8 +164,10 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
          user-select: none;
          gap: var(--s-1);
 
-         &:hover {
-            opacity: 1;
+         @media (hover: hover) {
+            &:hover {
+               opacity: 1;
+            }
          }
 
          & :global(svg) {
@@ -190,9 +192,11 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
          text-decoration: underline;
       }
 
-      & .Links a:hover {
-         & :global(svg) {
-            color: var(--accent);
+      @media (hover: hover) {
+         & .Links a:hover {
+            & :global(svg) {
+               color: var(--accent);
+            }
          }
       }
    }

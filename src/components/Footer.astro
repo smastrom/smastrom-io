@@ -37,8 +37,10 @@ const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
          color: var(--accent);
       }
 
-      & :global(a):hover {
-         text-decoration: underline;
+      @media (hover: hover) {
+         & :global(a):hover {
+            text-decoration: underline;
+         }
       }
    }
 </style>

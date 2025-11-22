@@ -187,9 +187,11 @@ import IconSun from './icons/IconSun.astro'
             opacity 100ms ease-out;
       }
 
-      &:hover {
-         & :global(svg) {
-            opacity: var(--o-2);
+      @media (hover: hover) {
+         &:hover {
+            & :global(svg) {
+               opacity: var(--o-2);
+            }
          }
       }
    }

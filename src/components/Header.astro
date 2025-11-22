@@ -172,11 +172,18 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
             opacity: var(--o-3);
          }
 
-         &:hover,
          &[aria-current='page'] {
             background-color: var(--bg);
             border: var(--b-1) solid var(--divider);
             border-radius: var(--r-max);
+         }
+
+         @media (hover: hover) {
+            &:hover {
+               background-color: var(--bg);
+               border: var(--b-1) solid var(--divider);
+               border-radius: var(--r-max);
+            }
          }
 
          &[aria-current='page'] {
@@ -229,9 +236,11 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
             transition: opacity 100ms linear;
          }
 
-         &:hover {
-            & :global(svg) {
-               opacity: var(--o-2);
+         @media (hover: hover) {
+            &:hover {
+               & :global(svg) {
+                  opacity: var(--o-2);
+               }
             }
          }
       }

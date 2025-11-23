@@ -57,8 +57,6 @@ import IconSun from './icons/IconSun.astro'
 
       setAria(getBtn(), systemTheme as Theme)
 
-      document.cookie = `theme=${systemTheme}; path=/`
-
       if (systemTheme === 'dark') {
          getMoon().style.display = 'none'
       } else {
@@ -103,8 +101,6 @@ import IconSun from './icons/IconSun.astro'
                   Object.assign(moonIcon.style, { opacity: '', transform: 'translateX(0)' })
                })
             })
-
-            document.cookie = 'theme=light; path=/'
          } else {
             Object.assign(moonIcon.style, { opacity: 0, transform: 'translateX(-30%)' })
 
@@ -122,8 +118,6 @@ import IconSun from './icons/IconSun.astro'
                   Object.assign(sunIcon.style, { opacity: '', transform: 'translateX(0)' })
                })
             })
-
-            document.cookie = 'theme=dark; path=/'
          }
 
          const newTheme = currTheme === 'dark' ? 'light' : 'dark'

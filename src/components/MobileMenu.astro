@@ -9,7 +9,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
    <div class="Panel" style="visibility: hidden" id="panel">
       {
          navLinks.map((l) => (
-            <a {...getLinkProps(Astro.url, l.href)}>
+            <a {...getLinkProps(Astro.url.pathname, l.href)}>
                <l.Icon />
                {l.caption}
             </a>

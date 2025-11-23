@@ -25,7 +25,7 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
    <nav class="Nav">
       {
          navLinks.map((l) => (
-            <a {...getLinkProps(Astro.url, l.href)}>
+            <a {...getLinkProps(Astro.url.pathname, l.href)}>
                <l.Icon />
                {l.caption}
             </a>

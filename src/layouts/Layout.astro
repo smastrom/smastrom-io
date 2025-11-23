@@ -43,13 +43,7 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
 ---
 
 <!doctype html>
-<html
-   lang="en"
-   dir="ltr"
-   data-theme="auto"
-   class="G_Transitions"
-   data-astro-pathname={Astro.url.pathname}
->
+<html lang="en" dir="ltr" data-theme="auto" class="G_Transitions">
    <Head {title} {description}>
       <slot name="head-end" />
    </Head>

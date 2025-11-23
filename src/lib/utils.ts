@@ -1,11 +1,12 @@
 import type { HTMLAttributes } from 'astro/types'
 
-const isActive = (url: URL, href: string) => url.pathname === href || url.pathname + '/' === href
+const isActive = (pathname: string, href: string) =>
+   pathname === href || pathname + '/' === href || pathname === href + '/'
 
-export function getLinkProps(url: URL, href: string) {
+export function getLinkProps(pathname: string, href: string) {
    return {
       href,
-      ...(isActive(url, href) ? { 'aria-current': 'page' } : {}),
+      ...(isActive(pathname, href) ? { 'aria-current': 'page' } : {}),
    } as HTMLAttributes<'a'>
 }
 

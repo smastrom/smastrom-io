@@ -41,17 +41,17 @@ const { project: p } = Astro.props as { project: OurPackage }
          <nav class="Right_Nav">
             {
                p.demo_url && (
-                  <a {...getExtLinkAttrs(p.demo_url, 'Demo Website')}>
+                  <a {...getExtLinkAttrs(p.demo_url, 'View demo')}>
                      <IconGlobe />
                   </a>
                )
             }
 
-            <a {...getExtLinkAttrs(p.github_url, 'GitHub Repository')}>
+            <a {...getExtLinkAttrs(p.github_url, 'View on GitHub')}>
                <IconGitHub />
             </a>
 
-            <a {...getExtLinkAttrs(p.npm_url, 'NPM Package')}>
+            <a {...getExtLinkAttrs(p.npm_url, 'View on NPM')}>
                <IconNpm />
             </a>
          </nav>
@@ -142,7 +142,7 @@ const { project: p } = Astro.props as { project: OurPackage }
       & .Stats {
          display: flex;
          align-items: center;
-         gap: var(--s-3);
+         gap: var(--s-4);
 
          @media (--tablet-to) {
             gap: var(--s-1);
@@ -152,7 +152,7 @@ const { project: p } = Astro.props as { project: OurPackage }
       & .Icon_Box {
          display: flex;
          align-items: center;
-         gap: var(--s-05);
+         gap: var(--s-02);
          font-size: var(--f-09);
          font-weight: 500;
          transition: color var(--easing);

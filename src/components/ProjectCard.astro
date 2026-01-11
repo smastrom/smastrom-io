@@ -5,13 +5,13 @@ import IconGlobe from '@/components/icons/IconGlobe.astro'
 import IconGitHub from '@/components/icons/IconGitHub.astro'
 import IconNpm from '@/components/icons/IconNpm.astro'
 
-import { formatNumber, formatDate, getExtLinkAttrs, stripEmoji } from '@/lib/utils'
+import { formatDownloadNumber, getExtLinkAttrs, stripEmoji } from '@/lib/utils'
 
-import type { Package } from '@/lib/fetch-packages'
+import type { OurPackage } from '@/lib/types'
 
 import '@/styles/tilt.css'
 
-const { project: p } = Astro.props as { project: Package }
+const { project: p } = Astro.props as { project: OurPackage }
 ---
 
 <li class="Card">
@@ -27,13 +27,13 @@ const { project: p } = Astro.props as { project: Package }
          <div class="Stats">
             <div class="Icon_Box">
                <IconStar />
-               {formatNumber(p.stargazers_count)}
+               {formatDownloadNumber(p.stargazers_count)}
                <span class="G_SR_Only">stars</span>
             </div>
 
             <div class="Icon_Box">
                <IconDownloads />
-               {formatNumber(p.downloads)}
+               {formatDownloadNumber(p.total_downloads)}
                <span class="G_SR_Only">downloads</span>
             </div>
          </div>

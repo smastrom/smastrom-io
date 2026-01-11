@@ -1,5 +1,5 @@
 ---
-import { navLinks } from '@/lib/static'
+import { NAV_LINKS } from '@/lib/static'
 import { getLinkProps } from '@/lib/utils'
 
 const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburger.css
@@ -8,7 +8,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand'] // src/styles/hamburg
 <nav class="Wrapper">
    <div class="Panel" style="visibility: hidden" id="panel">
       {
-         navLinks.map((l) => (
+         NAV_LINKS.map((l) => (
             <a {...getLinkProps(Astro.url.pathname, l.href)}>
                <l.Icon />
                {l.caption}

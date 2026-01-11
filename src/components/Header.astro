@@ -7,8 +7,8 @@ import IconEmail from './icons/IconEmail.astro'
 import IconGitHub from './icons/IconGitHub.astro'
 import IconDiscord from './icons/IconDiscord.astro'
 
-import { navLinks } from '@/lib/static'
-import { EMAIL, LINKS } from '@/lib/constants'
+import { NAV_LINKS } from '@/lib/static'
+import { AUTHOR_EMAIL, LINKS } from '@/lib/constants'
 import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
 ---
 
@@ -24,7 +24,7 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
    </a>
    <nav class="Nav">
       {
-         navLinks.map((l) => (
+         NAV_LINKS.map((l) => (
             <a {...getLinkProps(Astro.url.pathname, l.href)}>
                <l.Icon />
                {l.caption}
@@ -36,7 +36,7 @@ import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
    <nav class="Nav_Right">
       <DarkMode />
 
-      <a {...getExtLinkAttrs('mailto:' + EMAIL, 'Email')}>
+      <a {...getExtLinkAttrs('mailto:' + AUTHOR_EMAIL, 'Email')}>
          <IconEmail />
       </a>
 

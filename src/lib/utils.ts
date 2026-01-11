@@ -20,9 +20,9 @@ export function getExtLinkAttrs(href: string, label: string) {
    }
 }
 
-export function formatNumber(num: number) {
-   if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`.replace('.0', '')
-   if (num >= 1000) return `${(num / 1000).toFixed(1)}k`.replace('.0', '')
+export function formatDownloadNumber(num: number) {
+   if (num >= 1000000) return `${(num / 1000000).toFixed(1)} million`.replace('.0', '')
+   if (num >= 1000) return `${Math.round(num / 1000 / 10) * 10}k`
 
    return num.toString()
 }
@@ -41,8 +41,38 @@ export function formatDate(date: string) {
    })
 }
 
-export function addLinkAttrs(html: string) {
+export function addExternalLinkAttrs(html: string) {
    return html.replace(/<a /g, '<a target="_blank" rel="nofollow noreferrer" ')
+}
+
+export function getUnscopedPackageName(pkg: string) {
+   return pkg.startsWith('@') ? pkg.split('/')[1] : pkg
+}
+
+export function getPackageTitle(pkg: string) {
+   return capitalizeAll(getUnscopedPackageName(pkg)).replaceAll('-', ' ')
+}
+
+export function replaceDownloadsStats(
+   html: string,
+   {
+      total,
+      weekly,
+      monthly,
+   }: {
+      total?: number
+      weekly?: number
+      monthly?: number
+   }
+) {
+   return html
+      .replace('{{ total_downloads }}', formatDownloadNumber(total))
+      .replace('{{ weekly_downloads }}', formatDownloadNumber(weekly))
+      .replace('{{ monthly_downloads }}', formatDownloadNumber(monthly))
+}
+
+export function removePackageScope(pkg: string) {
+   return pkg.startsWith('@') ? pkg.split('/')[1] : pkg
 }
 
 // https://stackoverflow.com/a/69661174

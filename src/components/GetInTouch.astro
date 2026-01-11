@@ -1,10 +1,10 @@
 ---
 import IconArrow from './icons/IconArrow.astro'
 
-import { EMAIL } from '@/lib/constants'
+import { AUTHOR_EMAIL } from '@/lib/constants'
 ---
 
-<a href={'mailto:' + EMAIL} target="_blank"> Get in Touch <IconArrow /> </a>
+<a href={'mailto:' + AUTHOR_EMAIL} target="_blank"> Get in Touch <IconArrow /> </a>
 
 <style>
    a {
@@ -12,7 +12,7 @@ import { EMAIL } from '@/lib/constants'
       align-items: center;
       gap: var(--s-05);
       text-decoration: none;
-      color: var(--text);
+      color: var(--fg);
       font-weight: 500;
       white-space: nowrap;
       font-size: var(--f-2);
@@ -25,11 +25,13 @@ import { EMAIL } from '@/lib/constants'
 
       & :global(svg) {
          transition: transform var(--easing);
+         color: var(--accent);
       }
 
       @media (hover: hover) {
          &:hover {
             opacity: var(--o-3);
+            color: var(--accent);
 
             & :global(svg) {
                transform: translateX(var(--s-02));

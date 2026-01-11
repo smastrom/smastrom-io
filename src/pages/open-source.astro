@@ -3,9 +3,10 @@ import Layout from '@/layouts/Layout.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
 
 import { useDato } from '@/lib/dato-cms'
-import { addLinkAttrs, formatNumber } from '@/lib/utils'
-import { packages as pkgs } from '@/lib/static'
-import { getPackages, getTotalDownloads } from '@/lib/fetch-packages'
+import { addExternalLinkAttrs, replaceDownloadsStats } from '@/lib/utils'
+import { getPackages, getNpmDownloadsStats } from '@/lib/fetch-packages'
+
+import { NPM_USERNAME, TOP_PACKAGES } from '@/lib/constants'
 
 import type { OpenSourcePage } from '@/lib/types'
 
@@ -24,24 +25,28 @@ const { data, error: cmsErr } = await useDato<OpenSourcePage>(/* GraphQL */ `
 
 if (cmsErr) throw new Error(cmsErr)
 
-const { data: packages, error: packagesErr } = await getPackages(pkgs)
+const { data: packages, error: packagesErr } = await getPackages(NPM_USERNAME, TOP_PACKAGES)
 
 if (packagesErr) throw new Error(packagesErr)
 
-const { data: totalDownloads, error: totalDownloadsErr } = await getTotalDownloads()
+const { data: downloadsStats, error: downloadsStatsError } =
+   await getNpmDownloadsStats(NPM_USERNAME)
 
-if (totalDownloadsErr) throw new Error(totalDownloadsErr)
+if (downloadsStatsError) throw new Error(downloadsStatsError)
 
 const cms = data.openSource
 
-const withStats = (html: string) =>
-   html.replace('{{ total_downloads }}', formatNumber(totalDownloads))
+const articleContent = replaceDownloadsStats(addExternalLinkAttrs(cms.text), {
+   total: downloadsStats.total,
+   weekly: downloadsStats.weekly,
+   monthly: downloadsStats.monthly,
+})
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
    <article class="G_Article_Wrapper G_Page_Top_Spacing">
       <h1 class="G_Title">{cms.title}</h1>
-      <div class="G_Paragraphs" set:html={withStats(addLinkAttrs(cms.text))} />
+      <div class="G_Paragraphs" set:html={articleContent} />
 
       <ul class="Card_Grid" aria-label="Open source projects">
          {packages.map((p) => <ProjectCard project={p} />)}

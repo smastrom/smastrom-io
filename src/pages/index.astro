@@ -3,8 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import HomeJLD from '@/components/HomeJLD.astro'
 
 import { useDato, StructuredText } from '@/lib/dato-cms'
-import { EMAIL, LINKS, NAME } from '@/lib/constants'
-import { jsonLdKnowsAbout as knowsAbout } from '@/lib/static'
+import { AUTHOR_EMAIL, LINKS, AUTHOR_NAME, TOPICS, AUTHOR_COUNTRY } from '@/lib/constants'
 
 import type { ArticleImageBlock, IndexPage } from '@/lib/types'
 
@@ -44,12 +43,12 @@ const cms = data.home
    <HomeJLD
       slot="head-end"
       url={import.meta.env.SITE}
-      name={NAME}
+      name={AUTHOR_NAME}
       description={cms.seo.description}
-      email={EMAIL}
-      addressCountry="Italy"
+      email={AUTHOR_EMAIL}
+      addressCountry={AUTHOR_COUNTRY}
       sameAs={Object.values(LINKS)}
-      knowsAbout={knowsAbout}
+      knowsAbout={TOPICS}
    />
 
    <article class="G_Prose G_Article_Wrapper" id="article">

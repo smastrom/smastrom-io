@@ -5,7 +5,7 @@ import ServiceImage from '@/components/ServiceImage.astro'
 import GetInTouch from '@/components/GetInTouch.astro'
 
 import { useDato } from '@/lib/dato-cms'
-import { addLinkAttrs } from '@/lib/utils'
+import { addExternalLinkAttrs } from '@/lib/utils'
 
 import type { ServicesPage } from '@/lib/types'
 
@@ -54,7 +54,7 @@ const cms = data.servicesPage
                {s.caption && <h3 class="G_Caption">{s.caption}</h3>}
 
                <h2 class="G_Title_2">{s.title}</h2>
-               <div class="G_Paragraphs" set:html={addLinkAttrs(s.description)} />
+               <div class="G_Paragraphs" set:html={addExternalLinkAttrs(s.description)} />
 
                {s.image && (
                   <ServiceImage imageUrl={s.image.url} imageDescription={s.imageDescription} />

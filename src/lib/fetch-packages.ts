@@ -1,84 +1,98 @@
 import { GITHUB_TOKEN } from 'astro:env/server'
 
-import { capitalizeAll } from '@/lib/utils'
+import { getPackageTitle, getUnscopedPackageName } from '@/lib/utils'
 
-export interface Package {
-   title: string
-   downloads: number
-   stargazers_count: number
-   description: string
-   created_at: string
-   demo_url: string | null
-   npm_url: string
-   github_url: string
-}
+import type {
+   NpmSearchApiResponse,
+   NpmDownloadApiResponse,
+   PackageSlug,
+   OurPackage,
+   GitHubRepositoryApiResponse,
+} from '@/lib/types'
 
-export interface StatsResponse {
-   data: Package[]
+export interface GetPackagesResponse {
+   data: OurPackage[]
    error: string | null
 }
 
-// NOTO: This will only work for packages which have the same scope and name on both NPM and GitHub.
-
-const USERNAME = 'smastrom'
-
-const removeScope = (pkg: string) => (pkg.startsWith('@') ? pkg.split('/')[1] : pkg)
-
-export async function getPackages(packages: string[]): Promise<StatsResponse> {
+export async function getPackages(
+   npmUsername: string,
+   packages: PackageSlug[]
+): Promise<GetPackagesResponse> {
    try {
       const result = packages.reduce(
-         (acc, pkg, i) => {
-            acc[i] = {
-               title: capitalizeAll(removeScope(pkg)).replaceAll('-', ' '),
+         (acc, pkg) => {
+            acc[pkg] = {
+               title: getPackageTitle(pkg),
                npm_url: `https://www.npmjs.com/package/${pkg}`,
-            } as Package
+               total_downloads: 0,
+               weekly_downloads: 0,
+               monthly_downloads: 0,
+            } as OurPackage
+
             return acc
          },
-         {} as Record<string, Package>
+         {} as Record<PackageSlug, OurPackage>
       )
 
       const requests = [
-         ...packages.map(async (pkg, i) => {
+         ...packages.map(async (pkg) => {
             const res = await fetch(
                `https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkg}`
             )
 
             if (!res.ok) throw new Error(await res.text())
 
-            const data = await res.json()
+            const data = (await res.json()) as NpmDownloadApiResponse
 
-            result[i].downloads = data.downloads
+            result[pkg].total_downloads = data.downloads
          }),
 
-         ...packages.map(async (pkg, i) => {
+         ...packages.map(async (pkg) => {
             const res = await fetch(
-               `https://api.github.com/repos/${USERNAME}/${removeScope(pkg)}`,
+               `https://registry.npmjs.org/-/v1/search?text=${encodeURIComponent(`${npmUsername} ${getUnscopedPackageName(pkg)}`)}`
+            )
+
+            if (!res.ok) throw new Error(await res.text())
+
+            const {
+               objects: [data],
+            } = (await res.json()) as NpmSearchApiResponse
+
+            result[pkg].weekly_downloads = data.downloads.weekly
+            result[pkg].monthly_downloads = data.downloads.monthly
+         }),
+
+         ...packages.map(async (pkg) => {
+            const res = await fetch(
+               `https://api.github.com/repos/${npmUsername}/${getUnscopedPackageName(pkg)}`,
                {
                   headers: {
                      Accept: 'application/vnd.github+json',
                      Authorization: `Bearer ${GITHUB_TOKEN}`,
-                     'User-Agent': USERNAME,
+                     'User-Agent': npmUsername,
                   },
                }
             )
 
             if (!res.ok) throw new Error(await res.text())
 
-            const data = await res.json()
+            const data = (await res.json()) as GitHubRepositoryApiResponse
 
-            Object.assign(result[i], {
-               demo_url: data.homepage || null,
-               created_at: data.created_at,
-               description: data.description.replace(/:[^:]+: /, ''),
-               stargazers_count: data.stargazers_count,
-               github_url: data.html_url,
-            })
+            result[pkg].demo_url = data.homepage || null
+            result[pkg].created_at = data.created_at
+            result[pkg].description = data.description.replace(/:[^:]+: /, '')
+            result[pkg].stargazers_count = data.stargazers_count
+            result[pkg].github_url = data.html_url
          }),
       ]
 
       await Promise.all(requests)
 
-      return { data: Object.values(result), error: null }
+      return {
+         data: Object.values(result).sort((a, b) => b.stargazers_count - a.stargazers_count),
+         error: null,
+      }
    } catch (err) {
       console.error(err)
 
@@ -86,41 +100,62 @@ export async function getPackages(packages: string[]): Promise<StatsResponse> {
    }
 }
 
+export interface NpmDownloadsStats {
+   total: number
+   weekly: number
+   monthly: number
+}
+
+export interface GetNpmDownloadsStatsResponse {
+   error: string | null
+   data: NpmDownloadsStats
+}
+
 /**
- * Get total NPM downloads for all packages published by an user.
+ * Get total NPM downloads for all packages published by a specific user.
  */
-export async function getTotalDownloads() {
+async function getPkgTotalDownloads(pkgName: string): Promise<number> {
+   const res = await fetch(`https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkgName}`)
+
+   if (!res.ok) throw new Error(await res.text())
+
+   const data = (await res.json()) as NpmDownloadApiResponse
+
+   return data.downloads
+}
+
+export async function getNpmDownloadsStats(
+   npmUsername: string
+): Promise<GetNpmDownloadsStatsResponse> {
    try {
       const res = await fetch(
-         `https://registry.npmjs.org/-/v1/search?text=author:${USERNAME}&size=250`
+         `https://registry.npmjs.org/-/v1/search?text=author:${npmUsername}&size=250`
       )
 
       if (!res.ok) throw new Error(await res.text())
 
-      const data = await res.json()
+      const searchData = (await res.json()) as NpmSearchApiResponse
 
-      const pkgs = data.objects
-         .filter((pkg) => pkg.package.publisher.username === USERNAME)
-         .map((pkg) => pkg.package.name)
+      const responseData = { total: 0, weekly: 0, monthly: 0 } as NpmDownloadsStats
 
-      const requests = pkgs.map(async (pkg) => {
-         const res = await fetch(
-            `https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkg}`
-         )
+      for (const pkg of searchData.objects) {
+         if (pkg.package.publisher.username === npmUsername) {
+            responseData.total += await getPkgTotalDownloads(pkg.package.name)
+            responseData.weekly += pkg.downloads.weekly
+            responseData.monthly += pkg.downloads.monthly
+         }
+      }
 
-         if (!res.ok) throw new Error(await res.text())
-
-         const data = await res.json()
-
-         return { name: pkg, downloads: data.downloads }
-      })
-
-      const downloads = await Promise.all(requests)
-
-      return { error: null, data: downloads.reduce((acc, pkg) => acc + pkg.downloads, 0) }
+      return {
+         error: null,
+         data: responseData,
+      }
    } catch (err) {
       console.error(err)
 
-      return { error: err.message, data: null }
+      return {
+         error: err.message,
+         data: null,
+      }
    }
 }

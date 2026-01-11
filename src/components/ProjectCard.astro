@@ -5,13 +5,13 @@ import IconGlobe from '@/components/icons/IconGlobe.astro'
 import IconGitHub from '@/components/icons/IconGitHub.astro'
 import IconNpm from '@/components/icons/IconNpm.astro'
 
-import { formatNumber, formatDate, getExtLinkAttrs, stripEmoji } from '@/lib/utils'
+import { formatDownloadNumber, getExtLinkAttrs, stripEmoji } from '@/lib/utils'
 
-import type { Package } from '@/lib/fetch-packages'
+import type { OurPackage } from '@/lib/types'
 
 import '@/styles/tilt.css'
 
-const { project: p } = Astro.props as { project: Package }
+const { project: p } = Astro.props as { project: OurPackage }
 ---
 
 <li class="Card">
@@ -27,13 +27,13 @@ const { project: p } = Astro.props as { project: Package }
          <div class="Stats">
             <div class="Icon_Box">
                <IconStar />
-               {formatNumber(p.stargazers_count)}
+               {formatDownloadNumber(p.stargazers_count)}
                <span class="G_SR_Only">stars</span>
             </div>
 
             <div class="Icon_Box">
                <IconDownloads />
-               {formatNumber(p.downloads)}
+               {formatDownloadNumber(p.total_downloads)}
                <span class="G_SR_Only">downloads</span>
             </div>
          </div>
@@ -41,17 +41,17 @@ const { project: p } = Astro.props as { project: Package }
          <nav class="Right_Nav">
             {
                p.demo_url && (
-                  <a {...getExtLinkAttrs(p.demo_url, 'Demo Website')}>
+                  <a {...getExtLinkAttrs(p.demo_url, 'View demo')}>
                      <IconGlobe />
                   </a>
                )
             }
 
-            <a {...getExtLinkAttrs(p.github_url, 'GitHub Repository')}>
+            <a {...getExtLinkAttrs(p.github_url, 'View on GitHub')}>
                <IconGitHub />
             </a>
 
-            <a {...getExtLinkAttrs(p.npm_url, 'NPM Package')}>
+            <a {...getExtLinkAttrs(p.npm_url, 'View on NPM')}>
                <IconNpm />
             </a>
          </nav>
@@ -142,7 +142,7 @@ const { project: p } = Astro.props as { project: Package }
       & .Stats {
          display: flex;
          align-items: center;
-         gap: var(--s-3);
+         gap: var(--s-4);
 
          @media (--tablet-to) {
             gap: var(--s-1);
@@ -152,7 +152,7 @@ const { project: p } = Astro.props as { project: Package }
       & .Icon_Box {
          display: flex;
          align-items: center;
-         gap: var(--s-05);
+         gap: var(--s-02);
          font-size: var(--f-09);
          font-weight: 500;
          transition: color var(--easing);

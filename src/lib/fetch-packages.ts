@@ -10,7 +10,7 @@ import type {
    GitHubRepositoryApiResponse,
 } from '@/lib/types'
 
-export interface GetPackagesResponse {
+interface GetPackagesResponse {
    data: OurPackage[]
    error: string | null
 }
@@ -25,9 +25,6 @@ export async function getPackages(
             acc[pkg] = {
                title: getPackageTitle(pkg),
                npm_url: `https://www.npmjs.com/package/${pkg}`,
-               total_downloads: 0,
-               weekly_downloads: 0,
-               monthly_downloads: 0,
             } as OurPackage
 
             return acc
@@ -100,13 +97,13 @@ export async function getPackages(
    }
 }
 
-export interface NpmDownloadsStats {
+interface NpmDownloadsStats {
    total: number
    weekly: number
    monthly: number
 }
 
-export interface GetNpmDownloadsStatsResponse {
+interface GetNpmDownloadsStatsResponse {
    error: string | null
    data: NpmDownloadsStats
 }

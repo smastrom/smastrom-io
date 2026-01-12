@@ -2,14 +2,16 @@
    --accent: hsl(142 75% 53%);
 
    --fg: hsla(142, 29.4%, 80%, 0.9);
-   --bg: hsl(142 10% 12%);
-   --bg-alpha: hsla(150, 10%, 12%, 0.85);
+   --fg-underline: hsla(142, 29.4%, 80%, 0.25);
+   --fg-marker: hsla(141.6, 100%, 95.1%, 0.35);
 
-   --divider: hsla(141, 79%, 85%, 0.3);
+   --bg: hsl(150, 7.1%, 5.5%);
+   --bg-alpha: hsla(150, 9.7%, 12.2%, 0.38);
+
+   --divider: hsla(141, 78.9%, 85.1%, 0.13);
    --divider-light: hsl(141, 10%, 25%);
 
-   --bg-elv: hsl(142 16% 24%);
-   --bg-elv-darker: hsl(140, 8%, 15%);
+   --bg-elv: hsla(150, 9.7%, 12.2%, 0.64);
 
    --shadow-accent: 0 0 0 var(--b-1) var(--accent);
    --shadow-accent-mid: 0 0 0 var(--b-1) hsla(142, 75%, 53%, 0.5);
@@ -17,9 +19,11 @@
 
 @define-mixin light-theme {
    --accent: hsl(142 75% 35%);
-   --accent: hsl(142 75% 35%);
 
    --fg: hsl(142 16% 24%);
+   --fg-underline: hsl(142 16% 24% / 0.35);
+   --fg-marker: hsla(141.6, 90%, 50%, 0.35);
+
    --bg: hsl(138, 76%, 97%);
    --bg-alpha: hsla(135, 80%, 95%, 0.8);
 
@@ -27,10 +31,9 @@
    --divider-light: hsl(150, 2%, 83%);
 
    --bg-elv: #fff;
-   --bg-elv-darker: #fff;
 
-   --shadow-accent: 0 0 0 2px var(--accent);
-   --shadow-accent-mid: 0 0 0 2px hsla(142, 75%, 35%, 0.5);
+   --shadow-accent: 0 0 0 var(--b-2) var(--accent);
+   --shadow-accent-mid: 0 0 0 var(--b-2) hsla(142, 75%, 35%, 0.5);
 }
 
 @media (prefers-color-scheme: dark) {

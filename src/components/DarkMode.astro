@@ -46,29 +46,38 @@ import IconSun from './icons/IconSun.astro'
    const getSun = (doc: Document = document) => doc.getElementById('theme_sun_icon')
    const getMoon = (doc: Document = document) => doc.getElementById('theme_moon_icon')
 
-   const getTheme = () => document.documentElement.dataset.theme as Theme
+   const getCurrentTheme = () => document.documentElement.dataset.theme as Theme
 
-   function setInitialTheme() {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-         ? 'dark'
-         : 'light'
+   const getSystemTheme = () =>
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') as Theme
 
-      document.documentElement.dataset.theme = systemTheme
+   function setSystemTheme() {
+      const initialTheme = getSystemTheme()
 
-      setAria(getBtn(), systemTheme as Theme)
+      setDatasetTheme(initialTheme)
+      setCookie(initialTheme)
+      setSwitchAriaAttrs(getBtn(), initialTheme as Theme)
 
-      if (systemTheme === 'dark') {
+      if (initialTheme === 'dark') {
          getMoon().style.display = 'none'
       } else {
          getSun().style.display = 'none'
       }
    }
 
-   function setAria(el: HTMLElement, theme: Theme) {
+   function setCookie(theme: Theme) {
+      document.cookie = `theme=${theme}; path=/`
+   }
+
+   function setSwitchAriaAttrs(el: HTMLElement, theme: Theme) {
       const isDark = theme === 'dark'
 
       el.ariaChecked = `${isDark}`
       el.ariaLabel = isDark ? 'Disable dark mode' : 'Enable dark mode'
+   }
+
+   function setDatasetTheme(theme: Theme, doc?: Document) {
+      ;(doc || document).documentElement.dataset.theme = theme
    }
 
    function hideEl(el: HTMLElement) {
@@ -82,7 +91,7 @@ import IconSun from './icons/IconSun.astro'
       const moonIcon = getMoon()
 
       function onClick() {
-         const currTheme = getTheme()
+         const currTheme = getCurrentTheme()
 
          if (currTheme === 'dark') {
             Object.assign(sunIcon.style, { opacity: 0, transform: 'translateX(30%)' })
@@ -122,9 +131,9 @@ import IconSun from './icons/IconSun.astro'
 
          const newTheme = currTheme === 'dark' ? 'light' : 'dark'
 
-         document.documentElement.dataset.theme = newTheme
-
-         setAria(this, newTheme)
+         setDatasetTheme(newTheme)
+         setCookie(newTheme)
+         setSwitchAriaAttrs(this, newTheme)
       }
 
       button.addEventListener('click', onClick)
@@ -134,7 +143,7 @@ import IconSun from './icons/IconSun.astro'
       }
    }
 
-   setInitialTheme()
+   setSystemTheme()
 
    let destroySwitch = initSwitch()
 
@@ -143,15 +152,15 @@ import IconSun from './icons/IconSun.astro'
       const sunIcon = getSun(e.newDocument)
       const moonIcon = getMoon(e.newDocument)
 
-      const currTheme = getTheme()
+      const currTheme = getCurrentTheme()
       const isDark = currTheme === 'dark'
-
-      e.newDocument.documentElement.dataset.theme = currTheme
 
       sunIcon.style.display = isDark ? 'block' : 'none'
       moonIcon.style.display = isDark ? 'none' : 'block'
 
-      setAria(button, currTheme)
+      setDatasetTheme(currTheme, e.newDocument)
+      setCookie(currTheme)
+      setSwitchAriaAttrs(button, currTheme)
    })
 
    document.addEventListener('astro:after-swap', () => {

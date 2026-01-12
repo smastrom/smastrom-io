@@ -81,13 +81,13 @@ const { project: p } = Astro.props as { project: OurPackage }
    .Card_Content {
       padding: var(--s-2);
       border-radius: var(--r-3);
-      box-shadow: 0 0 0 var(--b-1) var(--divider-light);
+      box-shadow: 0 0 0 var(--b-1) var(--divider);
       user-select: none;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
-      background: rgba(255, 255, 255, 0.035);
+      background-color: var(--bg-alpha);
       backdrop-filter: blur(10px);
       transition:
          transform 500ms linear,
@@ -102,7 +102,6 @@ const { project: p } = Astro.props as { project: OurPackage }
       }
 
       @media (--tablet-to) {
-         background-color: var(--bg-elv-darker);
          backdrop-filter: none;
       }
 
@@ -174,7 +173,7 @@ const { project: p } = Astro.props as { project: OurPackage }
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: var(--s-02);
+            padding: var(--s-05);
             border-radius: var(--r-2);
             height: 100%;
             border: var(--b-1) solid var(--divider);
@@ -186,8 +185,8 @@ const { project: p } = Astro.props as { project: OurPackage }
 
             & :global(svg) {
                transition: color var(--easing);
-               width: 1.5rem;
-               height: 1.5rem;
+               width: 1.125rem;
+               height: 1.125rem;
             }
 
             @media (hover: hover) {

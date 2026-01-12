@@ -95,10 +95,11 @@ html {
    position: relative;
    display: inline-flex;
    text-decoration: underline;
+   text-decoration-color: var(--fg-underline);
 
    &::after {
       content: '';
-      background-color: var(--accent);
+      background-color: var(--fg-marker);
       bottom: 0.1em;
       left: -0.1em;
       right: -0.1em;

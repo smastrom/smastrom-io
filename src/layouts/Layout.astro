@@ -43,12 +43,14 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
 ---
 
 <!doctype html>
-<html lang="en" dir="ltr" data-theme="auto" class="G_Transitions">
+<!-- TODO: Revert to data-theme="auto" once Astro supports custom worker entry point (HTMLRewriter) -->
+<html lang="en" dir="ltr" data-theme="dark" class="G_Transitions">
    <Head {title} {description}>
       <slot name="head-end" />
    </Head>
 
    <body>
+      <Background />
       <a href="#main" class="G_SR_Only">Skip to main content</a>
 
       <Header />
@@ -56,7 +58,6 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
       <div id="content">
          <main id="main">
             <slot />
-            <Background />
          </main>
 
          <Footer content={data.layout.footerText} />

@@ -1,23 +1,23 @@
-@define-mixin basier-square {
+@font-face {
    font-family: 'Basier Square';
    font-style: normal;
    font-display: optional;
-}
-
-@font-face {
-   @mixin basier-square;
    src: url('/basier-square-bold-webfont.woff2') format('woff2');
    font-weight: 700;
 }
 
 @font-face {
-   @mixin basier-square;
+   font-family: 'Basier Square';
+   font-style: normal;
+   font-display: optional;
    src: url('/basier-square-medium-webfont.woff2') format('woff2');
    font-weight: 500;
 }
 
 @font-face {
-   @mixin basier-square;
+   font-family: 'Basier Square';
+   font-style: normal;
+   font-display: optional;
    src: url('/basier-square-regular-webfont.woff2') format('woff2');
    font-weight: 400;
 }
@@ -47,17 +47,6 @@ html {
    --section-gap: calc(2 * var(--paragraph-m-bottom));
 }
 
-@define-mixin heading-common {
-   font-weight: 700;
-   line-height: var(--lh-normal);
-   color: var(--accent);
-}
-
-@define-mixin paragraph-common {
-   font-size: var(--paragraph-font-size);
-   max-width: var(--paragraph-max);
-}
-
 .G_Hero_Title {
    font-weight: 700;
    font-size: var(--hero-font-size);
@@ -71,13 +60,17 @@ html {
 }
 
 .G_Title {
-   @mixin heading-common;
+   font-weight: 700;
+   line-height: var(--lh-normal);
+   color: var(--accent);
    font-size: var(--heading-1-font-size);
    margin-bottom: var(--top-heading-m-bottom);
 }
 
 .G_Title_2 {
-   @mixin heading-common;
+   font-weight: 700;
+   line-height: var(--lh-normal);
+   color: var(--accent);
    font-size: var(--heading-2-font-size);
    margin-bottom: var(--next-heading-m-bottom);
 }
@@ -90,49 +83,46 @@ html {
    margin-bottom: var(--s-05);
 }
 
-@define-mixin paragraph-links {
-   color: var(--fg);
-   position: relative;
-   display: inline-flex;
-   text-decoration: underline;
-   text-decoration-color: var(--fg-underline);
-
-   &::after {
-      content: '';
-      background-color: var(--fg-marker);
-      bottom: 0.1em;
-      left: -0.1em;
-      right: -0.1em;
-      opacity: var(--o-1);
-      position: absolute;
-      height: 1.25em;
-      transform: scaleY(0.5);
-      border-radius: 0.25em;
-      z-index: var(--z-behind);
-      transform-origin: bottom;
-      transition:
-         transform var(--easing),
-         background-color var(--easing);
-   }
-
-   @media (hover: hover) {
-      &:hover {
-         &::after {
-            transform: scaleY(1);
-         }
-      }
-   }
-}
-
 .G_Paragraphs {
-   @mixin paragraph-common;
+   font-size: var(--paragraph-font-size);
+   max-width: var(--paragraph-max);
 
    display: flex;
    flex-direction: column;
    gap: var(--paragraph-m-bottom);
 
    & a {
-      @mixin paragraph-links;
+      color: var(--fg);
+      position: relative;
+      display: inline-flex;
+      text-decoration: underline;
+      text-decoration-color: var(--fg-underline);
+
+      &::after {
+         content: '';
+         background-color: var(--fg-marker);
+         bottom: 0.1em;
+         left: -0.1em;
+         right: -0.1em;
+         opacity: var(--o-1);
+         position: absolute;
+         height: 1.25em;
+         transform: scaleY(0.5);
+         border-radius: 0.25em;
+         z-index: var(--z-behind);
+         transform-origin: bottom;
+         transition:
+            transform var(--easing),
+            background-color var(--easing);
+      }
+
+      @media (hover: hover) {
+         &:hover {
+            &::after {
+               transform: scaleY(1);
+            }
+         }
+      }
    }
 }
 
@@ -140,13 +130,16 @@ html {
    width: 100%;
 
    & h2 {
-      @mixin heading-common;
+      font-weight: 700;
+      line-height: var(--lh-normal);
+      color: var(--accent);
       font-size: var(--heading-2-font-size);
       margin-bottom: var(--next-heading-m-bottom);
    }
 
    & p {
-      @mixin paragraph-common;
+      font-size: var(--paragraph-font-size);
+      max-width: var(--paragraph-max);
       margin-bottom: var(--paragraph-m-bottom);
 
       /* Remove margin from next p */
@@ -170,7 +163,37 @@ html {
       }
 
       & a {
-         @mixin paragraph-links;
+         color: var(--fg);
+         position: relative;
+         display: inline-flex;
+         text-decoration: underline;
+         text-decoration-color: var(--fg-underline);
+
+         &::after {
+            content: '';
+            background-color: var(--fg-marker);
+            bottom: 0.1em;
+            left: -0.1em;
+            right: -0.1em;
+            opacity: var(--o-1);
+            position: absolute;
+            height: 1.25em;
+            transform: scaleY(0.5);
+            border-radius: 0.25em;
+            z-index: var(--z-behind);
+            transform-origin: bottom;
+            transition:
+               transform var(--easing),
+               background-color var(--easing);
+         }
+
+         @media (hover: hover) {
+            &:hover {
+               &::after {
+                  transform: scaleY(1);
+               }
+            }
+         }
       }
 
       &:last-of-type {

@@ -2,19 +2,22 @@
    "name": "smastrom-io",
    "type": "module",
    "scripts": {
-      "astro": "astro",
-      "build": "astro build",
-      "dev": "astro dev",
-      "start": "astro dev --host"
+      "dev": "wrangler types && astro dev",
+      "start": "wrangler types && astro dev",
+      "build": "wrangler types && astro build",
+      "preview": "wrangler types && astro preview",
+      "astro": "astro"
    },
    "dependencies": {
-      "@astrojs/cloudflare": "13.1.2",
+      "@astrojs/cloudflare": "12.6.13",
       "@astrojs/sitemap": "3.7.1",
-      "astro": "6.0.5",
-      "datocms-structured-text-to-html-string": "^5.1.7"
+      "astro": "5.18.1",
+      "datocms-structured-text-to-html-string": "^5.1.7",
+      "datocms-structured-text-utils": "^5.1.7"
    },
    "devDependencies": {
-      "@cloudflare/workers-types": "^4.20260317.1",
+      "@astrojs/check": "^0.9.8",
+      "@types/node": "^25.5.0",
       "lightningcss": "^1.32.0",
       "prettier": "^3.8.1",
       "prettier-plugin-astro": "^0.14.1",

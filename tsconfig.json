@@ -1,9 +1,12 @@
 {
-   "extends": "./node_modules/astro/tsconfigs/base.json",
+   "extends": "astro/tsconfigs/strict",
+   "include": [".astro/types.d.ts", "**/*", "./worker-configuration.d.ts"],
+   "exclude": ["dist"],
    "compilerOptions": {
       "baseUrl": ".",
       "paths": {
          "@/*": ["./src/*"]
-      }
+      },
+      "types": ["./worker-configuration.d.ts"]
    }
 }

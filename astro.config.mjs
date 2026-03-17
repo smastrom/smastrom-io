@@ -4,21 +4,7 @@ import cloudflare from '@astrojs/cloudflare'
 import sitemap from '@astrojs/sitemap'
 
 import { SITE_URL } from './src/lib/constants'
-
-const customMedia = {
-   '--mobile-to': '(max-width: 475px)',
-   '--mobile-from': '(min-width: 476px)',
-   '--tablet-to': '(max-width: 910px)',
-   '--tablet-from': '(min-width: 911px)',
-   '--laptop-to': '(max-width: 1366px)',
-   '--laptop-from': '(min-width: 1367px)',
-   '--desktop-to': '(max-width: 1920px)',
-   '--desktop-from': '(min-width: 1921px)',
-   '--menu-shift-to': '(max-width: 1100px)',
-   '--menu-shift-from': '(min-width: 1101px)',
-   '--article-container-to': '(max-width: 1240px)',
-   '--article-container-from': '(min-width: 1241px)',
-}
+import { customMedia, customMediaPlugin } from './vite/custom-media-plugin.mjs'
 
 export default defineConfig({
    site: SITE_URL,
@@ -38,15 +24,13 @@ export default defineConfig({
            prefetchAll: true,
            defaultStrategy: 'viewport',
         },
-   adapter: cloudflare(),
-   integrations: [sitemap()],
-   env: {
-      schema: {
-         DATO_TOKEN: envField.string({ context: 'client', access: 'public' }),
-         GITHUB_TOKEN: envField.string({ context: 'server', access: 'secret' }),
-         IS_PREVIEW: envField.string({ context: 'client', access: 'public' }),
+   adapter: cloudflare({
+      imageService: 'passthrough',
+      platformProxy: {
+         enabled: true,
       },
-   },
+   }),
+   integrations: [sitemap()],
    vite: {
       css: {
          transformer: 'lightningcss',
@@ -56,24 +40,14 @@ export default defineConfig({
       },
       plugins: [
          // Workaround for https://github.com/parcel-bundler/lightningcss/discussions/742
-         {
-            name: 'custom-media',
-            enforce: 'pre',
-            transform(code, id) {
-               if (!id.includes('.css') && !id.includes('.astro')) return
-               let result = code
-               for (const [name, value] of Object.entries(customMedia)) {
-                  result = result.replaceAll(`(${name})`, value)
-               }
-               if (result === code) return
-               return { code: result, map: null }
-            },
-         },
+         customMediaPlugin(customMedia),
       ],
    },
-   experimental: {
-      queuedRendering: {
-         enabled: true,
+   env: {
+      schema: {
+         GITHUB_PAT: envField.string({ context: 'server', access: 'secret' }),
+         DATOCMS_READ_ONLY_TOKEN: envField.string({ context: 'client', access: 'public' }),
+         IS_PREVIEW: envField.string({ context: 'client', access: 'public' }),
       },
    },
 })

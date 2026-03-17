@@ -1,22 +1,14 @@
 {
    "$schema": "node_modules/wrangler/config-schema.json",
    "name": "smastrom-io",
-   "main": "./src/worker.ts",
-   "compatibility_date": "2026-03-01",
-   "compatibility_flags": ["nodejs_compat"],
+   "compatibility_date": "2026-03-12",
    "assets": {
-      "directory": "dist/client",
+      "directory": "./dist",
    },
-   "env": {
-      "preview": {
-         "vars": {
-            "IS_PREVIEW": "true",
-         },
-      },
-      "production": {
-         "vars": {
-            "IS_PREVIEW": "false",
-         },
-      },
+   "vars": {
+      "IS_PREVIEW": "false",
+   },
+   "observability": {
+      "enabled": true,
    },
 }

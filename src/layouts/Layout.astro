@@ -53,11 +53,13 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
 
       <Header />
 
-      <main id="main">
-         <slot />
-         <Background />
-      </main>
+      <div id="content">
+         <main id="main">
+            <slot />
+            <Background />
+         </main>
 
-      <Footer content={data.layout.footerText} />
+         <Footer content={data.layout.footerText} />
+      </div>
    </body>
 </html>

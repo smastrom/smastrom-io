@@ -29,9 +29,9 @@
 .hamburger-inner::before,
 .hamburger-inner::after {
    width: 36px;
-   height: 3px;
+   height: 2px;
    background-color: var(--fg);
-   border-radius: 4px;
+   border-radius: 2px;
    position: absolute;
    transition-property: transform;
    transition-duration: 0.15s;

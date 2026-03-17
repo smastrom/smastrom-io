@@ -20,6 +20,9 @@ pnpm-debug.log*
 # lock files
 pnpm-lock.yaml
 
+# Claude
+.claude/
+
 # Cloudflare
 .wrangler
 .dev.vars

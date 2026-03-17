@@ -11,6 +11,7 @@
    :root {
       --footer-top-margin: var(--s-8);
       --page-margin: var(--s-1);
+      --header-height: 72px;
    }
 }
 
@@ -20,6 +21,13 @@ body {
    touch-action: pan-y;
    position: relative;
    min-height: 100dvh;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+
+#content {
+   flex: 1;
    display: flex;
    flex-direction: column;
    justify-content: space-between;

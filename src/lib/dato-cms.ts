@@ -2,6 +2,7 @@ import { DATO_TOKEN } from 'astro:env/client'
 
 import { isBlock, type Document as Dast } from 'datocms-structured-text-utils'
 import { render } from 'datocms-structured-text-to-html-string'
+import { isPreviewEnvironment } from './env'
 
 import type { JSX } from 'astro/jsx-runtime'
 import type { BlockProperties } from './types'
@@ -19,6 +20,8 @@ export async function useDato<Schema>(query: string) {
             'Content-Type': 'application/json',
             Accept: 'application/json',
             Authorization: DATO_TOKEN,
+            'X-Api-Version': '3',
+            'X-Environment': isPreviewEnvironment() ? 'preview' : 'main',
          },
          body: JSON.stringify({ query }),
       })

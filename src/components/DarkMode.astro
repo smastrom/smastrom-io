@@ -46,12 +46,15 @@ import IconSun from './icons/IconSun.astro'
    const getSun = (doc: Document = document) => doc.getElementById('theme_sun_icon')
    const getMoon = (doc: Document = document) => doc.getElementById('theme_moon_icon')
 
-   const getCurrentTheme = () => document.documentElement.dataset.theme as Theme
+   const getCurrentTheme = () => document.documentElement.dataset.theme as Theme | 'auto'
 
    const getSystemTheme = () =>
       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') as Theme
 
    function setSystemTheme() {
+      // If the worker already set the theme from cookie, nothing to do
+      if (getCurrentTheme() !== 'auto') return
+
       const initialTheme = getSystemTheme()
 
       setDatasetTheme(initialTheme)
@@ -152,7 +155,7 @@ import IconSun from './icons/IconSun.astro'
       const sunIcon = getSun(e.newDocument)
       const moonIcon = getMoon(e.newDocument)
 
-      const currTheme = getCurrentTheme()
+      const currTheme = getCurrentTheme() as Theme
       const isDark = currTheme === 'dark'
 
       sunIcon.style.display = isDark ? 'block' : 'none'

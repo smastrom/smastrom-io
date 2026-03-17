@@ -10,6 +10,27 @@ import type {
    GitHubRepositoryApiResponse,
 } from '@/lib/types'
 
+const devCache = new Map<string, { data: unknown; ts: number }>()
+const DEV_CACHE_TTL = 5 * 60 * 1000
+
+async function cachedFetch(url: string, init?: RequestInit): Promise<Response> {
+   if (!import.meta.env.DEV) return fetch(url, init)
+
+   const cached = devCache.get(url)
+   if (cached && Date.now() - cached.ts < DEV_CACHE_TTL) {
+      return new Response(JSON.stringify(cached.data), { status: 200 })
+   }
+
+   const res = await fetch(url, init)
+   if (res.ok) {
+      const data = await res.json()
+      devCache.set(url, { data, ts: Date.now() })
+      return new Response(JSON.stringify(data), { status: 200 })
+   }
+
+   return res
+}
+
 interface GetPackagesResponse {
    data: OurPackage[]
    error: string | null
@@ -34,7 +55,7 @@ export async function getPackages(
 
       const requests = [
          ...packages.map(async (pkg) => {
-            const res = await fetch(
+            const res = await cachedFetch(
                `https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkg}`
             )
 
@@ -46,7 +67,7 @@ export async function getPackages(
          }),
 
          ...packages.map(async (pkg) => {
-            const res = await fetch(
+            const res = await cachedFetch(
                `https://registry.npmjs.org/-/v1/search?text=${encodeURIComponent(`${npmUsername} ${getUnscopedPackageName(pkg)}`)}`
             )
 
@@ -61,7 +82,7 @@ export async function getPackages(
          }),
 
          ...packages.map(async (pkg) => {
-            const res = await fetch(
+            const res = await cachedFetch(
                `https://api.github.com/repos/${npmUsername}/${getUnscopedPackageName(pkg)}`,
                {
                   headers: {
@@ -112,7 +133,7 @@ interface GetNpmDownloadsStatsResponse {
  * Get total NPM downloads for all packages published by a specific user.
  */
 async function getPkgTotalDownloads(pkgName: string): Promise<number> {
-   const res = await fetch(`https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkgName}`)
+   const res = await cachedFetch(`https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkgName}`)
 
    if (!res.ok) throw new Error(await res.text())
 
@@ -125,7 +146,7 @@ export async function getNpmDownloadsStats(
    npmUsername: string
 ): Promise<GetNpmDownloadsStatsResponse> {
    try {
-      const res = await fetch(
+      const res = await cachedFetch(
          `https://registry.npmjs.org/-/v1/search?text=author:${npmUsername}&size=250`
       )
 

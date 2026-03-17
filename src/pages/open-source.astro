@@ -10,6 +10,8 @@ import { NPM_USERNAME, TOP_PACKAGES } from '@/lib/constants'
 
 import type { OpenSourcePage } from '@/lib/types'
 
+export const prerender = true
+
 const { data, error: cmsErr } = await useDato<OpenSourcePage>(/* GraphQL */ `
    {
       openSource {

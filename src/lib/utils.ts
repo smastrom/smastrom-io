@@ -21,7 +21,7 @@ export function getExtLinkAttrs(href: string, label: string) {
 }
 
 export function formatDownloadNumber(num: number) {
-   if (num >= 1000000) return `${(num / 1000000).toFixed(1)} million`.replace('.0', '')
+   if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`.replace('.0', '')
    if (num >= 1000) return `${Math.round(num / 1000 / 10) * 10}k`
 
    return num.toString()
@@ -69,10 +69,6 @@ export function replaceDownloadsStats(
       .replace('{{ total_downloads }}', formatDownloadNumber(total))
       .replace('{{ weekly_downloads }}', formatDownloadNumber(weekly))
       .replace('{{ monthly_downloads }}', formatDownloadNumber(monthly))
-}
-
-export function removePackageScope(pkg: string) {
-   return pkg.startsWith('@') ? pkg.split('/')[1] : pkg
 }
 
 // https://stackoverflow.com/a/69661174

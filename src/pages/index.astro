@@ -7,6 +7,8 @@ import { AUTHOR_EMAIL, LINKS, AUTHOR_NAME, TOPICS, AUTHOR_COUNTRY } from '@/lib/
 
 import type { ArticleImageBlock, IndexPage } from '@/lib/types'
 
+export const prerender = true
+
 const { data, error } = await useDato<IndexPage>(/* GraphQL */ `
    {
       home {

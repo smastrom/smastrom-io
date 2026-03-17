@@ -6,14 +6,14 @@ const { content } = Astro.props as { content: string }
 const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
 ---
 
-<footer>
+<footer class="Footer">
    <small set:html={withAttrs(content)} />
 
    <Logo width="40" height="40" style={{ display: 'flex', marginBottom: 'var(--s-07)' }} />
 </footer>
 
-<style>
-   footer {
+<style scoped>
+   .Footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -32,14 +32,20 @@ const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
          flex-direction: column-reverse;
       }
 
-      & :global(span),
-      & :global(a) {
+      & :global(span) {
          color: var(--accent);
+      }
+
+      & :global(a) {
+         text-decoration: underline;
+         text-underline-offset: var(--s-02);
+         text-decoration-color: var(--fg-underline);
+         transition: text-decoration-color var(--easing);
       }
 
       @media (hover: hover) {
          & :global(a):hover {
-            text-decoration: underline;
+            text-decoration-color: var(--fg);
          }
       }
    }

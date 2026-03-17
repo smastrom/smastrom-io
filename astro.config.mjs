@@ -53,8 +53,6 @@ export default defineConfig({
       },
       build: {
          minify: import.meta.env.PROD,
-         cssMinify: 'lightningcss',
-         target: 'esnext',
       },
       plugins: [
          // Workaround for https://github.com/parcel-bundler/lightningcss/discussions/742

@@ -58,28 +58,29 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       </button>
    </nav>
 
-   <div class="Mobile_Panel" id="panel">
-      {
-         NAV_LINKS.map((l) => (
-            <a {...getLinkProps(Astro.url.pathname, l.href)}>
-               <l.Icon />
-               {l.caption}
-            </a>
-         ))
-      }
-
-      <div class="Mobile_Panel_Footer">
-         <a {...getExtLinkAttrs('mailto:' + AUTHOR_EMAIL, 'Email')}>
-            <IconEmail />
-         </a>
-         <a {...getExtLinkAttrs(LINKS.github, 'GitHub')}><IconGitHub /></a>
-         <a {...getExtLinkAttrs(LINKS.discord, 'Discord')}><IconDiscord /></a>
-      </div>
-   </div>
 </header>
 
+<nav class="Mobile_Panel" id="panel" aria-label="Mobile navigation">
+   {
+      NAV_LINKS.map((l) => (
+         <a {...getLinkProps(Astro.url.pathname, l.href)}>
+            <l.Icon />
+            {l.caption}
+         </a>
+      ))
+   }
+
+   <div class="Mobile_Panel_Footer">
+      <a {...getExtLinkAttrs('mailto:' + AUTHOR_EMAIL, 'Email')}>
+         <IconEmail />
+      </a>
+      <a {...getExtLinkAttrs(LINKS.github, 'GitHub')}><IconGitHub /></a>
+      <a {...getExtLinkAttrs(LINKS.discord, 'Discord')}><IconDiscord /></a>
+   </div>
+</nav>
+
 <script>
-   const getHeader = () => document.getElementById('header')
+   const getHeader = () => document.getElementById('header') as HTMLElement
 
    function initScroll() {
       let isHoveringHeader = false
@@ -102,6 +103,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          hamburger.ariaExpanded = 'true'
          panel.classList.add('is-open')
          header.style.transform = 'translateY(0)'
+         panel.style.transform = 'translateY(0)'
          const panelHeight = panel.scrollHeight
          main.style.transform = `translateY(${panelHeight}px)`
          main.style.opacity = '0.3'
@@ -115,6 +117,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          hamburger.classList.remove('is-active')
          hamburger.ariaExpanded = 'false'
          panel.classList.remove('is-open')
+         panel.style.transform = ''
          main.style.transform = ''
          main.style.opacity = ''
          main.style.pointerEvents = ''
@@ -131,7 +134,8 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       }
 
       function onDocumentClick(e: MouseEvent) {
-         if (isMenuOpen && !header.contains(e.target as Node)) closeMenu()
+         if (isMenuOpen && !header.contains(e.target as Node) && !panel.contains(e.target as Node))
+            closeMenu()
       }
 
       function onScroll() {
@@ -143,16 +147,18 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          const isHeaderInView = currentY <= header.clientHeight * 1.5
 
          if (isHeaderInView) {
-            return (header.style.transform = 'translateY(0)')
+            header.style.transform = 'translateY(0)'
+            panel.style.transform = 'translateY(0)'
+            return
          }
 
          if (Math.abs(currentY - prevY) < minStep) return
 
          const isScrollingUp = currentY < prevY
+         const hideTransform = `translateY(-${header.clientHeight + 10}px)`
 
-         header.style.transform = isScrollingUp
-            ? 'translateY(0)'
-            : `translateY(-${header.clientHeight + 10}px)`
+         header.style.transform = isScrollingUp ? 'translateY(0)' : hideTransform
+         panel.style.transform = isScrollingUp ? 'translateY(0)' : hideTransform
       }
 
       const onHover = () => (isHoveringHeader = true)
@@ -352,8 +358,8 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
    }
 
    .Mobile_Panel {
-      position: absolute;
-      top: 100%;
+      position: fixed;
+      top: var(--header-height);
       left: 0;
       right: 0;
       display: none;
@@ -361,9 +367,11 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       background-color: var(--bg-alpha);
       border-bottom: var(--b-1) solid var(--divider);
       padding: var(--s-05) 0;
+      z-index: var(--z-2);
       opacity: 0;
       transform: translateY(-10px);
       pointer-events: none;
+      backdrop-filter: blur(var(--s-05));
       transition:
          opacity 300ms cubic-bezier(0.22, 1, 0.36, 1),
          transform 300ms cubic-bezier(0.22, 1, 0.36, 1),

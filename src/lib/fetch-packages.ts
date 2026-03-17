@@ -1,4 +1,4 @@
-import { GITHUB_TOKEN } from 'astro:env/server'
+import { GITHUB_PAT } from 'astro:env/server'
 
 import { getPackageTitle, getUnscopedPackageName } from '@/lib/utils'
 
@@ -87,7 +87,7 @@ export async function getPackages(
                {
                   headers: {
                      Accept: 'application/vnd.github+json',
-                     Authorization: `Bearer ${GITHUB_TOKEN}`,
+                     Authorization: `Bearer ${GITHUB_PAT}`,
                      'User-Agent': npmUsername,
                   },
                }
@@ -114,7 +114,7 @@ export async function getPackages(
    } catch (err) {
       console.error(err)
 
-      return { data: null, error: err.message }
+      return { data: null as unknown as OurPackage[], error: (err as Error).message }
    }
 }
 
@@ -133,7 +133,9 @@ interface GetNpmDownloadsStatsResponse {
  * Get total NPM downloads for all packages published by a specific user.
  */
 async function getPkgTotalDownloads(pkgName: string): Promise<number> {
-   const res = await cachedFetch(`https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkgName}`)
+   const res = await cachedFetch(
+      `https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkgName}`
+   )
 
    if (!res.ok) throw new Error(await res.text())
 
@@ -172,8 +174,8 @@ export async function getNpmDownloadsStats(
       console.error(err)
 
       return {
-         error: err.message,
-         data: null,
+         error: (err as Error).message,
+         data: null as unknown as NpmDownloadsStats,
       }
    }
 }

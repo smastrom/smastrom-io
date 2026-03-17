@@ -66,9 +66,9 @@ export function replaceDownloadsStats(
    }
 ) {
    return html
-      .replace('{{ total_downloads }}', formatDownloadNumber(total))
-      .replace('{{ weekly_downloads }}', formatDownloadNumber(weekly))
-      .replace('{{ monthly_downloads }}', formatDownloadNumber(monthly))
+      .replace('{{ total_downloads }}', formatDownloadNumber(total as number))
+      .replace('{{ weekly_downloads }}', formatDownloadNumber(weekly as number))
+      .replace('{{ monthly_downloads }}', formatDownloadNumber(monthly as number))
 }
 
 // https://stackoverflow.com/a/69661174

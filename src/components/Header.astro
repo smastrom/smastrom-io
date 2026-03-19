@@ -439,6 +439,19 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       transition:
          transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
          opacity 300ms cubic-bezier(0.22, 1, 0.36, 1);
+
+      @media (--menu-shift-from) {
+         transform: none !important;
+         opacity: 1 !important;
+         pointer-events: auto !important;
+         user-select: auto !important;
+      }
+   }
+
+   :global(body) {
+      @media (--menu-shift-from) {
+         overflow: auto !important;
+      }
    }
 
    .Mobile_Panel_Footer {

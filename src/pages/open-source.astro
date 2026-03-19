@@ -2,13 +2,18 @@
 import Layout from '@/layouts/Layout.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
 
-import { useDato } from '@/lib/dato-cms'
-import { addExternalLinkAttrs, replaceDownloadsStats } from '@/lib/utils'
-import { getPackages, getNpmDownloadsStats } from '@/lib/fetch-packages'
+import { StructuredText, useDato } from '@/lib/dato-cms'
+import { replaceDownloadsStats } from '@/lib/utils'
+import { getPackages, getMacPackages, getNpmDownloadsStats } from '@/lib/fetch-packages'
 
-import { NPM_USERNAME, TOP_PACKAGES } from '@/lib/constants'
+import { NPM_USERNAME } from '@/lib/constants'
 
-import type { OpenSourcePage } from '@/lib/types'
+import type {
+   OpenSourcePage,
+   NpmPackagesListBlock,
+   MacAppsListBlock,
+   PackageSlug,
+} from '@/lib/types'
 
 export const prerender = true
 
@@ -20,39 +25,83 @@ const { data, error: cmsErr } = await useDato<OpenSourcePage>(/* GraphQL */ `
             description
          }
          title
-         text(markdown: true)
+         body {
+            value
+            blocks {
+               __typename
+               ... on NpmPackagesListRecord {
+                  id
+                  list
+               }
+               ... on MacAppsListRecord {
+                  id
+                  list
+               }
+            }
+         }
       }
    }
 `)
 
 if (cmsErr) throw new Error(cmsErr)
 
-const { data: packages, error: packagesErr } = await getPackages(NPM_USERNAME, TOP_PACKAGES)
-
-if (packagesErr) throw new Error(packagesErr)
-
-const { data: downloadsStats, error: downloadsStatsError } =
-   await getNpmDownloadsStats(NPM_USERNAME)
-
-if (downloadsStatsError) throw new Error(downloadsStatsError)
-
 const cms = data.openSource
 
-const articleContent = replaceDownloadsStats(addExternalLinkAttrs(cms.text), {
-   total: downloadsStats.total,
-   weekly: downloadsStats.weekly,
-   monthly: downloadsStats.monthly,
-})
+const npmBlock = cms.body.blocks.find((b) => b.__typename === 'NpmPackagesListRecord') as
+   | NpmPackagesListBlock
+   | undefined
+const macBlock = cms.body.blocks.find((b) => b.__typename === 'MacAppsListRecord') as
+   | MacAppsListBlock
+   | undefined
+
+const [npmResult, macResult, downloadsResult] = await Promise.all([
+   npmBlock ? getPackages(NPM_USERNAME, npmBlock.list as PackageSlug[]) : { data: [], error: null },
+   macBlock ? getMacPackages(NPM_USERNAME, macBlock.list) : { data: [], error: null },
+   getNpmDownloadsStats(NPM_USERNAME),
+])
+
+if (npmResult.error) throw new Error(npmResult.error)
+if (macResult.error) throw new Error(macResult.error)
+if (downloadsResult.error) throw new Error(downloadsResult.error)
+
+const npmPackages = npmResult.data
+const macPackages = macResult.data
+const downloadsStats = downloadsResult.data
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
    <article class="G_Article_Wrapper G_Page_Top_Spacing">
       <h1 class="G_Title">{cms.title}</h1>
-      <div class="G_Paragraphs" set:html={articleContent} />
 
-      <ul class="Card_Grid" aria-label="Open source projects">
-         {packages.map((p) => <ProjectCard project={p} />)}
-      </ul>
+      <div class="G_Prose" id="article">
+         {
+            StructuredText(cms.body, {
+               NpmPackagesListRecord: () => (
+                  <ul class="Card_Grid" aria-label="NPM packages">
+                     {npmPackages.map((p) => (
+                        <ProjectCard project={p} />
+                     ))}
+                  </ul>
+               ),
+               MacAppsListRecord: () => (
+                  <ul class="Card_Grid" aria-label="Mac apps">
+                     {macPackages.map((p) => (
+                        <ProjectCard project={p} />
+                     ))}
+                  </ul>
+               ),
+               content: (html) => (
+                  <Fragment
+                     set:html={replaceDownloadsStats(html, {
+                        total: downloadsStats.total,
+                        weekly: downloadsStats.weekly,
+                        monthly: downloadsStats.monthly,
+                     })}
+                  />
+               ),
+            })
+         }
+      </div>
    </article>
 </Layout>
 
@@ -62,7 +111,6 @@ const articleContent = replaceDownloadsStats(addExternalLinkAttrs(cms.text), {
       grid-template-columns: 1fr 1fr;
       gap: var(--s-5);
       z-index: 1;
-      margin-top: var(--section-gap);
 
       @media (--tablet-to) {
          grid-template-columns: 1fr;

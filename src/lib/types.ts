@@ -4,7 +4,8 @@ import type { Document } from 'datocms-structured-text-utils'
 
 export type PackageSlug = `@${string}/${string}` | string
 
-export interface OurPackage {
+export interface MyNpmPackage {
+   type: 'npm'
    title: string
    total_downloads: number
    weekly_downloads: number
@@ -16,6 +17,19 @@ export interface OurPackage {
    npm_url: string
    github_url: string
 }
+
+export interface MyMacPackage {
+   type: 'mac'
+   title: string
+   total_downloads: number
+   stargazers_count: number
+   description: string
+   created_at: string
+   demo_url: string | null
+   github_url: string
+}
+
+export type ProjectPackage = MyNpmPackage | MyMacPackage
 
 // DatoCMS API
 
@@ -43,6 +57,14 @@ export type ArticleImageBlock = BlockProperties & {
    }
 }
 
+export type NpmPackagesListBlock = BlockProperties & {
+   list: string[]
+}
+
+export type MacAppsListBlock = BlockProperties & {
+   list: string[]
+}
+
 export type IndexPage = {
    home: {
       seo: Seo
@@ -54,11 +76,17 @@ export type IndexPage = {
    }
 }
 
+export type OpenSourceBlock = ArticleImageBlock | NpmPackagesListBlock | MacAppsListBlock
+
 export interface OpenSourcePage {
    openSource: {
       seo: Seo
       title: string
       text: string
+      body: {
+         value: Document
+         blocks: OpenSourceBlock[]
+      }
    }
 }
 
@@ -209,42 +237,11 @@ export interface NpmPackageApiResponse {
       monthly: number
       weekly: number
    }
-   dependents: string
-   updated: string
-   searchScore: number
    package: {
       name: string
-      keywords: string[]
-      version: string
-      description: string
-      sanitized_name: string
       publisher: {
-         email: string
          username: string
       }
-      maintainers: {
-         email: string
-         username: string
-      }
-      license: string
-      date: string
-      links: {
-         homepage: string
-         repository: string
-         bugs: string
-         npm: string
-      }
-   }
-   score: {
-      final: number
-      detail: {
-         popularity: number
-         quality: number
-         maintenance: number
-      }
-   }
-   flags: {
-      insecure: number
    }
 }
 
@@ -259,4 +256,19 @@ export interface NpmDownloadApiResponse {
    start: string
    end: string
    package: string
+}
+
+// GitHub Releases API
+
+export interface GitHubReleaseAsset {
+   name: string
+   download_count: number
+   browser_download_url: string
+}
+
+export interface GitHubReleaseApiResponse {
+   id: number
+   tag_name: string
+   name: string
+   assets: GitHubReleaseAsset[]
 }

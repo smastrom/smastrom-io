@@ -38,10 +38,10 @@ html {
    --paragraph-max: 65ch;
 
    --hero-margin-y: calc(1.25 * var(--hero-font-size));
-   --top-heading-m-bottom: calc(0.5 * var(--heading-1-font-size));
+   --top-heading-m-bottom: var(--heading-1-font-size);
 
    --next-heading-m-top: calc(2 * var(--paragraph-font-size));
-   --next-heading-m-bottom: calc(0.5 * var(--paragraph-font-size));
+   --next-heading-m-bottom: calc(0.75 * var(--paragraph-font-size));
 
    --paragraph-m-bottom: calc(1.25 * var(--paragraph-font-size));
    --section-gap: calc(2 * var(--paragraph-m-bottom));
@@ -129,7 +129,7 @@ html {
 .G_Prose {
    width: 100%;
 
-   & h2 {
+   & h2:not(.Card_Grid *) {
       font-weight: 700;
       line-height: var(--lh-normal);
       color: var(--accent);
@@ -137,7 +137,7 @@ html {
       margin-bottom: var(--next-heading-m-bottom);
    }
 
-   & p {
+   & p:not(.Card_Grid *) {
       font-size: var(--paragraph-font-size);
       max-width: var(--paragraph-max);
       margin-bottom: var(--paragraph-m-bottom);
@@ -201,7 +201,15 @@ html {
       }
    }
 
-   & img {
+   & .Card_Grid {
+      margin-top: var(--paragraph-m-bottom);
+
+      &:not(:last-child) {
+         margin-bottom: var(--section-gap);
+      }
+   }
+
+   & img:not(.Card_Grid *) {
       width: 100%;
       height: auto;
       border-radius: var(--r-3);

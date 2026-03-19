@@ -1,13 +1,15 @@
 import { GITHUB_PAT } from 'astro:env/server'
 
-import { getPackageTitle, getUnscopedPackageName } from '@/lib/utils'
+import { capitalizeAll, getPackageTitle, getUnscopedPackageName } from '@/lib/utils'
 
 import type {
    NpmSearchApiResponse,
    NpmDownloadApiResponse,
    PackageSlug,
-   OurPackage,
+   MyNpmPackage,
+   MyMacPackage,
    GitHubRepositoryApiResponse,
+   GitHubReleaseApiResponse,
 } from '@/lib/types'
 
 const devCache = new Map<string, { data: unknown; ts: number }>()
@@ -31,8 +33,16 @@ async function cachedFetch(url: string, init?: RequestInit): Promise<Response> {
    return res
 }
 
+function githubHeaders(username: string) {
+   return {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer ${GITHUB_PAT}`,
+      'User-Agent': username,
+   }
+}
+
 interface GetPackagesResponse {
-   data: OurPackage[]
+   data: MyNpmPackage[]
    error: string | null
 }
 
@@ -40,17 +50,20 @@ export async function getPackages(
    npmUsername: string,
    packages: PackageSlug[]
 ): Promise<GetPackagesResponse> {
+   if (packages.length === 0) return { data: [], error: null }
+
    try {
       const result = packages.reduce(
          (acc, pkg) => {
             acc[pkg] = {
+               type: 'npm',
                title: getPackageTitle(pkg),
                npm_url: `https://www.npmjs.com/package/${pkg}`,
-            } as OurPackage
+            } as MyNpmPackage
 
             return acc
          },
-         {} as Record<PackageSlug, OurPackage>
+         {} as Record<PackageSlug, MyNpmPackage>
       )
 
       const requests = [
@@ -84,13 +97,7 @@ export async function getPackages(
          ...packages.map(async (pkg) => {
             const res = await cachedFetch(
                `https://api.github.com/repos/${npmUsername}/${getUnscopedPackageName(pkg)}`,
-               {
-                  headers: {
-                     Accept: 'application/vnd.github+json',
-                     Authorization: `Bearer ${GITHUB_PAT}`,
-                     'User-Agent': npmUsername,
-                  },
-               }
+               { headers: githubHeaders(npmUsername) }
             )
 
             if (!res.ok) throw new Error(await res.text())
@@ -114,7 +121,7 @@ export async function getPackages(
    } catch (err) {
       console.error(err)
 
-      return { data: null as unknown as OurPackage[], error: (err as Error).message }
+      return { data: null as unknown as MyNpmPackage[], error: (err as Error).message }
    }
 }
 
@@ -129,21 +136,6 @@ interface GetNpmDownloadsStatsResponse {
    data: NpmDownloadsStats
 }
 
-/**
- * Get total NPM downloads for all packages published by a specific user.
- */
-async function getPkgTotalDownloads(pkgName: string): Promise<number> {
-   const res = await cachedFetch(
-      `https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkgName}`
-   )
-
-   if (!res.ok) throw new Error(await res.text())
-
-   const data = (await res.json()) as NpmDownloadApiResponse
-
-   return data.downloads
-}
-
 export async function getNpmDownloadsStats(
    npmUsername: string
 ): Promise<GetNpmDownloadsStatsResponse> {
@@ -156,20 +148,30 @@ export async function getNpmDownloadsStats(
 
       const searchData = (await res.json()) as NpmSearchApiResponse
 
-      const responseData = { total: 0, weekly: 0, monthly: 0 } as NpmDownloadsStats
+      const userPackages = searchData.objects.filter(
+         (pkg) => pkg.package.publisher.username === npmUsername
+      )
 
-      for (const pkg of searchData.objects) {
-         if (pkg.package.publisher.username === npmUsername) {
-            responseData.total += await getPkgTotalDownloads(pkg.package.name)
-            responseData.weekly += pkg.downloads.weekly
-            responseData.monthly += pkg.downloads.monthly
-         }
+      const totalDownloads = await Promise.all(
+         userPackages.map(async (pkg) => {
+            const dlRes = await cachedFetch(
+               `https://api.npmjs.org/downloads/point/2000-01-01:2100-12-31/${pkg.package.name}`
+            )
+
+            if (!dlRes.ok) throw new Error(await dlRes.text())
+
+            const data = (await dlRes.json()) as NpmDownloadApiResponse
+            return data.downloads
+         })
+      )
+
+      const responseData: NpmDownloadsStats = {
+         total: totalDownloads.reduce((sum, dl) => sum + dl, 0),
+         weekly: userPackages.reduce((sum, pkg) => sum + pkg.downloads.weekly, 0),
+         monthly: userPackages.reduce((sum, pkg) => sum + pkg.downloads.monthly, 0),
       }
 
-      return {
-         error: null,
-         data: responseData,
-      }
+      return { error: null, data: responseData }
    } catch (err) {
       console.error(err)
 
@@ -177,5 +179,69 @@ export async function getNpmDownloadsStats(
          error: (err as Error).message,
          data: null as unknown as NpmDownloadsStats,
       }
+   }
+}
+
+interface GetMacPackagesResponse {
+   data: MyMacPackage[]
+   error: string | null
+}
+
+export async function getMacPackages(
+   githubUsername: string,
+   repos: string[]
+): Promise<GetMacPackagesResponse> {
+   if (repos.length === 0) return { data: [], error: null }
+
+   try {
+      const packages = await Promise.all(
+         repos.map(async (repo) => {
+            const headers = githubHeaders(githubUsername)
+
+            const [repoRes, releasesRes] = await Promise.all([
+               cachedFetch(`https://api.github.com/repos/${githubUsername}/${repo}`, { headers }),
+               // TODO: Add pagination if a repo exceeds 100 releases
+               cachedFetch(
+                  `https://api.github.com/repos/${githubUsername}/${repo}/releases?per_page=100`,
+                  { headers }
+               ),
+            ])
+
+            if (!repoRes.ok) throw new Error(await repoRes.text())
+            if (!releasesRes.ok) throw new Error(await releasesRes.text())
+
+            const repoData = (await repoRes.json()) as GitHubRepositoryApiResponse
+            const releasesData = (await releasesRes.json()) as GitHubReleaseApiResponse[]
+
+            const totalDownloads = releasesData.reduce(
+               (sum, release) =>
+                  sum +
+                  release.assets
+                     .filter((asset) => asset.name.endsWith('.dmg'))
+                     .reduce((s, asset) => s + asset.download_count, 0),
+               0
+            )
+
+            return {
+               type: 'mac' as const,
+               title: capitalizeAll(repo),
+               total_downloads: totalDownloads,
+               stargazers_count: repoData.stargazers_count,
+               description: repoData.description.replace(/:[^:]+: /, ''),
+               created_at: repoData.created_at,
+               demo_url: repoData.homepage || null,
+               github_url: repoData.html_url,
+            } satisfies MyMacPackage
+         })
+      )
+
+      return {
+         data: packages.sort((a, b) => b.stargazers_count - a.stargazers_count),
+         error: null,
+      }
+   } catch (err) {
+      console.error(err)
+
+      return { data: null as unknown as MyMacPackage[], error: (err as Error).message }
    }
 }

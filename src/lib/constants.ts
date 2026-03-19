@@ -1,5 +1,3 @@
-import type { PackageSlug } from '@/lib/types'
-
 export const AUTHOR_NAME = 'Simone M.'
 
 export const AUTHOR_EMAIL = 'hello@smastrom.io'
@@ -14,13 +12,6 @@ export const LINKS = {
 }
 
 export const NPM_USERNAME = 'smastrom'
-
-export const TOP_PACKAGES = [
-   'notivue',
-   'vue-collapsed',
-   'vue-use-active-scroll',
-   '@smastrom/react-rating',
-] as PackageSlug[]
 
 export const TOPICS = [
    'Vite',

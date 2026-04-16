@@ -75,5 +75,6 @@ const PAGE_SCHEMAS: Record<string, (seo: Seo) => Record<string, unknown>> = {
 }
 
 export function getPageJsonLd(pathname: string, seo: Seo) {
-   return PAGE_SCHEMAS[pathname]?.(seo) ?? null
+   const normalized = pathname === '/' ? '/' : `${pathname.replace(/\/$/, '')}/`
+   return PAGE_SCHEMAS[normalized]?.(seo) ?? null
 }

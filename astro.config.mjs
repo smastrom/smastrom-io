@@ -50,4 +50,7 @@ export default defineConfig({
          IS_PREVIEW: envField.string({ context: 'client', access: 'public' }),
       },
    },
+   redirects: {
+      '/services': '/contact',
+   },
 })

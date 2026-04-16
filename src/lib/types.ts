@@ -43,6 +43,13 @@ export interface CmsLayout {
    layout: { footerText: string }
 }
 
+export interface MarketingContent {
+   marketingContent: {
+      donateSectionTitle: string
+      donateSectionSubtitle: string
+   }
+}
+
 export type BlockProperties = {
    __typename: string
    id: string
@@ -78,14 +85,30 @@ export type IndexPage = {
 
 export type OpenSourceBlock = ArticleImageBlock | NpmPackagesListBlock | MacAppsListBlock
 
+export type ContactBlock = ArticleImageBlock
+
 export interface OpenSourcePage {
    openSource: {
       seo: Seo
       title: string
+      subtitle: string
       text: string
       body: {
          value: Document
          blocks: OpenSourceBlock[]
+      }
+   }
+}
+
+export interface ContactPage {
+   contact: {
+      seo: Seo
+      title: string
+      subtitle: string
+      text: string
+      body: {
+         value: Document
+         blocks: ContactBlock[]
       }
    }
 }

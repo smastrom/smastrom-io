@@ -1,10 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
+import DonateSection from '@/components/DonateSection.astro'
 
 import { StructuredText, useDato } from '@/lib/dato-cms'
 import { replaceDownloadsStats } from '@/lib/utils'
-import { getPackages, getMacPackages, getNpmDownloadsStats } from '@/lib/fetch-packages'
+import { getNpmPackages, getMacPackages, getNpmDownloadsStats } from '@/lib/fetch-packages'
 
 import { NPM_USERNAME } from '@/lib/constants'
 
@@ -25,6 +26,7 @@ const { data, error: cmsErr } = await useDato<OpenSourcePage>(/* GraphQL */ `
             description
          }
          title
+         subtitle(markdown: true)
          body {
             value
             blocks {
@@ -55,7 +57,9 @@ const macBlock = cms.body.blocks.find((b) => b.__typename === 'MacAppsListRecord
    | undefined
 
 const [npmResult, macResult, downloadsResult] = await Promise.all([
-   npmBlock ? getPackages(NPM_USERNAME, npmBlock.list as PackageSlug[]) : { data: [], error: null },
+   npmBlock
+      ? getNpmPackages(NPM_USERNAME, npmBlock.list as PackageSlug[])
+      : { data: [], error: null },
    macBlock ? getMacPackages(NPM_USERNAME, macBlock.list) : { data: [], error: null },
    getNpmDownloadsStats(NPM_USERNAME),
 ])
@@ -71,9 +75,12 @@ const downloadsStats = downloadsResult.data
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
    <article class="G_Article_Wrapper G_Page_Top_Spacing">
-      <h1 class="G_Title">{cms.title}</h1>
+      <header class="Section">
+         <h1 class="G_Title">{cms.title}</h1>
+         <div class="G_Paragraphs" set:html={cms.subtitle} />
+      </header>
 
-      <div class="G_Prose" id="article">
+      <main class="G_Prose" id="article">
          {
             StructuredText(cms.body, {
                NpmPackagesListRecord: () => (
@@ -101,7 +108,9 @@ const downloadsStats = downloadsResult.data
                ),
             })
          }
-      </div>
+      </main>
+
+      <DonateSection />
    </article>
 </Layout>
 
@@ -116,5 +125,12 @@ const downloadsStats = downloadsResult.data
          grid-template-columns: 1fr;
          gap: var(--page-margin);
       }
+   }
+
+   .Section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: var(--section-gap);
    }
 </style>

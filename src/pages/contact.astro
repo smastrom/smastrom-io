@@ -1,0 +1,67 @@
+---
+import Layout from '@/layouts/Layout.astro'
+
+import { StructuredText, useDato } from '@/lib/dato-cms'
+
+import type { ContactPage } from '@/lib/types'
+
+export const prerender = true
+
+const { data, error: cmsErr } = await useDato<ContactPage>(/* GraphQL */ `
+   {
+      contact {
+         seo {
+            title
+            description
+         }
+         title
+         subtitle(markdown: true)
+         body {
+            value
+            blocks {
+               __typename
+               ... on ArticleImageRecord {
+                  id
+                  image {
+                     width
+                     height
+                     alt
+                     url(imgixParams: { fm: webp, auto: enhance, cs: srgb })
+                  }
+               }
+            }
+         }
+      }
+   }
+`)
+
+if (cmsErr) throw new Error(cmsErr)
+
+const cms = data.contact
+---
+
+<Layout title={cms.seo.title} description={cms.seo.description}>
+   <article class="G_Article_Wrapper G_Page_Top_Spacing">
+      <header class="Section">
+         <h1 class="G_Title">{cms.title}</h1>
+         <div class="G_Paragraphs" set:html={cms.subtitle} />
+      </header>
+
+      <main class="G_Prose" id="article">
+         {
+            StructuredText(cms.body, {
+               content: (html) => <Fragment set:html={html} />,
+            })
+         }
+      </main>
+   </article>
+</Layout>
+
+<style>
+   .Section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: var(--section-gap);
+   }
+</style>

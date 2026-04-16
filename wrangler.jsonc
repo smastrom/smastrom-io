@@ -9,11 +9,6 @@
       "IS_PREVIEW": "false",
    },
    "env": {
-      "production": {
-         "vars": {
-            "IS_PREVIEW": "false",
-         },
-      },
       "preview": {
          "vars": {
             "IS_PREVIEW": "true",

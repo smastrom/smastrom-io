@@ -1,21 +1,26 @@
 {
-   "$schema": "node_modules/wrangler/config-schema.json",
+   "main": "dist/_worker.js/index.js",
    "name": "smastrom-io",
-   "compatibility_date": "2026-03-12",
+   "compatibility_date": "2025-03-25",
+   "compatibility_flags": [
+     "nodejs_compat",
+     "global_fetch_strictly_public"
+   ],
    "assets": {
-      "directory": "./dist",
+     "binding": "ASSETS",
+     "directory": "./dist"
    },
    "vars": {
-      "IS_PREVIEW": "true",
+      "IS_PREVIEW": "true"
    },
    "env": {
       "preview": {
          "vars": {
-            "IS_PREVIEW": "true",
+            "IS_PREVIEW": "true"
          },
       },
    },
    "observability": {
-      "enabled": true,
+      "enabled": true
    },
 }

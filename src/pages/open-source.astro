@@ -2,13 +2,11 @@
 import Layout from '@/layouts/Layout.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
 import DonateSection from '@/components/DonateSection.astro'
-import JsonLd from '@/components/JsonLd.astro'
-
 import { StructuredText, useDato } from '@/lib/dato-cms'
 import { replaceDownloadsStats } from '@/lib/utils'
 import { getNpmPackages, getMacPackages, getNpmDownloadsStats } from '@/lib/fetch-packages'
 
-import { NPM_USERNAME, SITE_URL } from '@/lib/constants'
+import { NPM_USERNAME } from '@/lib/constants'
 
 import type {
    OpenSourcePage,
@@ -75,19 +73,6 @@ const downloadsStats = downloadsResult.data
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
-   <JsonLd
-      slot="head-end"
-      data={{
-         '@context': 'https://schema.org',
-         '@type': 'CollectionPage',
-         '@id': `${SITE_URL}/open-source/#webpage`,
-         url: `${SITE_URL}/open-source/`,
-         name: cms.seo.title,
-         description: cms.seo.description,
-         isPartOf: { '@id': `${SITE_URL}/#website` },
-      }}
-   />
-
    <article class="g-article-wrapper g-page-top-spacing">
       <header class="open-source-section">
          <h1 class="g-title">{cms.title}</h1>

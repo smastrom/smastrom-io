@@ -2,4 +2,4 @@
 const { data } = Astro.props as { data: Record<string, unknown> }
 ---
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify(data)} />
+<Fragment set:html={`<script type="application/ld+json">${JSON.stringify(data)}</script>`} />

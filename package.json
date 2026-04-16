@@ -17,11 +17,11 @@
    },
    "devDependencies": {
       "@astrojs/check": "^0.9.8",
-      "@types/node": "^25.5.0",
+      "@types/node": "^25.6.0",
       "lightningcss": "^1.32.0",
-      "prettier": "^3.8.1",
+      "prettier": "^3.8.3",
       "prettier-plugin-astro": "^0.14.1",
       "typescript": "^5.9.3",
-      "wrangler": "^4.74.0"
+      "wrangler": "^4.83.0"
    }
 }

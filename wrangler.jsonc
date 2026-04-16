@@ -6,7 +6,7 @@
       "directory": "./dist",
    },
    "vars": {
-      "IS_PREVIEW": "false",
+      "IS_PREVIEW": "true",
    },
    "env": {
       "preview": {

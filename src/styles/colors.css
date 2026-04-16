@@ -1,50 +1,44 @@
-/*
- * TODO: Uncomment once Astro supports custom worker entry point (HTMLRewriter)
- * With HTMLRewriter, data-theme starts as "auto" and these media queries
- * apply the correct colors before JS resolves the theme.
- *
- * @media (prefers-color-scheme: dark) {
- *    html[data-theme='auto'] {
- *       --accent: hsl(142 75% 53%);
- *
- *       --fg: hsla(142, 29.4%, 80%, 0.9);
- *       --fg-underline: hsla(142, 29.4%, 80%, 0.25);
- *       --fg-marker: hsla(141.6, 100%, 95.1%, 0.35);
- *
- *       --bg: hsl(150, 7.1%, 5.5%);
- *       --bg-alpha: hsla(150, 9.7%, 12.2%, 0.38);
- *
- *       --divider: hsla(141, 78.9%, 85.1%, 0.13);
- *       --divider-light: hsl(141, 10%, 25%);
- *
- *       --bg-elv: hsla(150, 9.7%, 12.2%, 0.64);
- *
- *       --shadow-accent: 0 0 0 var(--b-1) var(--accent);
- *       --shadow-accent-mid: 0 0 0 var(--b-1) hsla(142, 75%, 53%, 0.5);
- *    }
- * }
- *
- * @media (prefers-color-scheme: light) {
- *    html[data-theme='auto'] {
- *       --accent: hsl(142 75% 35%);
- *
- *       --fg: hsl(142 16% 24%);
- *       --fg-underline: hsl(142 16% 24% / 0.35);
- *       --fg-marker: hsla(141.6, 90%, 50%, 0.35);
- *
- *       --bg: hsl(138, 76%, 97%);
- *       --bg-alpha: hsla(135, 80%, 95%, 0.8);
- *
- *       --divider: hsla(159, 21%, 21%, 0.4);
- *       --divider-light: hsl(150, 2%, 83%);
- *
- *       --bg-elv: #fff;
- *
- *       --shadow-accent: 0 0 0 var(--b-2) var(--accent);
- *       --shadow-accent-mid: 0 0 0 var(--b-2) hsla(142, 75%, 35%, 0.5);
- *    }
- * }
- */
+@media (prefers-color-scheme: dark) {
+   html[data-theme='auto'] {
+      --accent: hsl(142 75% 53%);
+
+      --fg: hsla(142, 29.4%, 80%, 0.9);
+      --fg-underline: hsla(142, 29.4%, 80%, 0.25);
+      --fg-marker: hsla(141.6, 100%, 95.1%, 0.35);
+
+      --bg: hsl(150, 7.1%, 5.5%);
+      --bg-alpha: hsla(150, 9.7%, 12.2%, 0.38);
+
+      --divider: hsla(141, 78.9%, 85.1%, 0.13);
+      --divider-light: hsl(141, 10%, 25%);
+
+      --bg-elv: hsla(150, 9.7%, 12.2%, 0.64);
+
+      --shadow-accent: 0 0 0 var(--b-1) var(--accent);
+      --shadow-accent-mid: 0 0 0 var(--b-1) hsla(142, 75%, 53%, 0.5);
+   }
+}
+
+@media (prefers-color-scheme: light) {
+   html[data-theme='auto'] {
+      --accent: hsl(142 75% 35%);
+
+      --fg: hsl(142 16% 24%);
+      --fg-underline: hsl(142 16% 24% / 0.35);
+      --fg-marker: hsla(141.6, 90%, 50%, 0.35);
+
+      --bg: hsl(138, 76%, 97%);
+      --bg-alpha: hsla(135, 80%, 95%, 0.8);
+
+      --divider: hsla(159, 21%, 21%, 0.4);
+      --divider-light: hsl(150, 2%, 83%);
+
+      --bg-elv: #fff;
+
+      --shadow-accent: 0 0 0 var(--b-2) var(--accent);
+      --shadow-accent-mid: 0 0 0 var(--b-2) hsla(142, 75%, 35%, 0.5);
+   }
+}
 
 html[data-theme='dark'] {
    color-scheme: dark;

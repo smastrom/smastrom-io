@@ -11,7 +11,7 @@ import IconSun from './icons/IconSun.astro'
    aria-label="Disable dark mode"
 >
    <IconSun id="theme_sun_icon" />
-   <IconMoon id="theme_moon_icon" />
+   <IconMoon id="theme_moon_icon" style="display:none" />
 </button>
 
 <span id="theme_divider" class="DarkMode-divider"></span>
@@ -21,26 +21,6 @@ import IconSun from './icons/IconSun.astro'
       width: var(--b-1);
       align-self: stretch;
       background-color: var(--divider);
-   }
-
-   html[data-theme='dark'] #theme_moon_icon {
-      display: none;
-   }
-
-   html[data-theme='light'] #theme_sun_icon {
-      display: none;
-   }
-
-   @media (prefers-color-scheme: dark) {
-      html[data-theme='auto'] #theme_moon_icon {
-         display: none;
-      }
-   }
-
-   @media (prefers-color-scheme: light) {
-      html[data-theme='auto'] #theme_sun_icon {
-         display: none;
-      }
    }
 </style>
 
@@ -54,7 +34,7 @@ import IconSun from './icons/IconSun.astro'
 </noscript>
 
 <script>
-   type Theme = 'light' | 'dark' | 'auto'
+   type Theme = 'light' | 'dark'
 
    const getBtn = (doc: Document = document) => doc.getElementById('theme_switch') as HTMLElement
    const getSun = (doc: Document = document) => doc.getElementById('theme_sun_icon') as HTMLElement
@@ -62,18 +42,6 @@ import IconSun from './icons/IconSun.astro'
       doc.getElementById('theme_moon_icon') as HTMLElement
 
    const getCurrentTheme = () => document.documentElement.dataset.theme as Theme
-
-   const getSystemTheme = () =>
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') as Theme
-
-   function initTheme() {
-      const theme = getCurrentTheme() === 'auto' ? getSystemTheme() : getCurrentTheme()
-      console.log('theme', theme)
-
-      setSwitchAriaAttrs(getBtn(), theme)
-      setDatasetTheme(theme)
-      setCookie(theme)
-   }
 
    function setCookie(theme: Theme) {
       document.cookie = `theme=${theme}; path=/`
@@ -153,7 +121,18 @@ import IconSun from './icons/IconSun.astro'
       }
    }
 
-   initTheme()
+   // Restore light theme from cookie (default is dark, no cookie needed for dark)
+   const savedTheme = document.cookie.match(/(?:^|;\s*)theme=(light|dark)/)?.[1] as
+      | Theme
+      | undefined
+   if (savedTheme && savedTheme !== getCurrentTheme()) {
+      setDatasetTheme(savedTheme)
+      setSwitchAriaAttrs(getBtn(), savedTheme)
+
+      const isDark = savedTheme === 'dark'
+      getSun().style.display = isDark ? 'block' : 'none'
+      getMoon().style.display = isDark ? 'none' : 'block'
+   }
 
    let destroySwitch = initSwitch()
 

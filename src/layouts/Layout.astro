@@ -48,7 +48,7 @@ const pageJsonLd = getPageJsonLd(Astro.url.pathname, { title, description })
 ---
 
 <!doctype html>
-<html lang="en" dir="ltr" data-theme="auto" class="g-transitions">
+<html lang="en" dir="ltr" data-theme="dark" class="g-transitions">
    <Head {title} {description}>
       <JsonLd slot="head-end" data={sharedJsonLd} />
       {pageJsonLd && <JsonLd slot="head-end" data={pageJsonLd} />}

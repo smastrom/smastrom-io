@@ -13,13 +13,26 @@ export const LINKS = {
 
 export const NPM_USERNAME = 'smastrom'
 
-export const TOPICS = [
-   'Vite',
-   'Vue.js',
-   'Nuxt',
-   'Astro',
-   'Cloudflare',
-   'Supabase',
-   'Directus',
-   'Storyblok',
-]
+export const DONATE_LINKS = {
+   card: [
+      {
+         slug: 'coffee',
+         label: 'BuyMeACoffee.com',
+         url: 'https://buymeacoffee.com/smastrom',
+      },
+      {
+         slug: 'paypal',
+         label: 'PayPal',
+         url: 'https://www.paypal.com/donate/?hosted_button_id=93WKXA68W9WQJ',
+      },
+   ],
+   crypto: [
+      {
+         slug: 'crypto',
+         label: 'NOWPayments',
+         url: 'https://nowpayments.io/donation/smastrom',
+      },
+   ],
+} as const
+
+export const TOPICS = ['Simone Mastromattei', 'Web development', 'Web design']

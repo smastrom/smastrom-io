@@ -11,7 +11,7 @@ import IconSun from './icons/IconSun.astro'
    aria-label="Disable dark mode"
 >
    <IconSun id="theme_sun_icon" />
-   <IconMoon id="theme_moon_icon" style="display:none" />
+   <IconMoon id="theme_moon_icon" />
 </button>
 
 <span id="theme_divider" class="DarkMode-divider"></span>
@@ -23,23 +23,25 @@ import IconSun from './icons/IconSun.astro'
       background-color: var(--divider);
    }
 
-   /*
-    * TODO: Uncomment once Astro supports custom worker entry point (HTMLRewriter)
-    * With HTMLRewriter setting data-theme from cookie on the edge, the initial
-    * theme is "auto" and these rules hide the correct icon before JS runs.
-    *
-    * @media (prefers-color-scheme: dark) {
-    *    html[data-theme='auto'] #theme_moon_icon {
-    *       display: none;
-    *    }
-    * }
-    *
-    * @media (prefers-color-scheme: light) {
-    *    html[data-theme='auto'] #theme_sun_icon {
-    *       display: none;
-    *    }
-    * }
-    */
+   html[data-theme='dark'] #theme_moon_icon {
+      display: none;
+   }
+
+   html[data-theme='light'] #theme_sun_icon {
+      display: none;
+   }
+
+   @media (prefers-color-scheme: dark) {
+      html[data-theme='auto'] #theme_moon_icon {
+         display: none;
+      }
+   }
+
+   @media (prefers-color-scheme: light) {
+      html[data-theme='auto'] #theme_sun_icon {
+         display: none;
+      }
+   }
 </style>
 
 <noscript>
@@ -52,7 +54,7 @@ import IconSun from './icons/IconSun.astro'
 </noscript>
 
 <script>
-   type Theme = 'light' | 'dark'
+   type Theme = 'light' | 'dark' | 'auto'
 
    const getBtn = (doc: Document = document) => doc.getElementById('theme_switch') as HTMLElement
    const getSun = (doc: Document = document) => doc.getElementById('theme_sun_icon') as HTMLElement
@@ -61,30 +63,17 @@ import IconSun from './icons/IconSun.astro'
 
    const getCurrentTheme = () => document.documentElement.dataset.theme as Theme
 
-   /*
-    * TODO: Uncomment once Astro supports custom worker entry point (HTMLRewriter)
-    * With HTMLRewriter, data-theme starts as "auto" and this function resolves
-    * it to the system preference, sets the cookie, and updates the UI.
-    *
-    * const getSystemTheme = () =>
-    *    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') as Theme
-    *
-    * function setSystemTheme() {
-    *    if (getCurrentTheme() !== 'auto') return
-    *
-    *    const initialTheme = getSystemTheme()
-    *
-    *    setDatasetTheme(initialTheme)
-    *    setCookie(initialTheme)
-    *    setSwitchAriaAttrs(getBtn(), initialTheme as Theme)
-    *
-    *    if (initialTheme === 'dark') {
-    *       getMoon().style.display = 'none'
-    *    } else {
-    *       getSun().style.display = 'none'
-    *    }
-    * }
-    */
+   const getSystemTheme = () =>
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') as Theme
+
+   function initTheme() {
+      const theme = getCurrentTheme() === 'auto' ? getSystemTheme() : getCurrentTheme()
+      console.log('theme', theme)
+
+      setSwitchAriaAttrs(getBtn(), theme)
+      setDatasetTheme(theme)
+      setCookie(theme)
+   }
 
    function setCookie(theme: Theme) {
       document.cookie = `theme=${theme}; path=/`
@@ -164,21 +153,7 @@ import IconSun from './icons/IconSun.astro'
       }
    }
 
-   // TODO: Uncomment once Astro supports custom worker entry point (HTMLRewriter)
-   // setSystemTheme()
-
-   // Without HTMLRewriter, default is "dark". Read cookie to restore user's choice.
-   const savedTheme = document.cookie.match(/(?:^|;\s*)theme=(light|dark)/)?.[1] as
-      | Theme
-      | undefined
-   if (savedTheme && savedTheme !== getCurrentTheme()) {
-      setDatasetTheme(savedTheme)
-      setSwitchAriaAttrs(getBtn(), savedTheme)
-
-      const isDark = savedTheme === 'dark'
-      getSun().style.display = isDark ? 'block' : 'none'
-      getMoon().style.display = isDark ? 'none' : 'block'
-   }
+   initTheme()
 
    let destroySwitch = initSwitch()
 

@@ -41,13 +41,13 @@ const cms = data.contact
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
-   <article class="G_Article_Wrapper G_Page_Top_Spacing">
-      <header class="Section">
-         <h1 class="G_Title">{cms.title}</h1>
-         <div class="G_Paragraphs" set:html={cms.subtitle} />
+   <article class="g-article-wrapper g-page-top-spacing">
+      <header class="contact-section">
+         <h1 class="g-title">{cms.title}</h1>
+         <div class="g-paragraphs" set:html={cms.subtitle} />
       </header>
 
-      <main class="G_Prose" id="article">
+      <main class="g-prose" id="article">
          {
             StructuredText(cms.body, {
                content: (html) => <Fragment set:html={html} />,
@@ -58,7 +58,7 @@ const cms = data.contact
 </Layout>
 
 <style>
-   .Section {
+   .contact-section {
       width: 100%;
       display: flex;
       flex-direction: column;

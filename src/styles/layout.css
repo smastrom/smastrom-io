@@ -33,7 +33,7 @@ body {
    justify-content: space-between;
 }
 
-.G_Transitions {
+.g-transitions {
    transition: background-color var(--easing);
 
    & h1,

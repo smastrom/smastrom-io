@@ -1,4 +1,4 @@
-.G_SR_Only {
+.g-sr-only {
    border: 0;
    clip: rect(0 0 0 0);
    height: 1px;
@@ -9,7 +9,7 @@
    width: 1px;
 }
 
-.G_Article_Wrapper {
+.g-article-wrapper {
    max-width: var(--article-container);
    margin: var(--header-height) auto 0 auto;
    display: flex;
@@ -18,7 +18,7 @@
    flex-direction: column;
 }
 
-.G_Page_Top_Spacing {
+.g-page-top-spacing {
    padding-top: var(--s-7);
 
    @media (--tablet-to) {

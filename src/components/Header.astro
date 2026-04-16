@@ -14,7 +14,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
 ---
 
 <header id="header">
-   <a class="Logo_Link" href="/" aria-label="Home">
+   <a class="Header-logo" href="/" aria-label="Home">
       <Logo
          width="40"
          height="40"
@@ -23,7 +23,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          }}
       />
    </a>
-   <nav class="Nav">
+   <nav class="Header-nav">
       {
          NAV_LINKS.map((l) => (
             <a {...getLinkProps(Astro.url.pathname, l.href)}>
@@ -34,18 +34,18 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       }
    </nav>
 
-   <nav class="Nav_Right">
+   <nav class="Header-actions">
       <DarkMode />
 
-      <a class="Social_Link" {...getExtLinkAttrs('mailto:' + AUTHOR_EMAIL, 'Email')}>
+      <a class="Header-social" {...getExtLinkAttrs('mailto:' + AUTHOR_EMAIL, 'Email')}>
          <IconEmail />
       </a>
 
-      <a class="Social_Link" {...getExtLinkAttrs(LINKS.github, 'GitHub')}><IconGitHub /> </a>
-      <a class="Social_Link" {...getExtLinkAttrs(LINKS.discord, 'Discord')}><IconDiscord /> </a>
+      <a class="Header-social" {...getExtLinkAttrs(LINKS.github, 'GitHub')}><IconGitHub /> </a>
+      <a class="Header-social" {...getExtLinkAttrs(LINKS.discord, 'Discord')}><IconDiscord /> </a>
 
       <button
-         class:list={['Hamburger_Button', hamburgerClasses]}
+         class:list={['Header-hamburger', hamburgerClasses]}
          type="button"
          aria-label="Menu"
          aria-expanded="false"
@@ -60,7 +60,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
 
 </header>
 
-<nav class="Mobile_Panel" id="panel" aria-label="Mobile navigation">
+<nav class="Header-panel" id="panel" aria-label="Mobile navigation">
    {
       NAV_LINKS.map((l) => (
          <a {...getLinkProps(Astro.url.pathname, l.href)}>
@@ -70,7 +70,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       ))
    }
 
-   <div class="Mobile_Panel_Footer">
+   <div class="Header-panel-footer">
       <a {...getExtLinkAttrs('mailto:' + AUTHOR_EMAIL, 'Email')}>
          <IconEmail />
       </a>
@@ -220,14 +220,14 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       }
    }
 
-   .Logo_Link {
+   .Header-logo {
       @media (--menu-shift-to) {
          transform: scale(0.8);
          transform-origin: left center;
       }
    }
 
-   .Nav {
+   .Header-nav {
       display: flex;
       gap: var(--s-7);
       font-weight: 500;
@@ -285,7 +285,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
    }
 
    html[data-theme='light'] {
-      & .Nav a {
+      & .Header-nav a {
          & :global(svg) {
             opacity: var(--o-2);
          }
@@ -300,7 +300,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       }
    }
 
-   .Nav_Right {
+   .Header-actions {
       --gap: var(--s-2);
 
       display: flex;
@@ -334,13 +334,13 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       }
    }
 
-   .Social_Link {
+   .Header-social {
       @media (--menu-shift-to) {
          display: none !important;
       }
    }
 
-   .Hamburger_Button {
+   .Header-hamburger {
       display: none;
       align-items: center;
       justify-content: center;
@@ -357,7 +357,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       }
    }
 
-   .Mobile_Panel {
+   .Header-panel {
       position: fixed;
       top: var(--header-height);
       left: 0;
@@ -424,13 +424,13 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
    }
 
    html[data-theme='light'] {
-      & .Mobile_Panel > a[aria-current='page'] {
+      & .Header-panel > a[aria-current='page'] {
          text-decoration: underline;
       }
    }
 
    html[data-theme='dark'] {
-      & .Mobile_Panel > a:not([aria-current='page']) {
+      & .Header-panel > a:not([aria-current='page']) {
          opacity: var(--o-3);
       }
    }
@@ -454,7 +454,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       }
    }
 
-   .Mobile_Panel_Footer {
+   .Header-panel-footer {
       display: flex;
       gap: var(--s-4);
       padding: var(--s-1) var(--page-margin) var(--s-05);

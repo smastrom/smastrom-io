@@ -29,18 +29,18 @@ const DONATE_ICONS = {
 } as const
 ---
 
-<section class="Section">
-   <h2 class="G_Title_2">{title}</h2>
-   <div class="G_Paragraphs" set:html={subtitle} />
+<section class="DonateSection">
+   <h2 class="g-title-2">{title}</h2>
+   <div class="g-paragraphs" set:html={subtitle} />
 
-   <div class="Donate_Groups">
+   <div class="DonateSection-groups">
       {
          Object.entries(DONATE_LINKS).map(([group, links]) => (
-            <div class="Donate_Group">
-               <span class="Donate_Group_Label">
+            <div class="DonateSection-group">
+               <span class="DonateSection-label">
                   {group === 'card' ? 'Cards, PayPal' : 'Crypto'}
                </span>
-               <div class="Donate_Links">
+               <div class="DonateSection-links">
                   {links.map((link) => {
                      const Icon = DONATE_ICONS[link.slug]
                      return (
@@ -48,7 +48,7 @@ const DONATE_ICONS = {
                            href={link.url}
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="Donate_Link"
+                           class="DonateSection-link"
                         >
                            <Icon /> {link.label}
                         </a>
@@ -62,13 +62,13 @@ const DONATE_ICONS = {
 </section>
 
 <style>
-   .Section {
+   .DonateSection {
       width: 100%;
       display: flex;
       flex-direction: column;
    }
 
-   .Donate_Groups {
+   .DonateSection-groups {
       display: flex;
       column-gap: var(--s-6);
       row-gap: var(--s-3);
@@ -76,25 +76,25 @@ const DONATE_ICONS = {
       flex-wrap: wrap;
    }
 
-   .Donate_Group {
+   .DonateSection-group {
       display: flex;
       flex-direction: column;
       gap: var(--s-1);
    }
 
-   .Donate_Group_Label {
+   .DonateSection-label {
       font-size: var(--f-0);
       font-weight: 600;
       color: var(--fg-2);
    }
 
-   .Donate_Links {
+   .DonateSection-links {
       display: flex;
       gap: var(--s-1);
       flex-wrap: wrap;
    }
 
-   .Donate_Link {
+   .DonateSection-link {
       display: inline-flex;
       align-items: center;
       gap: var(--s-05);

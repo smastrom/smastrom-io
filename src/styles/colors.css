@@ -59,7 +59,7 @@ html[data-theme='dark'] {
    --bg-alpha: hsla(150, 9.7%, 12.2%, 0.38);
 
    --divider: hsla(141, 78.9%, 85.1%, 0.13);
-   --divider-light: hsl(141, 10%, 25%);
+   --divider-light: #39463ec9;
 
    --bg-elv: hsla(150, 9.7%, 12.2%, 0.64);
 
@@ -77,7 +77,7 @@ html[data-theme='light'] {
    --fg-marker: hsla(141.6, 90%, 50%, 0.35);
 
    --bg: hsl(138, 76%, 97%);
-   --bg-alpha: hsla(135, 80%, 95%, 0.8);
+   --bg-alpha: #e8fced7d;
 
    --divider: hsla(159, 21%, 21%, 0.4);
    --divider-light: hsl(150, 2%, 83%);

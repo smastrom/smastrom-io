@@ -4,7 +4,7 @@
    --article-container: 1240px;
    --header-height: 80px;
    --header-icon-size: 28px;
-   --footer-top-margin: var(--s-10);
+   --footer-top-margin: var(--s-12);
 }
 
 @media (--tablet-to) {

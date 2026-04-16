@@ -2,12 +2,10 @@
 import Logo from './Logo.astro'
 
 const { content } = Astro.props as { content: string }
-
-const withAttrs = (html: string) => html.replace(/<a /g, '<a target="_blank" ')
 ---
 
 <footer class="Footer">
-   <small set:html={withAttrs(content)} />
+   <small set:html={content.replace('[YEAR]', String(new Date().getFullYear()))} />
 
    <Logo width="40" height="40" style={{ display: 'flex', marginBottom: 'var(--s-07)' }} />
 </footer>

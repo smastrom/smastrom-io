@@ -41,15 +41,15 @@ function githubHeaders(username: string) {
    }
 }
 
-interface GetPackagesResponse {
+interface GetNpmPackagesResponse {
    data: MyNpmPackage[]
    error: string | null
 }
 
-export async function getPackages(
+export async function getNpmPackages(
    npmUsername: string,
    packages: PackageSlug[]
-): Promise<GetPackagesResponse> {
+): Promise<GetNpmPackagesResponse> {
    if (packages.length === 0) return { data: [], error: null }
 
    try {

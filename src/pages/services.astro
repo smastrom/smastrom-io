@@ -43,20 +43,20 @@ const cms = data.servicesPage
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
-   <article class="G_Article_Wrapper G_Page_Top_Spacing">
-      <header class="Section">
-         <h1 class="G_Title" style={{ marginBottom: 0 }}>{cms.title}</h1>
+   <article class="g-article-wrapper g-page-top-spacing">
+      <header class="services-section">
+         <h1 class="g-title" style={{ marginBottom: 0 }}>{cms.title}</h1>
          <GetInTouch />
-         <div class="G_Paragraphs" set:html={cms.subtitle} />
+         <div class="g-paragraphs" set:html={cms.subtitle} />
       </header>
 
       {
          cms.services.map((s) => (
-            <section class="Section">
-               {s.caption && <h3 class="G_Caption">{s.caption}</h3>}
+            <section class="services-section">
+               {s.caption && <h3 class="g-caption">{s.caption}</h3>}
 
-               <h2 class="G_Title_2">{s.title}</h2>
-               <div class="G_Paragraphs" set:html={addExternalLinkAttrs(s.description)} />
+               <h2 class="g-title-2">{s.title}</h2>
+               <div class="g-paragraphs" set:html={addExternalLinkAttrs(s.description)} />
 
                {s.image && (
                   <ServiceImage imageUrl={s.image.url} imageDescription={s.imageDescription} />
@@ -67,9 +67,9 @@ const cms = data.servicesPage
 
       {
          cms.sections.map((s) => (
-            <section class="Section">
-               <h3 class="G_Title_2">{s.title}</h3>
-               <div class="G_Paragraphs" set:html={s.text} />
+            <section class="services-section">
+               <h3 class="g-title-2">{s.title}</h3>
+               <div class="g-paragraphs" set:html={s.text} />
             </section>
          ))
       }
@@ -77,7 +77,7 @@ const cms = data.servicesPage
 </Layout>
 
 <style>
-   .Section {
+   .services-section {
       width: 100%;
       display: flex;
       flex-direction: column;

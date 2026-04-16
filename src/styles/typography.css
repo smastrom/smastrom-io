@@ -47,7 +47,7 @@ html {
    --section-gap: calc(3 * var(--paragraph-m-bottom));
 }
 
-.G_Hero_Title {
+.g-hero-title {
    font-weight: 700;
    font-size: var(--hero-font-size);
    line-height: var(--lh-3);
@@ -59,7 +59,7 @@ html {
    }
 }
 
-.G_Title {
+.g-title {
    font-weight: 700;
    line-height: var(--lh-normal);
    color: var(--accent);
@@ -67,7 +67,7 @@ html {
    margin-bottom: var(--top-heading-m-bottom);
 }
 
-.G_Title_2 {
+.g-title-2 {
    font-weight: 700;
    line-height: var(--lh-normal);
    color: var(--accent);
@@ -75,7 +75,7 @@ html {
    margin-bottom: var(--next-heading-m-bottom);
 }
 
-.G_Caption {
+.g-caption {
    font-weight: 400;
    font-size: var(--s-09);
    text-transform: uppercase;
@@ -83,7 +83,7 @@ html {
    margin-bottom: var(--s-05);
 }
 
-.G_Paragraphs {
+.g-paragraphs {
    font-size: var(--paragraph-font-size);
    max-width: var(--paragraph-max);
 
@@ -126,10 +126,10 @@ html {
    }
 }
 
-.G_Prose {
+.g-prose {
    width: 100%;
 
-   & h2:not(.Card_Grid *) {
+   & h2:not(.open-source-grid *) {
       font-weight: 700;
       line-height: var(--lh-normal);
       color: var(--accent);
@@ -137,7 +137,7 @@ html {
       margin-bottom: var(--next-heading-m-bottom);
    }
 
-   & h3:not(.Card_Grid *) {
+   & h3:not(.open-source-grid *) {
       font-weight: 700;
       line-height: var(--lh-normal);
       color: var(--accent);
@@ -145,7 +145,7 @@ html {
       margin-bottom: var(--next-heading-m-bottom);
    }
 
-   & p:not(.Card_Grid *) {
+   & p:not(.open-source-grid *) {
       font-size: var(--paragraph-font-size);
       max-width: var(--paragraph-max);
       margin-bottom: var(--paragraph-m-bottom);
@@ -215,7 +215,7 @@ html {
       }
    }
 
-   & .Card_Grid {
+   & .open-source-grid {
       margin-top: calc(1.5 * var(--paragraph-m-bottom));
 
       &:not(:last-child) {
@@ -223,7 +223,7 @@ html {
       }
    }
 
-   & img:not(.Card_Grid *) {
+   & img:not(.open-source-grid *) {
       width: 100%;
       height: auto;
       border-radius: var(--r-3);

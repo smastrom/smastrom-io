@@ -44,11 +44,11 @@ const cms = data.servicesPage
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
    <article class="G_Article_Wrapper G_Page_Top_Spacing">
-      <section class="Section">
+      <header class="Section">
          <h1 class="G_Title" style={{ marginBottom: 0 }}>{cms.title}</h1>
          <GetInTouch />
          <div class="G_Paragraphs" set:html={cms.subtitle} />
-      </section>
+      </header>
 
       {
          cms.services.map((s) => (
@@ -81,9 +81,10 @@ const cms = data.servicesPage
       width: 100%;
       display: flex;
       flex-direction: column;
+      margin-bottom: var(--section-gap);
 
-      &:not(:last-of-type) {
-         margin-bottom: var(--section-gap);
+      &:last-of-type {
+         margin-bottom: 0;
       }
    }
 </style>

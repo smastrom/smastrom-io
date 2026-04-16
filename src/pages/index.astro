@@ -1,9 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import HomeJLD from '@/components/HomeJLD.astro'
+import JsonLd from '@/components/JsonLd.astro'
 
 import { useDato, StructuredText } from '@/lib/dato-cms'
-import { AUTHOR_EMAIL, LINKS, AUTHOR_NAME, TOPICS, AUTHOR_COUNTRY } from '@/lib/constants'
+import { SITE_URL } from '@/lib/constants'
 
 import type { ArticleImageBlock, IndexPage } from '@/lib/types'
 
@@ -42,15 +42,18 @@ const cms = data.home
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
-   <HomeJLD
+   <JsonLd
       slot="head-end"
-      url={import.meta.env.SITE}
-      name={AUTHOR_NAME}
-      description={cms.seo.description}
-      email={AUTHOR_EMAIL}
-      addressCountry={AUTHOR_COUNTRY}
-      sameAs={Object.values(LINKS)}
-      knowsAbout={TOPICS}
+      data={{
+         '@context': 'https://schema.org',
+         '@type': 'ProfilePage',
+         '@id': `${SITE_URL}/#webpage`,
+         url: SITE_URL,
+         name: cms.seo.title,
+         description: cms.seo.description,
+         isPartOf: { '@id': `${SITE_URL}/#website` },
+         about: { '@id': `${SITE_URL}/#person` },
+      }}
    />
 
    <article class="g-prose g-article-wrapper" id="article">

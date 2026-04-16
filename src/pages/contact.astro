@@ -1,7 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import JsonLd from '@/components/JsonLd.astro'
 
 import { StructuredText, useDato } from '@/lib/dato-cms'
+import { SITE_URL } from '@/lib/constants'
 
 import type { ContactPage } from '@/lib/types'
 
@@ -41,6 +43,20 @@ const cms = data.contact
 ---
 
 <Layout title={cms.seo.title} description={cms.seo.description}>
+   <JsonLd
+      slot="head-end"
+      data={{
+         '@context': 'https://schema.org',
+         '@type': 'ContactPage',
+         '@id': `${SITE_URL}/contact/#webpage`,
+         url: `${SITE_URL}/contact/`,
+         name: cms.seo.title,
+         description: cms.seo.description,
+         isPartOf: { '@id': `${SITE_URL}/#website` },
+         mainEntity: { '@id': `${SITE_URL}/#person` },
+      }}
+   />
+
    <article class="g-article-wrapper g-page-top-spacing">
       <header class="contact-section">
          <h1 class="g-title">{cms.title}</h1>

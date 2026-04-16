@@ -1,8 +1,6 @@
-export const AUTHOR_NAME = 'Simone M.'
+export const AUTHOR_NAME = 'Simone Mastromattei'
 
 export const AUTHOR_EMAIL = 'hello@smastrom.io'
-
-export const AUTHOR_COUNTRY = 'Italy'
 
 export const SITE_URL = 'https://smastrom.io'
 
@@ -35,4 +33,4 @@ export const DONATE_LINKS = {
    ],
 } as const
 
-export const TOPICS = ['Simone Mastromattei', 'Web development', 'Web design']
+export const TOPICS = ['Web development', 'Web design']

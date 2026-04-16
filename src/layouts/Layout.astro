@@ -3,8 +3,10 @@ import Head from '@/components/Head.astro'
 import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
 import Background from '@/components/Background.astro'
+import JsonLd from '@/components/JsonLd.astro'
 
 import { useDato } from '@/lib/dato-cms'
+import { AUTHOR_NAME, AUTHOR_EMAIL, SITE_URL, LINKS, TOPICS } from '@/lib/constants'
 
 import type { CmsLayout } from '@/lib/types'
 
@@ -40,12 +42,44 @@ const { title = fallbackSeo.title, description = fallbackSeo.description } = Ast
    title: string
    description: string
 }
+
+const sharedJsonLd = {
+   '@context': 'https://schema.org',
+   '@graph': [
+      {
+         '@type': 'Person',
+         '@id': `${SITE_URL}/#person`,
+         name: AUTHOR_NAME,
+         givenName: 'Simone',
+         jobTitle: 'Software Professional',
+         url: SITE_URL,
+         email: `mailto:${AUTHOR_EMAIL}`,
+         knowsAbout: TOPICS,
+         homeLocation: {
+            '@type': 'Place',
+            address: {
+               '@type': 'PostalAddress',
+               addressCountry: 'IT',
+            },
+         },
+         sameAs: Object.values(LINKS),
+      },
+      {
+         '@type': 'WebSite',
+         '@id': `${SITE_URL}/#website`,
+         url: SITE_URL,
+         name: `${AUTHOR_NAME} - Web Developer`,
+         publisher: { '@id': `${SITE_URL}/#person` },
+      },
+   ],
+}
 ---
 
 <!doctype html>
 <!-- TODO: Revert to data-theme="auto" once Astro supports custom worker entry point (HTMLRewriter) -->
 <html lang="en" dir="ltr" data-theme="dark" class="g-transitions">
    <Head {title} {description}>
+      <JsonLd data={sharedJsonLd} />
       <slot name="head-end" />
    </Head>
 

@@ -1,9 +1,14 @@
-<div aria-hidden="true"></div>
+<div id="background" class="Background" aria-hidden="true"></div>
 
 <style>
-   div {
+   .Background {
       pointer-events: none;
       background-color: var(--color-border);
+      background-image: radial-gradient(
+         circle 420px at var(--bg-x, -100vw) var(--bg-y, -100vh),
+         var(--color-accent) 0%,
+         transparent 70%
+      );
       width: 100%;
       height: 100%;
       position: fixed;
@@ -24,3 +29,62 @@
       }
    }
 </style>
+
+<script>
+   const getBackground = () => document.getElementById('background') as HTMLElement | null
+
+   function initOnHoverShine() {
+      const el = getBackground()
+
+      if (!el || !matchMedia('(hover: hover) and (pointer: fine)').matches) {
+         return () => {}
+      }
+
+      let targetX = 0
+      let targetY = 0
+      let currentX = 0
+      let currentY = 0
+      let rafId = 0
+      let initialized = false
+
+      function tick() {
+         currentX += (targetX - currentX) * 0.18
+         currentY += (targetY - currentY) * 0.18
+         el!.style.setProperty('--bg-x', `${currentX}px`)
+         el!.style.setProperty('--bg-y', `${currentY}px`)
+
+         if (Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5) {
+            rafId = requestAnimationFrame(tick)
+         } else {
+            rafId = 0
+         }
+      }
+
+      function onPointerMove(e: PointerEvent) {
+         targetX = e.clientX
+         targetY = e.clientY
+
+         if (!initialized) {
+            currentX = targetX
+            currentY = targetY
+            initialized = true
+         }
+
+         if (!rafId) rafId = requestAnimationFrame(tick)
+      }
+
+      addEventListener('pointermove', onPointerMove, { passive: true })
+
+      return () => {
+         removeEventListener('pointermove', onPointerMove)
+         if (rafId) cancelAnimationFrame(rafId)
+      }
+   }
+
+   let destroyShine = initOnHoverShine()
+
+   document.addEventListener('astro:after-swap', () => {
+      destroyShine()
+      destroyShine = initOnHoverShine()
+   })
+</script>

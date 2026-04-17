@@ -100,27 +100,27 @@ const DONATE_ICONS = {
       gap: var(--s-05);
       padding: var(--s-07) var(--s-2);
       border-radius: var(--r-3);
-      border: var(--b-1) solid var(--divider-light);
-      background-color: var(--bg-alpha);
-      color: var(--fg);
+      border: var(--b-1) solid var(--color-border-muted);
+      background-color: var(--color-bg-translucent);
+      color: var(--color-fg);
       font-size: var(--f-1);
       font-weight: 500;
       text-decoration: none;
       transition:
-         border-color var(--easing),
-         color var(--easing);
+         border-color var(--ease-fast),
+         color var(--ease-fast);
 
       & :global(svg) {
          width: 1.125rem;
          height: 1.125rem;
-         color: var(--accent);
-         transition: color var(--easing);
+         color: var(--color-accent);
+         transition: color var(--ease-fast);
       }
 
       @media (hover: hover) {
          &:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--color-accent);
+            color: var(--color-accent);
          }
       }
    }

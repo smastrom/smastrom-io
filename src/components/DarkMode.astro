@@ -20,7 +20,7 @@ import IconSun from './icons/IconSun.astro'
    .DarkMode-divider {
       width: var(--b-1);
       align-self: stretch;
-      background-color: var(--divider);
+      background-color: var(--color-border);
    }
 </style>
 
@@ -161,7 +161,7 @@ import IconSun from './icons/IconSun.astro'
 <style>
    button {
       --padding: var(--s-07);
-      --size: calc(var(--header-icon-size) + (2 * var(--padding)));
+      --size: calc(var(--header-icon) + (2 * var(--padding)));
 
       border: none;
       display: flex;
@@ -170,8 +170,8 @@ import IconSun from './icons/IconSun.astro'
       height: var(--size);
 
       & :global(svg) {
-         width: var(--header-icon-size);
-         height: var(--header-icon-size);
+         width: var(--header-icon);
+         height: var(--header-icon);
 
          position: absolute;
          transition:

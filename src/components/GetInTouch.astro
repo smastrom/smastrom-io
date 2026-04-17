@@ -12,11 +12,11 @@ import { AUTHOR_EMAIL } from '@/lib/constants'
       align-items: center;
       gap: var(--s-05);
       text-decoration: none;
-      color: var(--fg);
+      color: var(--color-fg);
       font-weight: 500;
       white-space: nowrap;
       font-size: var(--f-2);
-      transition: opacity var(--easing);
+      transition: opacity var(--ease-fast);
       margin-bottom: var(--s-4);
 
       @media (--tablet-to) {
@@ -24,14 +24,14 @@ import { AUTHOR_EMAIL } from '@/lib/constants'
       }
 
       & :global(svg) {
-         transition: transform var(--easing);
-         color: var(--accent);
+         transition: transform var(--ease-fast);
+         color: var(--color-accent);
       }
 
       @media (hover: hover) {
          &:hover {
             opacity: var(--o-3);
-            color: var(--accent);
+            color: var(--color-accent);
 
             & :global(svg) {
                transform: translateX(var(--s-02));

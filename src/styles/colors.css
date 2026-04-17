@@ -1,46 +1,51 @@
+/*
+ * Color system — semantic tokens, theme-scoped.
+ * Palette shifts fully between light/dark, so primitives live inside
+ * each theme block rather than as separate ramps.
+ * Syntax: modern space-separated `hsl(H S% L% / A)` across the board.
+ */
+
 html[data-theme='dark'] {
    color-scheme: dark;
 
-   --accent: hsl(142 75% 53%);
+   --color-accent: hsl(142 75% 53%);
 
-   --fg: hsla(142, 29.4%, 80%, 0.9);
-   --fg-underline: hsla(142, 29.4%, 80%, 0.25);
-   --fg-marker: hsla(141.6, 100%, 95.1%, 0.35);
+   --color-fg: hsl(142 29% 80% / 0.9);
+   --color-fg-underline: hsl(142 29% 80% / 0.25);
+   --color-fg-highlight: hsl(142 100% 95% / 0.35);
 
-   --bg: hsl(150, 7.1%, 5.5%);
-   --bg-alpha: hsla(150, 9.7%, 12.2%, 0.38);
+   --color-bg: hsl(150 7% 5.5%);
+   --color-bg-translucent: hsl(150 10% 12% / 0.38);
+   --color-bg-raised: hsl(150 10% 12% / 0.64);
 
-   --divider: hsla(141, 78.9%, 85.1%, 0.13);
-   --divider-light: #39463ec9;
+   --color-border: hsl(141 79% 85% / 0.13);
+   --color-border-muted: hsl(143 10% 25% / 0.79);
 
-   --bg-elv: hsla(150, 9.7%, 12.2%, 0.64);
-
-   --shadow-accent: 0 0 0 var(--b-1) var(--accent);
-   --shadow-accent-mid: 0 0 0 var(--b-1) hsla(142, 75%, 53%, 0.5);
+   --ring-accent: 0 0 0 var(--b-1) var(--color-accent);
+   --ring-accent-soft: 0 0 0 var(--b-1) hsl(142 75% 53% / 0.5);
 }
 
 html[data-theme='light'] {
    color-scheme: light;
 
-   --accent: hsl(142 75% 35%);
+   --color-accent: hsl(142 75% 35%);
 
-   --fg: hsl(142 16% 24%);
-   --fg-underline: hsl(142 16% 24% / 0.35);
-   --fg-marker: hsla(141.6, 90%, 50%, 0.35);
+   --color-fg: hsl(142 16% 24%);
+   --color-fg-underline: hsl(142 16% 24% / 0.35);
+   --color-fg-highlight: hsl(142 90% 50% / 0.35);
 
-   --bg: hsl(138, 76%, 97%);
-   --bg-alpha: #e8fced7d;
+   --color-bg: hsl(138 76% 97%);
+   --color-bg-translucent: hsl(135 77% 95% / 0.49);
+   --color-bg-raised: hsl(0 0% 100%);
 
-   --divider: hsla(159, 21%, 21%, 0.4);
-   --divider-light: hsl(150, 2%, 83%);
+   --color-border: hsl(159 21% 21% / 0.4);
+   --color-border-muted: hsl(150 2% 83%);
 
-   --bg-elv: #fff;
-
-   --shadow-accent: 0 0 0 var(--b-2) var(--accent);
-   --shadow-accent-mid: 0 0 0 var(--b-2) hsla(142, 75%, 35%, 0.5);
+   --ring-accent: 0 0 0 var(--b-2) var(--color-accent);
+   --ring-accent-soft: 0 0 0 var(--b-2) hsl(142 75% 35% / 0.5);
 }
 
 html {
-   background-color: var(--bg);
-   color: var(--fg);
+   background-color: var(--color-bg);
+   color: var(--color-fg);
 }

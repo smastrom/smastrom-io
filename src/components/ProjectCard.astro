@@ -82,23 +82,23 @@ const { project: p } = Astro.props as { project: ProjectPackage }
    .ProjectCard-content {
       padding: var(--s-3);
       border-radius: var(--r-3);
-      box-shadow: 0 0 0 var(--b-1) var(--divider-light);
+      box-shadow: 0 0 0 var(--b-1) var(--color-border-muted);
       user-select: none;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
-      background-color: var(--bg-alpha);
+      background-color: var(--color-bg-translucent);
       backdrop-filter: blur(10px);
       transition:
          transform 500ms linear,
          transform-origin 500ms linear,
-         box-shadow var(--easing),
-         background-color var(--easing);
+         box-shadow var(--ease-fast),
+         background-color var(--ease-fast);
 
       @media (hover: hover) {
          &:hover {
-            box-shadow: 0 0 0 var(--b-1) var(--accent);
+            box-shadow: 0 0 0 var(--b-1) var(--color-accent);
          }
       }
 
@@ -129,7 +129,7 @@ const { project: p } = Astro.props as { project: ProjectPackage }
          & :global(svg.ProjectCard-npm-logo) {
             width: 40px;
             height: auto;
-            color: var(--accent);
+            color: var(--color-accent);
 
             @media (--tablet-to) {
                width: 30px;
@@ -139,7 +139,7 @@ const { project: p } = Astro.props as { project: ProjectPackage }
          & :global(svg.ProjectCard-apple-logo) {
             width: 1rem;
             height: auto;
-            color: var(--accent);
+            color: var(--color-accent);
          }
       }
 
@@ -151,10 +151,10 @@ const { project: p } = Astro.props as { project: ProjectPackage }
       & .ProjectCard-divider {
          width: 100%;
          height: var(--b-1);
-         background-color: var(--divider-light);
+         background-color: var(--color-border-muted);
          display: block;
          margin: var(--s-2) 0;
-         transition: background-color var(--easing);
+         transition: background-color var(--ease-fast);
       }
 
       & .ProjectCard-footer {
@@ -181,13 +181,13 @@ const { project: p } = Astro.props as { project: ProjectPackage }
          gap: var(--s-02);
          font-size: var(--f-09);
          font-weight: 500;
-         transition: color var(--easing);
+         transition: color var(--ease-fast);
 
          & :global(svg) {
             width: var(--s-2);
             height: var(--s-2);
-            color: var(--accent);
-            transition: all var(--easing);
+            color: var(--color-accent);
+            transition: all var(--ease-fast);
          }
       }
 
@@ -203,15 +203,15 @@ const { project: p } = Astro.props as { project: ProjectPackage }
             padding: var(--s-05);
             border-radius: var(--r-2);
             height: 100%;
-            border: var(--b-1) solid var(--divider);
-            background-color: var(--bg-elv);
+            border: var(--b-1) solid var(--color-border);
+            background-color: var(--color-bg-raised);
             cursor: pointer;
             transition:
-               background-color var(--easing),
-               border-color var(--easing);
+               background-color var(--ease-fast),
+               border-color var(--ease-fast);
 
             & :global(svg) {
-               transition: color var(--easing);
+               transition: color var(--ease-fast);
                width: 1.125rem;
                height: 1.125rem;
             }
@@ -219,7 +219,7 @@ const { project: p } = Astro.props as { project: ProjectPackage }
             @media (hover: hover) {
                &:hover {
                   & :global(svg) {
-                     color: var(--accent);
+                     color: var(--color-accent);
                   }
                }
             }

@@ -193,30 +193,30 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
 
 <style>
    header {
-      padding: 0 var(--page-margin);
+      padding: 0 var(--page-gutter);
       display: flex;
-      height: var(--header-height);
+      height: var(--header-h);
       backdrop-filter: blur(var(--s-05));
-      background-color: var(--bg-alpha);
+      background-color: var(--color-bg-translucent);
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      border-bottom: var(--b-1) solid var(--divider);
+      border-bottom: var(--b-1) solid var(--color-border);
       justify-content: space-between;
       align-items: center;
       z-index: var(--z-2);
       transition:
          transform 300ms cubic-bezier(0.33, 1, 0.68, 1),
-         background-color var(--easing),
-         color var(--easing);
+         background-color var(--ease-fast),
+         color var(--ease-fast);
 
       @supports not (backdrop-filter: blur(var(--s-05))) {
-         background-color: var(--bg);
+         background-color: var(--color-bg);
       }
 
       @media (--desktop-from) {
-         padding: 0 var(--page-margin);
+         padding: 0 var(--page-gutter);
       }
    }
 
@@ -255,7 +255,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          font-size: var(--f-1);
          line-height: 1;
          border: var(--b-1) solid rgba(0, 0, 0, 0);
-         transition: all var(--easing);
+         transition: all var(--ease-fast);
          user-select: none;
 
          & :global(svg) {
@@ -265,19 +265,19 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          }
 
          &[aria-current='page'] {
-            background-color: var(--bg);
-            border: var(--b-1) solid var(--divider);
+            background-color: var(--color-bg);
+            border: var(--b-1) solid var(--color-border);
             border-radius: var(--r-max);
             pointer-events: none;
 
             & :global(svg) {
-               color: var(--accent);
+               color: var(--color-accent);
             }
          }
 
          @media (hover: hover) {
             &:hover {
-               border: var(--b-1) solid var(--divider);
+               border: var(--b-1) solid var(--color-border);
                border-radius: var(--r-max);
             }
          }
@@ -319,8 +319,8 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          display: flex;
 
          & :global(svg) {
-            width: var(--header-icon-size);
-            height: var(--header-icon-size);
+            width: var(--header-icon);
+            height: var(--header-icon);
             transition: opacity 100ms linear;
          }
 
@@ -359,13 +359,13 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
 
    .Header-panel {
       position: fixed;
-      top: var(--header-height);
+      top: var(--header-h);
       left: 0;
       right: 0;
       display: none;
       flex-direction: column;
-      background-color: var(--bg-alpha);
-      border-bottom: var(--b-1) solid var(--divider);
+      background-color: var(--color-bg-translucent);
+      border-bottom: var(--b-1) solid var(--color-border);
       padding: var(--s-05) 0;
       z-index: var(--z-2);
       opacity: 0;
@@ -375,8 +375,8 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       transition:
          opacity 300ms cubic-bezier(0.22, 1, 0.36, 1),
          transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-         background-color var(--easing),
-         border-color var(--easing);
+         background-color var(--ease-fast),
+         border-color var(--ease-fast);
 
       @media (--menu-shift-to) {
          display: flex;
@@ -395,8 +395,8 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          font-size: var(--f-1);
          font-weight: 500;
          white-space: nowrap;
-         padding: var(--s-2) var(--page-margin);
-         transition: all var(--easing);
+         padding: var(--s-2) var(--page-gutter);
+         transition: all var(--ease-fast);
          user-select: none;
          gap: var(--s-1);
 
@@ -417,7 +417,7 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
 
             & :global(svg) {
                opacity: 1;
-               color: var(--accent);
+               color: var(--color-accent);
             }
          }
       }
@@ -457,16 +457,16 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
    .Header-panel-footer {
       display: flex;
       gap: var(--s-4);
-      padding: var(--s-1) var(--page-margin) var(--s-05);
-      border-top: var(--b-1) solid var(--divider);
+      padding: var(--s-1) var(--page-gutter) var(--s-05);
+      border-top: var(--b-1) solid var(--color-border);
       margin-top: var(--s-05);
 
       & a {
          display: flex;
 
          & :global(svg) {
-            width: var(--header-icon-size);
-            height: var(--header-icon-size);
+            width: var(--header-icon);
+            height: var(--header-icon);
             transition: opacity 100ms linear;
          }
 

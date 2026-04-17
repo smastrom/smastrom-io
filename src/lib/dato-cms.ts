@@ -1,4 +1,4 @@
-import { DATOCMS_READ_ONLY_TOKEN } from 'astro:env/client'
+import { DATOCMS_READ_TOKEN } from 'astro:env/server'
 
 import { isBlock, type Document as Dast } from 'datocms-structured-text-utils'
 import { render } from 'datocms-structured-text-to-html-string'
@@ -19,7 +19,7 @@ export async function useDato<Schema>(query: string) {
          headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
-            Authorization: DATOCMS_READ_ONLY_TOKEN,
+            Authorization: DATOCMS_READ_TOKEN,
             'X-Api-Version': '3',
             'X-Environment': isPreviewEnvironment() ? 'preview' : 'main',
          },

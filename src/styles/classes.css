@@ -11,7 +11,7 @@
 
 .g-article-wrapper {
    max-width: var(--container-max);
-   margin: var(--header-h) auto 0 auto;
+   margin: var(--header-height) auto 0 auto;
    display: flex;
    justify-content: flex-start;
    align-items: flex-start;

@@ -4,8 +4,8 @@ import { loadEnv } from 'vite'
 import cloudflare from '@astrojs/cloudflare'
 import sitemap from '@astrojs/sitemap'
 
-import { PROD_SITE_URL } from './src/lib/constants'
 import { customMedia, customMediaPlugin } from './vite/custom-media-plugin.mjs'
+import { PROD_SITE_URL } from './src/lib/constants'
 
 const {
    IS_PREVIEW
@@ -52,7 +52,7 @@ export default defineConfig({
    env: {
       schema: {
          GITHUB_PAT: envField.string({ context: 'server', access: 'secret' }),
-         DATOCMS_READ_ONLY_TOKEN: envField.string({ context: 'client', access: 'public' }),
+         DATOCMS_READ_TOKEN: envField.string({ context: 'server', access: 'secret' }),
          IS_PREVIEW: envField.string({ context: 'client', access: 'public' }),
       },
    },

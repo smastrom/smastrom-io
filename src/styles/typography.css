@@ -45,7 +45,7 @@ html {
    --weight-body: 400;
    --weight-emphasis: 580;
 
-   --hero-max: 20ch;
+   --hero-max: 22ch;
    --paragraph-max: 60ch;
 
    --hero-margin-y: calc(1.25 * var(--type-hero));
@@ -63,7 +63,10 @@ html {
    letter-spacing: var(--tracking-display);
    margin: var(--hero-margin-y) 0;
    max-width: var(--hero-max);
-   text-wrap: balance;
+
+   @media (--tablet-to) {
+      text-wrap: balance;
+   }
 
    & span {
       color: var(--color-accent);

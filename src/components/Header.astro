@@ -388,6 +388,21 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          pointer-events: auto;
       }
 
+      @media (scripting: none) {
+         background-color: var(--color-bg);
+
+         header:has(.Header-hamburger:focus) + &,
+         &:focus-within {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+         }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+         transition: none;
+      }
+
       & > a {
          display: flex;
          align-items: center;
@@ -445,6 +460,10 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          opacity: 1 !important;
          pointer-events: auto !important;
          user-select: auto !important;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+         transition: none;
       }
    }
 

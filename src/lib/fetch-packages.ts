@@ -12,26 +12,37 @@ import type {
    GitHubReleaseApiResponse,
 } from '@/lib/types'
 
-const devCache = new Map<string, { data: unknown; ts: number }>()
-const DEV_CACHE_TTL = 5 * 60 * 1000
+const EDGE_CACHE_TTL_SECONDS = 60 * 60
 
-async function cachedFetch(url: string, init?: RequestInit): Promise<Response> {
-   if (!import.meta.env.DEV) return fetch(url, init)
+function edgeCachedFetch(url: string, init?: RequestInit): Promise<Response> {
+   return fetch(url, {
+      ...init,
+      cf: { cacheTtl: EDGE_CACHE_TTL_SECONDS, cacheEverything: true },
+   })
+}
 
-   const cached = devCache.get(url)
-   if (cached && Date.now() - cached.ts < DEV_CACHE_TTL) {
+const MEMORY_CACHE_TTL_SECONDS = 5 * 60
+
+const memCache = new Map<string, { data: unknown; ts: number }>()
+
+async function memCachedFetch(url: string, init?: RequestInit): Promise<Response> {
+   const cached = memCache.get(url)
+   if (cached && Date.now() - cached.ts < MEMORY_CACHE_TTL_SECONDS * 1000) {
       return new Response(JSON.stringify(cached.data), { status: 200 })
    }
 
    const res = await fetch(url, init)
    if (res.ok) {
       const data = await res.json()
-      devCache.set(url, { data, ts: Date.now() })
+      memCache.set(url, { data, ts: Date.now() })
       return new Response(JSON.stringify(data), { status: 200 })
    }
 
    return res
 }
+
+const cachedFetch =
+   typeof caches !== 'undefined' && 'default' in caches ? edgeCachedFetch : memCachedFetch
 
 function githubHeaders(username: string) {
    return {

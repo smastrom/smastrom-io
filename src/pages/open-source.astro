@@ -15,8 +15,6 @@ import type {
    PackageSlug,
 } from '@/lib/types'
 
-export const prerender = true
-
 const { data, error: cmsErr } = await useDato<OpenSourcePage>(/* GraphQL */ `
    {
       openSource {

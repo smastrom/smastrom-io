@@ -10,8 +10,8 @@
 @custom-media --desktop-to (max-width: 1920px);
 @custom-media --desktop-from (min-width: 1921px);
 
-@custom-media --menu-shift-to (max-width: 1100px);
-@custom-media --menu-shift-from (min-width: 1101px);
+@custom-media --menu-shift-to (max-width: 910px);
+@custom-media --menu-shift-from (min-width: 911px);
 
 @custom-media --article-container-to (max-width: 1240px);
 @custom-media --article-container-from (min-width: 1241px);

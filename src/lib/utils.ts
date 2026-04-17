@@ -34,17 +34,6 @@ export function capitalizeAll(str: string) {
       .join(' ')
 }
 
-export function formatDate(date: string) {
-   return new Date(date).toLocaleDateString('en-US', {
-      month: 'long',
-      year: 'numeric',
-   })
-}
-
-export function addExternalLinkAttrs(html: string) {
-   return html.replace(/<a /g, '<a target="_blank" rel="nofollow noreferrer" ')
-}
-
 export function getUnscopedPackageName(pkg: string) {
    return pkg.startsWith('@') ? pkg.split('/')[1] : pkg
 }

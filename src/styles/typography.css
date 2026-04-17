@@ -23,7 +23,6 @@ html {
    --type-h2: clamp(1.75rem, 1.3806rem + 1.2444vw, 2.625rem); /* 28 → 42 */
    --type-h3: clamp(1.375rem, 1.1639rem + 0.7111vw, 1.875rem); /* 22 → 30 */
    --type-body: clamp(1.1875rem, 1.0819rem + 0.3556vw, 1.4375rem); /* 19 → 23 */
-   --type-caption: 0.8125rem; /* 13 */
 
    --lh-display: 1.05;
    --lh-heading-1: 1.08;
@@ -36,7 +35,6 @@ html {
    --tracking-heading-2: -0.012em;
    --tracking-heading-3: -0.006em;
    --tracking-body: 0;
-   --tracking-caption: 0.12em;
 
    --weight-display: 750;
    --weight-heading-1: 720;
@@ -91,16 +89,6 @@ html {
    color: var(--color-accent);
    margin-bottom: var(--next-heading-m-bottom);
    text-wrap: balance;
-}
-
-.g-caption {
-   font-weight: var(--weight-emphasis);
-   font-size: var(--type-caption);
-   line-height: var(--lh-heading-3);
-   letter-spacing: var(--tracking-caption);
-   text-transform: uppercase;
-   color: var(--color-accent);
-   margin-bottom: var(--s-05);
 }
 
 .g-paragraphs {

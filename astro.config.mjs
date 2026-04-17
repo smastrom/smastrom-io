@@ -3,11 +3,11 @@ import { defineConfig, envField } from 'astro/config'
 import cloudflare from '@astrojs/cloudflare'
 import sitemap from '@astrojs/sitemap'
 
-import { SITE_URL } from './src/lib/constants'
+import { PROD_SITE_URL } from './src/lib/constants'
 import { customMedia, customMediaPlugin } from './vite/custom-media-plugin.mjs'
 
 export default defineConfig({
-   site: SITE_URL,
+   site: PROD_SITE_URL,
    devToolbar: {
       enabled: false,
    },

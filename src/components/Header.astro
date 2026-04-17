@@ -7,7 +7,9 @@ import IconGitHub from './icons/IconGitHub.astro'
 import IconDiscord from './icons/IconDiscord.astro'
 
 import { NAV_LINKS } from '@/lib/static'
-import { AUTHOR_EMAIL, LINKS } from '@/lib/constants'
+import { AUTHOR_EMAIL } from '@/lib/constants'
+import { USER_LINKS } from '@/lib/static'
+
 import { getLinkProps, getExtLinkAttrs } from '@/lib/utils'
 
 const hamburgerClasses = ['hamburger', 'hamburger--stand']
@@ -41,8 +43,10 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          <IconEmail />
       </a>
 
-      <a class="Header-social" {...getExtLinkAttrs(LINKS.github, 'GitHub')}><IconGitHub /> </a>
-      <a class="Header-social" {...getExtLinkAttrs(LINKS.discord, 'Discord')}><IconDiscord /> </a>
+      <a class="Header-social" {...getExtLinkAttrs(USER_LINKS.github, 'GitHub')}><IconGitHub /> </a>
+      <a class="Header-social" {...getExtLinkAttrs(USER_LINKS.discord, 'Discord')}
+         ><IconDiscord />
+      </a>
 
       <button
          class:list={['Header-hamburger', hamburgerClasses]}
@@ -57,7 +61,6 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          </span>
       </button>
    </nav>
-
 </header>
 
 <nav class="Header-panel" id="panel" aria-label="Mobile navigation">
@@ -74,8 +77,8 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       <a {...getExtLinkAttrs('mailto:' + AUTHOR_EMAIL, 'Email')}>
          <IconEmail />
       </a>
-      <a {...getExtLinkAttrs(LINKS.github, 'GitHub')}><IconGitHub /></a>
-      <a {...getExtLinkAttrs(LINKS.discord, 'Discord')}><IconDiscord /></a>
+      <a {...getExtLinkAttrs(USER_LINKS.github, 'GitHub')}><IconGitHub /></a>
+      <a {...getExtLinkAttrs(USER_LINKS.discord, 'Discord')}><IconDiscord /></a>
    </div>
 </nav>
 

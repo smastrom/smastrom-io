@@ -1,4 +1,4 @@
-import { PROD_HOSTNAME, SITE_URL } from '../lib/constants'
+import { PROD_HOSTNAME, PROD_SITE_URL } from '../lib/constants'
 
 import type { APIRoute } from 'astro'
 
@@ -10,7 +10,7 @@ export const GET: APIRoute = ({ request }) => {
    let responseText = 'User-agent: *\nDisallow: /'
 
    if (host === PROD_HOSTNAME) {
-      responseText = `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap-index.xml`
+      responseText = `User-agent: *\nAllow: /\nSitemap: ${PROD_SITE_URL}/sitemap-index.xml`
    }
 
    return new Response(responseText, {

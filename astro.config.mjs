@@ -1,10 +1,15 @@
 import { defineConfig, envField } from 'astro/config'
+import { loadEnv } from 'vite'
 
 import cloudflare from '@astrojs/cloudflare'
 import sitemap from '@astrojs/sitemap'
 
 import { PROD_SITE_URL } from './src/lib/constants'
 import { customMedia, customMediaPlugin } from './vite/custom-media-plugin.mjs'
+
+const {
+   IS_PREVIEW
+} = loadEnv(import.meta.env.MODE, process.cwd(), '')
 
 export default defineConfig({
    site: PROD_SITE_URL,
@@ -24,7 +29,7 @@ export default defineConfig({
            prefetchAll: true,
            defaultStrategy: 'viewport',
         },
-   output: 'server',
+   output: import.meta.env.PROD && IS_PREVIEW === 'true' ? 'server' : 'static',
    adapter: cloudflare({
       imageService: 'passthrough',
       platformProxy: {

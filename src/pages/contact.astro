@@ -5,8 +5,6 @@ import { StructuredText, useDato } from '@/lib/dato-cms'
 
 import type { ContactPage } from '@/lib/types'
 
-export const prerender = true
-
 const { data, error: cmsErr } = await useDato<ContactPage>(/* GraphQL */ `
    {
       contact {

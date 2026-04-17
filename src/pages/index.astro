@@ -5,8 +5,6 @@ import { useDato, StructuredText } from '@/lib/dato-cms'
 
 import type { ArticleImageBlock, IndexPage } from '@/lib/types'
 
-export const prerender = false
-
 const { data, error } = await useDato<IndexPage>(/* GraphQL */ `
    {
       home {

@@ -1,12 +1,14 @@
 ---
 import { ClientRouter } from 'astro:transitions'
+import { isPreviewEnvironment } from '@/lib/env'
+import { UMAMI_WEBSITE_ID } from '@/lib/constants'
 
 const { title, description } = Astro.props as { title: string; description: string }
 
 const url = import.meta.env.SITE + Astro.url.pathname
 ---
 
-<head>
+<>
    <ClientRouter />
 
    <!-- Common -->
@@ -29,7 +31,13 @@ const url = import.meta.env.SITE + Astro.url.pathname
       crossorigin
    />
 
-   <link rel="preload" type="image/svg+xml" as="image" href="/brand/logo-background.svg" crossorigin />
+   <link
+      rel="preload"
+      type="image/svg+xml"
+      as="image"
+      href="/brand/logo-background.svg"
+      crossorigin
+   />
    <link
       rel="preload"
       type="image/svg+xml"
@@ -55,5 +63,17 @@ const url = import.meta.env.SITE + Astro.url.pathname
    <meta property="twitter:description" content={description} />
    <meta property="twitter:image" content="/images/og-image.png" />
 
+   <!-- Scripts -->
+   {
+      !isPreviewEnvironment() && (
+         <script
+            is:inline
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id={UMAMI_WEBSITE_ID}
+         />
+      )
+   }
+
    <slot name="head-end" />
-</head>
+</>

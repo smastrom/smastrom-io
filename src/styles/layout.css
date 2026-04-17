@@ -4,7 +4,7 @@
    --page-gutter: var(--s-2);
    --container-max: 1240px;
 
-   --header-h: 80px;
+   --header-height: 80px;
    --header-icon: 28px;
 
    --footer-space: var(--s-12);
@@ -12,7 +12,7 @@
 
 @media (--tablet-to) {
    :root {
-      --header-h: 72px;
+      --header-height: 72px;
       --footer-space: var(--s-8);
    }
 }

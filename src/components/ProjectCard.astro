@@ -12,15 +12,11 @@ import { formatDownloadNumber, getExtLinkAttrs, stripEmoji } from '@/lib/utils'
 
 import type { ProjectPackage } from '@/lib/types'
 
-import '@/styles/tilt.css'
-
 const { project: p } = Astro.props as { project: ProjectPackage }
 ---
 
 <li class="ProjectCard">
-   {Array.from({ length: 7 }).map(() => <div class="g-tilt-square" aria-hidden="true" />)}
-
-   <section class="ProjectCard-content g-tilt-content">
+   <section class="ProjectCard-content">
       <div>
          <div class="ProjectCard-header">
             {p.type === 'npm' && <NpmLogo class="ProjectCard-npm-logo" aria-hidden="true" />}
@@ -83,7 +79,6 @@ const { project: p } = Astro.props as { project: ProjectPackage }
       padding: var(--s-3);
       border-radius: var(--r-3);
       box-shadow: 0 0 0 var(--b-1) var(--color-border-muted);
-      user-select: none;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -91,8 +86,6 @@ const { project: p } = Astro.props as { project: ProjectPackage }
       background-color: var(--color-bg-translucent);
       backdrop-filter: blur(10px);
       transition:
-         transform 500ms linear,
-         transform-origin 500ms linear,
          box-shadow var(--ease-fast),
          background-color var(--ease-fast);
 

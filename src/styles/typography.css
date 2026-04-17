@@ -43,7 +43,7 @@ html {
    --weight-body: 400;
    --weight-emphasis: 580;
 
-   --hero-max: 22ch;
+   --hero-max: 21ch;
    --paragraph-max: 60ch;
 
    --hero-margin-y: calc(1.25 * var(--type-hero));

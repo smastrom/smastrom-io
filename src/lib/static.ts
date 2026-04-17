@@ -36,4 +36,4 @@ export const DONATE_LINKS = {
    ],
 } as const
 
-export const TOPICS = ['Web development', 'Web design']
+export const TOPICS = ['Software development', 'Web development', 'Web design']

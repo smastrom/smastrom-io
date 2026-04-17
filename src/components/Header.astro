@@ -4,7 +4,6 @@ import DarkMode from './DarkMode.astro'
 
 import IconEmail from './icons/IconEmail.astro'
 import IconGitHub from './icons/IconGitHub.astro'
-import IconDiscord from './icons/IconDiscord.astro'
 
 import { NAV_LINKS } from '@/lib/static'
 import { AUTHOR_EMAIL } from '@/lib/constants'
@@ -44,9 +43,6 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
       </a>
 
       <a class="Header-social" {...getExtLinkAttrs(USER_LINKS.github, 'GitHub')}><IconGitHub /> </a>
-      <a class="Header-social" {...getExtLinkAttrs(USER_LINKS.discord, 'Discord')}
-         ><IconDiscord />
-      </a>
 
       <button
          class:list={['Header-hamburger', hamburgerClasses]}
@@ -78,7 +74,6 @@ const hamburgerClasses = ['hamburger', 'hamburger--stand']
          <IconEmail />
       </a>
       <a {...getExtLinkAttrs(USER_LINKS.github, 'GitHub')}><IconGitHub /></a>
-      <a {...getExtLinkAttrs(USER_LINKS.discord, 'Discord')}><IconDiscord /></a>
    </div>
 </nav>
 

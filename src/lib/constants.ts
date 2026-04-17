@@ -1,8 +1,8 @@
 export const AUTHOR_NAME = 'Simone Mastromattei'
-
 export const AUTHOR_EMAIL = 'hello@smastrom.io'
 
-export const SITE_URL = 'https://smastrom.io'
+export const PROD_HOSTNAME = 'smastrom.io' 
+export const SITE_URL = `https://${PROD_HOSTNAME}` 
 
 export const LINKS = {
    github: 'https://github.com/smastrom',

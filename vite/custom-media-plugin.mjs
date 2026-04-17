@@ -7,8 +7,8 @@ export const customMedia = {
    '--laptop-from': '(min-width: 1367px)',
    '--desktop-to': '(max-width: 1920px)',
    '--desktop-from': '(min-width: 1921px)',
-   '--menu-shift-to': '(max-width: 1100px)',
-   '--menu-shift-from': '(min-width: 1101px)',
+   '--menu-shift-to': '(max-width: 910px)',
+   '--menu-shift-from': '(min-width: 911px)',
    '--article-container-to': '(max-width: 1240px)',
    '--article-container-from': '(min-width: 1241px)',
 }

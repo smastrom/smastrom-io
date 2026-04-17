@@ -1,4 +1,4 @@
-name: Rebuild site
+name: Deploy to Cloudflare Pages
 
 on:
    schedule:

@@ -1,12 +1,13 @@
-import { AUTHOR_NAME, AUTHOR_EMAIL, SITE_URL, LINKS, TOPICS } from '@/lib/constants'
+import { AUTHOR_NAME, AUTHOR_EMAIL, PROD_SITE_URL } from '@/lib/constants'
+import { USER_LINKS, TOPICS } from '@/lib/static'
 
 interface Seo {
    title: string
    description: string
 }
 
-const PERSON_ID = `${SITE_URL}/#person`
-const WEBSITE_ID = `${SITE_URL}/#website`
+const PERSON_ID = `${PROD_SITE_URL}/#person`
+const WEBSITE_ID = `${PROD_SITE_URL}/#website`
 
 export function getSharedJsonLd() {
    return {
@@ -18,9 +19,9 @@ export function getSharedJsonLd() {
             name: AUTHOR_NAME,
             givenName: 'Simone',
             jobTitle: 'Software Professional',
-            url: SITE_URL,
+            url: PROD_SITE_URL,
             email: `mailto:${AUTHOR_EMAIL}`,
-            image: `${SITE_URL}/brand/icon-512.png`,
+            image: `${PROD_SITE_URL}/brand/icon-512.png`,
             knowsAbout: TOPICS,
             homeLocation: {
                '@type': 'Place',
@@ -29,12 +30,12 @@ export function getSharedJsonLd() {
                   addressCountry: 'IT',
                },
             },
-            sameAs: Object.values(LINKS),
+            sameAs: Object.values(USER_LINKS),
          },
          {
             '@type': 'WebSite',
             '@id': WEBSITE_ID,
-            url: SITE_URL,
+            url: PROD_SITE_URL,
             name: `${AUTHOR_NAME} - Web Developer`,
             publisher: { '@id': PERSON_ID },
          },
@@ -46,8 +47,8 @@ const PAGE_SCHEMAS: Record<string, (seo: Seo) => Record<string, unknown>> = {
    '/': (seo) => ({
       '@context': 'https://schema.org',
       '@type': 'ProfilePage',
-      '@id': `${SITE_URL}/#webpage`,
-      url: SITE_URL,
+      '@id': `${PROD_SITE_URL}/#webpage`,
+      url: PROD_SITE_URL,
       name: seo.title,
       description: seo.description,
       isPartOf: { '@id': WEBSITE_ID },
@@ -56,8 +57,8 @@ const PAGE_SCHEMAS: Record<string, (seo: Seo) => Record<string, unknown>> = {
    '/open-source/': (seo) => ({
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      '@id': `${SITE_URL}/open-source/#webpage`,
-      url: `${SITE_URL}/open-source/`,
+      '@id': `${PROD_SITE_URL}/open-source/#webpage`,
+      url: `${PROD_SITE_URL}/open-source/`,
       name: seo.title,
       description: seo.description,
       isPartOf: { '@id': WEBSITE_ID },
@@ -65,8 +66,8 @@ const PAGE_SCHEMAS: Record<string, (seo: Seo) => Record<string, unknown>> = {
    '/contact/': (seo) => ({
       '@context': 'https://schema.org',
       '@type': 'ContactPage',
-      '@id': `${SITE_URL}/contact/#webpage`,
-      url: `${SITE_URL}/contact/`,
+      '@id': `${PROD_SITE_URL}/contact/#webpage`,
+      url: `${PROD_SITE_URL}/contact/`,
       name: seo.title,
       description: seo.description,
       isPartOf: { '@id': WEBSITE_ID },

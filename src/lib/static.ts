@@ -2,6 +2,8 @@ import IconFingerprint from '@/components/icons/IconFingerprint.astro'
 import IconGit from '@/components/icons/IconGit.astro'
 import IconHandshake from '@/components/icons/IconHandshake.astro'
 
+import { GITHUB_USERNAME } from '@/lib/constants'
+
 export const NAV_LINKS = [
    { caption: 'About Me', href: '/', Icon: IconFingerprint },
    { caption: 'Open Source', href: '/open-source', Icon: IconGit },
@@ -9,8 +11,7 @@ export const NAV_LINKS = [
 ]
 
 export const USER_LINKS = {
-   github: 'https://github.com/smastrom',
-   discord: 'https://discordapp.com/users/1174395637660401695',
+   github: `https://github.com/${GITHUB_USERNAME}`,
 }
 
 export const DONATE_LINKS = {

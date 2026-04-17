@@ -1,22 +1,24 @@
 :root {
-   --easing: 100ms ease-out;
-   --page-margin: var(--s-2);
-   --article-container: 1240px;
-   --header-height: 80px;
-   --header-icon-size: 28px;
-   --footer-top-margin: var(--s-12);
+   --ease-fast: 100ms ease-out;
+
+   --page-gutter: var(--s-2);
+   --container-max: 1240px;
+
+   --header-h: 80px;
+   --header-icon: 28px;
+
+   --footer-space: var(--s-12);
 }
 
 @media (--tablet-to) {
    :root {
-      --footer-top-margin: var(--s-8);
-      --page-margin: var(--s-1);
-      --header-height: 72px;
+      --header-h: 72px;
+      --footer-space: var(--s-8);
    }
 }
 
 body {
-   padding: 0 var(--page-margin) var(--page-margin) var(--page-margin);
+   padding: 0 var(--page-gutter) var(--page-gutter);
    overflow-x: hidden;
    touch-action: pan-y;
    position: relative;
@@ -34,7 +36,7 @@ body {
 }
 
 .g-transitions {
-   transition: background-color var(--easing);
+   transition: background-color var(--ease-fast);
 
    & h1,
    & h1 > span,
@@ -43,6 +45,6 @@ body {
    & span,
    & strong,
    & a {
-      transition: color var(--easing);
+      transition: color var(--ease-fast);
    }
 }

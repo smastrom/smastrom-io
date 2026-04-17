@@ -14,7 +14,7 @@
          &:hover ~ .g-tilt-content {
             transform-origin: right top;
             transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) rotateZ(0.5deg);
-            box-shadow: var(--shadow-accent);
+            box-shadow: var(--ring-accent);
          }
       }
 
@@ -25,7 +25,7 @@
          &:hover ~ .g-tilt-content {
             transform-origin: center top;
             transform: perspective(1000px) rotateX(5deg);
-            box-shadow: var(--shadow-accent-mid);
+            box-shadow: var(--ring-accent-soft);
          }
       }
 
@@ -36,7 +36,7 @@
          &:hover ~ .g-tilt-content {
             transform-origin: left top;
             transform: perspective(1000px) rotateX(5deg) rotateY(5deg) rotateZ(-0.5deg);
-            box-shadow: var(--shadow-accent);
+            box-shadow: var(--ring-accent);
          }
       }
 
@@ -48,7 +48,7 @@
          &:hover ~ .g-tilt-content {
             transform-origin: left center;
             transform: perspective(1000px) rotateY(-5deg);
-            box-shadow: var(--shadow-accent-mid);
+            box-shadow: var(--ring-accent-soft);
          }
       }
 
@@ -60,7 +60,7 @@
          &:hover ~ .g-tilt-content {
             transform-origin: right center;
             transform: perspective(1000px) rotateY(5deg);
-            box-shadow: var(--shadow-accent-mid);
+            box-shadow: var(--ring-accent-soft);
          }
       }
 
@@ -71,7 +71,7 @@
          &:hover ~ .g-tilt-content {
             transform-origin: right bottom;
             transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg) rotateZ(-0.5deg);
-            box-shadow: var(--shadow-accent);
+            box-shadow: var(--ring-accent);
          }
       }
 
@@ -82,7 +82,7 @@
          &:hover ~ .g-tilt-content {
             transform-origin: center bottom;
             transform: perspective(1000px) rotateX(-5deg);
-            box-shadow: var(--shadow-accent-mid);
+            box-shadow: var(--ring-accent-soft);
          }
       }
    }

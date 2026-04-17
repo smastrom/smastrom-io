@@ -15,8 +15,8 @@ const { content } = Astro.props as { content: string }
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: var(--footer-top-margin) auto 0 auto;
-      width: var(--article-container);
+      margin: var(--footer-space) auto 0 auto;
+      width: var(--container-max);
       max-width: 100%;
       font-size: var(--f-5);
 
@@ -31,19 +31,19 @@ const { content } = Astro.props as { content: string }
       }
 
       & :global(span) {
-         color: var(--accent);
+         color: var(--color-accent);
       }
 
       & :global(a) {
          text-decoration: underline;
          text-underline-offset: var(--s-02);
-         text-decoration-color: var(--fg-underline);
-         transition: text-decoration-color var(--easing);
+         text-decoration-color: var(--color-fg-underline);
+         transition: text-decoration-color var(--ease-fast);
       }
 
       @media (hover: hover) {
          & :global(a):hover {
-            text-decoration-color: var(--fg);
+            text-decoration-color: var(--color-fg);
          }
       }
    }

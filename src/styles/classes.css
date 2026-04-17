@@ -10,8 +10,8 @@
 }
 
 .g-article-wrapper {
-   max-width: var(--article-container);
-   margin: var(--header-height) auto 0 auto;
+   max-width: var(--container-max);
+   margin: var(--header-h) auto 0 auto;
    display: flex;
    justify-content: flex-start;
    align-items: flex-start;

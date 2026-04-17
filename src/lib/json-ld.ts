@@ -20,7 +20,7 @@ export function getSharedJsonLd() {
             jobTitle: 'Software Professional',
             url: SITE_URL,
             email: `mailto:${AUTHOR_EMAIL}`,
-            image: `${SITE_URL}/icon-512.png`,
+            image: `${SITE_URL}/brand/icon-512.png`,
             knowsAbout: TOPICS,
             homeLocation: {
                '@type': 'Place',

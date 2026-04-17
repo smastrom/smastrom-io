@@ -17,47 +17,43 @@ const url = import.meta.env.SITE + Astro.url.pathname
    <title>{title}</title>
    <meta name="description" content={description} />
 
-   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+   <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
    <link rel="canonical" href={url} />
    <link rel="sitemap" href="/sitemap-index.xml" />
 
-   {
-      ['regular', 'medium', 'bold'].map((w) => (
-         <link
-            rel="preload"
-            href={`/basier-square-${w}-webfont.woff2`}
-            as="font"
-            type="font/woff2"
-            crossorigin
-         />
-      ))
-   }
+   <link
+      rel="preload"
+      href="/fonts/TASAOrbiter-VariableFont_wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+   />
 
-   <link rel="preload" type="image/svg+xml" as="image" href="/logo-background.svg" crossorigin />
+   <link rel="preload" type="image/svg+xml" as="image" href="/brand/logo-background.svg" crossorigin />
    <link
       rel="preload"
       type="image/svg+xml"
       as="image"
-      href="/logo-background-large.svg"
+      href="/brand/logo-background-large.svg"
       crossorigin
    />
 
    <meta name="theme-color" content="#10853a" />
-   <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
-   <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
+   <link rel="apple-touch-icon" sizes="192x192" href="/brand/icon-192.png" />
+   <link rel="apple-touch-icon" sizes="512x512" href="/brand/icon-512.png" />
 
    <!-- Open Graph -->
    <meta property="og:type" content="article" />
    <meta property="og:url" content={url} />
    <meta property="og:title" content={title} />
    <meta property="og:description" content={description} />
-   <meta property="og:image" content="/og-image.png" />
+   <meta property="og:image" content="/images/og-image.png" />
 
    <!-- Twitter -->
    <meta property="twitter:url" content={url} />
    <meta property="twitter:title" content={title} />
    <meta property="twitter:description" content={description} />
-   <meta property="twitter:image" content="/og-image.png" />
+   <meta property="twitter:image" content="/images/og-image.png" />
 
    <slot name="head-end" />
 </head>
